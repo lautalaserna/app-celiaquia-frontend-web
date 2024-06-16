@@ -1,0 +1,26 @@
+<div class="wrapper">
+  <form *ngIf="!loading" [formGroup]="formLogin"  class="body" autocomplete="off">
+        <img class="logo" src="/assets/images/login.png">
+        <h3 class="mb-2">Login</h3>
+        <div class="form-floating mb-3 mt-3">
+            <input type="text" class="form-control" formControlName="username" placeholder="Usuario" autocomplete="true"
+            [ngClass]="!(username.hasError('required') && username.touched) ? '': 'is-invalid' ">
+            <label>Usuario</label>
+            <span class="text-danger" *ngIf="username?.hasError('required') && username?.touched"> 
+                El campo es obligatorio 
+            </span>
+        </div>
+         <div class="form-floating mb-3">
+            <input type="password" class="form-control" formControlName="password" placeholder="Contraseña" autocomplete="true"
+            [ngClass]="!(password.hasError('required') && password.touched) ? '': 'is-invalid' ">
+            <label>Contraseña</label>
+            <span class="text-danger" *ngIf="password?.hasError('required') && password?.touched"> 
+                El campo es obligatorio 
+            </span>
+        </div>
+        <div class="d-grid gap-2">
+            <button type="button" class="btn btn-primary btn-lg" [disabled]="formLogin.invalid" (click)="login()">Aceptar</button>
+        </div>
+    </form>
+    <app-spinner *ngIf="loading"></app-spinner>
+</div>

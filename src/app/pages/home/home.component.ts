@@ -1,0 +1,18 @@
+import { Component } from '@angular/core';
+import { NavbarComponent } from "../../shared/navbar/navbar.component";
+
+@Component({
+    selector: 'app-home',
+    standalone: true,
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css',
+    imports: [NavbarComponent]
+})
+export class HomeComponent {
+
+    constructor(){}
+
+    ngOnInit() {
+    }
+
+}

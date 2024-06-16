@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: julyvjo/celiaquia-db:latest
+    container_name: celiaquia-db
+    environment:
+      POSTGRES_DB: celiaquia
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: celiaquia
+    #volumes:
+    #  - /home/julian/docker/volumes/celiaquia:/var/lib/postgresql/data
+    #ports:
+    #  - "5433:5432"
+
+  backend:
+    image: julyvjo/celiaquia-backend:latest
+    container_name: celiaquia-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/celiaquia
+      SERVER_PORT: 9090
+    ports:
+      - "9090:9090"
+    restart: always
+    depends_on:
+      - postgres
+
+
