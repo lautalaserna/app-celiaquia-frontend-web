@@ -1,0 +1,13 @@
+.home {
+  background-color: #f1f1f1;
+  padding: 2vw;
+  min-height: calc(100vh - var(--navbar-height));
+}
+
+.home h4 {
+  font-weight: 400;
+}
+
+.home h5 {
+  font-weight: 400;
+}

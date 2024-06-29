@@ -1,0 +1,6 @@
+.main-wrapper {
+  position: relative;
+  top: var(--navbar-height);
+  margin-left: 280px;
+  min-height: calc(100vh - var(--navbar-height));
+}
