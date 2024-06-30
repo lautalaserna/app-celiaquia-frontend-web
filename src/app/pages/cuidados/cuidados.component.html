@@ -1,4 +1,66 @@
-<div class="cuidados container-fluid">
-  <h2>Cuidados para el Hogar</h2>
-  <hr>
+<div class="main-page container-fluid">
+  <div class="row mb-5">
+    <div class="col-12">
+      <h2 class="page-title">Cuidados para el Hogar</h2>
+      <hr>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-custom-striped border">
+          <thead>
+            <tr>
+              <th scope="col" style="font-weight: bold; min-width: 100px ; text-align: left">
+                Nro.Cuidado
+              </th>
+              <th scope="col" style="font-weight: bold; min-width: 170px; text-align: left">
+                Título
+              </th>
+              <th scope="col" style="font-weight: bold; min-width: 170px; text-align: left">
+                Descripción
+              </th>
+              <th scope="col" style="font-weight: bold; min-width: 100px; text-align: left">
+                Acciones
+              </th>
+            </tr>
+          </thead>
+          
+          <tbody>
+            <tr *ngFor="let cuidado of this.listCuidados">
+              <td style="text-align: left">
+                <div style="white-space: nowrap">
+                </div>
+                  <p class="fw-normal mb-1">{{cuidado.id}}</p>
+              </td>
+  
+              <td style="text-align: left">
+                <div style="white-space: nowrap">
+                  <p class="fw-normal mb-1">{{cuidado.titulo}}</p>
+                </div>
+              </td>
+  
+              <td style="text-align: left">
+                <div style="white-space: nowrap">
+                  <p>{{cuidado.descripcion}}</p>
+                </div>
+              </td>
+  
+              <td class="table-btns">
+                <button class="btn btn-sm btn-primary"><i class="fas fa-check text-white"></i></button>
+                <button class="btn btn-sm btn-danger" (click)="toggleEliminarModal()"><i class="fas fa-times text-white"></i></button>
+              </td>
+  
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
+
+<p-dialog header="Eliminar cuidado para el hogar" [(visible)]="displayEliminarModal" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '30vw' }" [draggable]="true" [resizable]="true">
+  <div class="col-12 col-sm-12 col-md-12 mb-3">
+    Estas seguro que queres eliminar esto pedazo de crack?
+  </div>
+</p-dialog>

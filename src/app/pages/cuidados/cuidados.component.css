@@ -1,5 +1,15 @@
-.cuidados {
-  background-color: #f1f1f1;
+.main-page {
   padding: 2vw;
   min-height: calc(100vh - var(--navbar-height));
+}
+
+.page-title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 400;
+}
+
+.main-page hr {
+  margin: 0;
+  margin-top: 8px;
 }

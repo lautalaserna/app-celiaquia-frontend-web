@@ -4,3 +4,9 @@
   height: var(--navbar-height);
   z-index: 100;
 }
+
+.nav-logo {
+  height: 40px;
+  filter: grayscale(1) brightness(1000%) contrast(1000%);
+  user-select: none;
+}

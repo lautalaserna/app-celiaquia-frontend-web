@@ -1,13 +1,23 @@
-.home {
-  background-color: #f1f1f1;
+.main-page {
   padding: 2vw;
   min-height: calc(100vh - var(--navbar-height));
 }
 
-.home h4 {
+.page-title {
+  margin: 0;
+  font-size: 32px;
   font-weight: 400;
 }
 
-.home h5 {
+.main-page hr {
+  margin: 0;
+  margin-top: 8px;
+}
+
+.main-page h4 {
+  font-weight: 400;
+}
+
+.main-page h5 {
   font-weight: 400;
 }

@@ -22,7 +22,7 @@
 
 .bg-image {
   z-index: 1;
-  background-image: url('../../../public/assets/images/mardel.png');
+  background-image: url('../../../public/assets/images/mardel.jpg');
   background-size: cover;
   background-position: center;
   filter: opacity(90%);

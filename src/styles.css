@@ -1,9 +1,25 @@
 :root {
-  --navbar-height: 70px;
+  --navbar-height: 65px;
 }
 
 html, body {
   width: 100%;
   height: 100%;
   margin: 0;
+}
+
+.main-page {
+  padding: 2vw;
+  min-height: calc(100vh - var(--navbar-height));
+}
+
+.page-title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 400;
+}
+
+.main-page hr {
+  margin: 0;
+  margin-top: 8px;
 }

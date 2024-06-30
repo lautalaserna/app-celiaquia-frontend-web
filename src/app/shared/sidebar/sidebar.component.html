@@ -1,13 +1,39 @@
-<nav class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
-  <ul class="nav nav-pills flex-column mb-auto">
-    <li class="nav-item">
-      <a [routerLink]="'/home'" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }" class="nav-link text-white"> 
-        Inicio
+<nav class="sidebar d-flex flex-column flex-shrink-0 p-3 pt-4 text-bg-dark">
+  <ul class="nav nav-pills flex-column gap-1 mb-auto">
+    <li>
+      <a [routerLink]="'/home'" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }" class="nav-link text-white">
+        <span class="nav-item">
+          <i class="fas fa-home me-2"></i>Inicio
+        </span>
       </a>
     </li>
     <li>
+    <li>
       <a [routerLink]="'/cuidados'" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }" class="nav-link text-white">
-        Cuidados del Hogar
+        <span class="nav-item">
+          <i class="fas fa-heart me-2"></i>Cuidados para el Hogar
+        </span>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="'/cuestionario'" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }" class="nav-link text-white">
+        <span class="nav-item">
+          <i class="fas fa-clipboard-list me-2"></i>Cuestionario de Ingreso
+        </span>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="'/alimentos'" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }" class="nav-link text-white">
+        <span class="nav-item">
+          <i class="fas fa-utensils me-2"></i>Alimentos
+        </span>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="'/recetas'" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }" class="nav-link text-white">
+        <span class="nav-item">
+          <i class="fas fa-book-open me-2"></i>Recetas
+        </span>
       </a>
     </li>
   </ul>
