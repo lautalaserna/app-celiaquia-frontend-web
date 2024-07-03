@@ -8,13 +8,10 @@ import { Observable, Observer } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private appUrl: string;
-  private apiUrl: string;
+  appUrl = env.endpoint;
+  apiUrl = '/api/auth';
 
-  constructor(private http: HttpClient) {
-    this.appUrl = env.endpoint;
-    this.apiUrl =  '/api/auth'
-   }
+  constructor(private http: HttpClient) {}
 
    login(user: User): Observable<any> {
     return this.http.post<any>(`${this.appUrl}${this.apiUrl}/login`, user);

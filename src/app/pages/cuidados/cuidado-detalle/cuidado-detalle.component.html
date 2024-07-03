@@ -1,0 +1,44 @@
+<div class="main-page container-fluid">
+  <div class="row mb-5">
+    <div class="col-12">
+      <h2 class="page-title">Cuidado para el Hogar</h2>
+      <hr>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <form *ngIf="!loading" [formGroup]="formCuidados" class="mb-3">
+      <div class="row">
+        <div class="col-12">
+          <label class="is-required"><strong>Título</strong></label>
+          <input type="text" class="form-control" formControlName="titulo" maxlength="200"
+              [ngClass]="!formCuidados.get('titulo')?.touched ? '' :formCuidados.get('titulo')?.valid ? '': 'invalid rounded' ">
+          <span style="color: red;" *ngIf="formCuidados.get('titulo')?.hasError('required') && formCuidados.get('titulo')?.touched">
+            Campo requerido
+          </span>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="form-group">
+            <label class="is-required"><strong>Descripción</strong></label>
+            <textarea class="form-control rounded-1" formControlName="descripcion" maxlength="2000" rows="12"
+              [ngClass]="!formCuidados.get('descripcion')?.touched ? '' : formCuidados.get('descripcion')?.valid ? '': 'invalid rounded' "></textarea>
+            <span style="color: red;" *ngIf="formCuidados.get('descripcion')?.hasError('required') && formCuidados.get('descripcion')?.touched">
+              Campo requerido
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12 d-flex justify-content-between">
+          <button class="btn btn-secondary" (click)="limpiarCuidado()">Volver</button>
+          <button class="btn btn-primary" *ngIf="this.soloLectura" (click)="toggleEnEdicion()">Editar</button>
+          <button class="btn btn-primary" *ngIf="!this.soloLectura" [disabled]="!this.formCuidados.valid" (click)="guardarCuidado()">Guardar</button>
+        </div>
+      </div>
+    </form>
+    <app-spinner *ngIf="loading"></app-spinner>
+  </div>
+</div>

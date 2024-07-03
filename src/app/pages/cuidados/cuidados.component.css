@@ -13,3 +13,28 @@
   margin: 0;
   margin-top: 8px;
 }
+
+.table-header th {
+  padding: 15px;
+  padding-left: 10px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #343a40;
+}
+
+.table-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+}
+
+.btn-accion {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+}

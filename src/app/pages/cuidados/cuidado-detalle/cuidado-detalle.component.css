@@ -1,0 +1,27 @@
+.main-page {
+  padding: 2vw;
+  min-height: calc(100vh - var(--navbar-height));
+}
+
+.page-title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 400;
+}
+
+.main-page hr {
+  margin: 0;
+  margin-top: 8px;
+}
+
+.is-required:after {
+  content: '*';
+  margin-left: 3px;
+  color: rgb(28, 27, 27);
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.invalid{
+  border: 1px solid red;
+}

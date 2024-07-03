@@ -1,26 +1,40 @@
 <div class="main-page container-fluid">
-  <div class="row mb-5">
+  <div class="row mb-4">
     <div class="col-12">
       <h2 class="page-title">Cuidados para el Hogar</h2>
       <hr>
     </div>
   </div>
-  <div class="container">
-    <div class="row">
+  
+  <div class="container-fluid">
+    <div class="row d-flex justify-content-end">
+      <div class="col-2 d-flex justify-content-end">
+        <button class="btn btn-primary" [routerLink]="'/cuidado-detalle'" (click)="nuevoCuidado()"><i class="fas fa-plus text-white"></i> Agregar</button>
+      </div>
+    </div>
+    <form [formGroup]="formFiltros">
+      <div class="row align-items-end">
+        <div class="col-3">
+          <label><strong>Título</strong></label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-2 align-self-end p-0">
+          <button class="btn btn-primary"><i class="fas fa-search text-white"></i></button>
+        </div>
+      </div>
+    </form>
+    <div class="row mt-4">
       <div class="table-responsive">
         <table class="table table-custom-striped border">
-          <thead>
+          <thead class="table-header">
             <tr>
-              <th scope="col" style="font-weight: bold; min-width: 100px ; text-align: left">
-                Nro.Cuidado
-              </th>
               <th scope="col" style="font-weight: bold; min-width: 170px; text-align: left">
                 Título
               </th>
               <th scope="col" style="font-weight: bold; min-width: 170px; text-align: left">
                 Descripción
               </th>
-              <th scope="col" style="font-weight: bold; min-width: 100px; text-align: left">
+              <th scope="col" style="font-weight: bold; min-width: 100px; text-align: center">
                 Acciones
               </th>
             </tr>
@@ -28,39 +42,40 @@
           
           <tbody>
             <tr *ngFor="let cuidado of this.listCuidados">
-              <td style="text-align: left">
-                <div style="white-space: nowrap">
-                </div>
-                  <p class="fw-normal mb-1">{{cuidado.id}}</p>
-              </td>
   
               <td style="text-align: left">
                 <div style="white-space: nowrap">
-                  <p class="fw-normal mb-1">{{cuidado.titulo}}</p>
+                  <p class="fw-normal m-0">{{cuidado.titulo}}</p>
                 </div>
               </td>
   
               <td style="text-align: left">
                 <div style="white-space: nowrap">
-                  <p>{{cuidado.descripcion}}</p>
+                  <p class="fw-normal m-0">{{cuidado.descripcion}}</p>
                 </div>
               </td>
   
-              <td class="table-btns">
-                <button class="btn btn-sm btn-primary"><i class="fas fa-check text-white"></i></button>
-                <button class="btn btn-sm btn-danger" (click)="toggleEliminarModal()"><i class="fas fa-times text-white"></i></button>
+              <td>
+                <div class="table-btns">
+                  <button class="btn btn-accion btn-primary" (click)="verCuidadoSeleccionado(cuidado.id)"><i class="fas fa-eye text-white"></i></button>
+                  <button class="btn btn-accion btn-danger" (click)="toggleEliminarModal()"><i class="fas fa-times text-white"></i></button>
+                </div>
               </td>
   
             </tr>
           </tbody>
         </table>
+        <p-paginator></p-paginator>
       </div>
     </div>
   </div>
 </div>
 
 <p-dialog header="Eliminar cuidado para el hogar" [(visible)]="displayEliminarModal" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '30vw' }" [draggable]="true" [resizable]="true">
-  <div class="col-12 col-sm-12 col-md-12 mb-3">
-    Estas seguro que queres eliminar esto pedazo de crack?
+  <div class="col-12 mb-3">
+    Está seguro que desea eliminar el cuidado para el hogar seleccionado?
+  </div>
+  <div class="col-12 d-flex justify-content-end">
+    <button class="btn btn-danger" (click)="toggleEliminarModal()">Eliminar</button>
   </div>
 </p-dialog>
