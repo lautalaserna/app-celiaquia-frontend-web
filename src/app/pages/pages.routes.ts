@@ -19,9 +19,9 @@ export const pagesRoutes: Routes = [
   {
     path: 'cuidado-detalle',
     component: CuidadoDetalleComponent,
-    /* resolve: {
-      item: CuidadosResolverService
-    } */
+    resolve: {
+      cuidadoHogar: CuidadosResolverService
+    }
   },
   { 
     path: 'cuestionario', 
@@ -33,6 +33,10 @@ export const pagesRoutes: Routes = [
   },
   { 
     path: 'recetas', 
+    component: RecetasComponent 
+  },
+  { 
+    path: 'usuarios', 
     component: RecetasComponent 
   },
 ];

@@ -14,19 +14,19 @@ export class CuidadosService {
 
   constructor(private http: HttpClient) {}
 
-  getCuidadosHogar(id: number): Observable<any> {
+  getCuidadoHoga(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}${this.apiUrl}/${id}`);
   }
 
-  listCuidadoHogar(paginaActual:number, totalRegistros:number, titulo:string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}${this.apiUrl}?paginaActual=${paginaActual}&totalRegistros=${totalRegistros}&titulo=${titulo}`);
+  listCuidadosHogar(page:number, size:number, titulo:string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}${this.apiUrl}?page=${page}&size=${size}&titulo=${titulo}`);
   }
 
   createCuidadoHogar(cuidado: CuidadoHogar): Observable<CuidadoHogar> {
-    return this.http.post<CuidadoHogar>(`${this.baseUrl}${this.apiUrl}/crear`, cuidado);
+    return this.http.post<CuidadoHogar>(`${this.baseUrl}${this.apiUrl}`, cuidado);
   }
 
-  editCuidadoHogar(cuidado: CuidadoHogar): Observable<CuidadoHogar> {
-    return this.http.post<CuidadoHogar>(`${this.baseUrl}${this.apiUrl}/editar`, cuidado);
+  deleteCuidadoHogar(id: number): Observable<CuidadoHogar> {
+    return this.http.delete<CuidadoHogar>(`${this.baseUrl}${this.apiUrl}/${id}`);
   }
 }

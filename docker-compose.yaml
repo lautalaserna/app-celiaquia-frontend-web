@@ -2,16 +2,16 @@ version: '3.9'
 
 services:
   postgres:
-    image: julyvjo/celiaquia-db:latest
+    image: postgres:16.2
     container_name: celiaquia-db
     environment:
       POSTGRES_DB: celiaquia
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: celiaquia
-    #volumes:
-    #  - /home/julian/docker/volumes/celiaquia:/var/lib/postgresql/data
-    #ports:
-    #  - "5433:5432"
+    volumes:
+      - ./init-db:/docker-entrypoint-initdb.d
+    ports:
+      - "5433:5432"
 
   backend:
     image: julyvjo/celiaquia-backend:latest
@@ -24,5 +24,4 @@ services:
     restart: always
     depends_on:
       - postgres
-
 

@@ -37,4 +37,14 @@
   align-items: center;
   justify-content: center;
   margin: 0px;
+  border-radius: 50%;
+}
+
+.btn-search {
+  width: 44px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
 }

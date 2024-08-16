@@ -7,21 +7,26 @@ import { PaginatorModule } from 'primeng/paginator';
 import { ActivatedRoute, NavigationStart, Router, RouterLink } from '@angular/router';
 import { CuidadosService } from '../../services/cuidados.service';
 import { ToastrService } from 'ngx-toastr';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { SpinnerComponent } from "../../shared/spinner/spinner.component";
 
 @Component({
   selector: 'app-cuidados',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule, SpinnerComponent],
   templateUrl: './cuidados.component.html',
   styleUrl: './cuidados.component.css'
 })
 export class CuidadosComponent {
   listCuidados: CuidadoHogar[] = [];
   displayEliminarModal: boolean = false;
+  cuidadoSeleccionadoId: number = 0;
   formFiltros!: FormGroup;
-  paginaActual: number = 0;
-  totalRegistros: number = 5;
   tituloFilter: string = '';
+  size: number = 5;
+  page: number = 0;
+  total: number = 0;
+  loading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,7 +38,7 @@ export class CuidadosComponent {
 
   ngOnInit() {
     this.crearFormFiltros();
-    this.listarCuidadosFake();
+    this.listarCuidados();
   }
 
   crearFormFiltros() {
@@ -42,42 +47,58 @@ export class CuidadosComponent {
     });
   }
 
-  listarCuidadosFake() {
-    this.listCuidados = [
-      { id: 1, titulo: 'Cuidado para el Hogar 1', descripcion: 'Descripción del Cuidado para el Hogar 1' },
-      { id: 2, titulo: 'Cuidado para el Hogar 2', descripcion: 'Descripción del Cuidado para el Hogar 2' },
-      { id: 3, titulo: 'Cuidado para el Hogar 3', descripcion: 'Descripción del Cuidado para el Hogar 3' },
-      { id: 4, titulo: 'Cuidado para el Hogar 4', descripcion: 'Descripción del Cuidado para el Hogar 4' },
-      { id: 5, titulo: 'Cuidado para el Hogar 5', descripcion: 'Descripción del Cuidado para el Hogar 5' }
-    ]
+  onPageChange(event: PageEvent): void{
+    this.page = event.pageIndex;
+    this.size = event.pageSize;
+    this.listarCuidados();
   }
 
   listarCuidados() {
+    this.loading = true;
     this.tituloFilter = this.formFiltros.get('titulo')?.value 
       ? this.formFiltros.get('titulo')?.value 
       : '';
     
     this._cuidadosService
-      .listCuidadoHogar(
-        this.paginaActual, 
-        this.totalRegistros, 
+      .listCuidadosHogar(
+        this.page, 
+        this.size, 
         this.tituloFilter
       ).subscribe({
         next: (data: any) => {
-          this.listCuidados = data.listCuidados;
-          console.log(this.listCuidados);
-          
-          // TODO: Utilizar el paginador para mostrar los datos paginados
+          this.listCuidados = data.content;
+          this.total = data.totalElements;
         },
         error: (err) => {
+          this.loading = false;
           console.error('Error al obtener los datos', err);
         },
+        complete: () => {
+          this.loading = false;
+        }
       }
     );
   }
 
-  toggleEliminarModal() {
-    this.displayEliminarModal = !this.displayEliminarModal
+  toggleEliminarModal(id: number) {
+    this.cuidadoSeleccionadoId = id;
+    this.displayEliminarModal = !this.displayEliminarModal;
+  }
+
+  eliminarCuidado() {
+    this._cuidadosService.deleteCuidadoHogar(this.cuidadoSeleccionadoId).subscribe({
+      next: (data: any) => {        
+        this.toastr.success('Cuidado eliminado con éxito','Eliminación')
+      },
+      error: (err) => {
+        this.toastr.error('No se pudo eliminar el cuidado','Eliminación')
+      },
+      complete: () => {
+        this.cuidadoSeleccionadoId = 0;
+        this.displayEliminarModal = false;
+        this.listarCuidados();
+      },
+    });
   }
 
   nuevoCuidado() {

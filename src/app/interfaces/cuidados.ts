@@ -1,11 +1,15 @@
 export class CuidadoHogar {
-  id!: number;
+  cuidado_id!: number;
   titulo!: string;
   descripcion!: string;
+  posicion!:number;
+  isactive!:boolean;
 }
 
 export interface ICuidadoHogar {
-  id: number,
+  cuidado_id: number,
   titulo: string,
   descripcion: string,
+  posicion:number,
+  isactive:boolean,
 }

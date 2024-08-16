@@ -17,6 +17,7 @@ import { SpinnerComponent } from '../../../shared/spinner/spinner.component';
 export class CuidadoDetalleComponent {
   cuidadoHogar!: CuidadoHogar;
   formCuidados!: FormGroup;
+  esNuevo: boolean = false;
   soloLectura: boolean = false;
   loading: boolean = false;
 
@@ -33,14 +34,9 @@ export class CuidadoDetalleComponent {
 
     if(id){
       this.soloLectura = true;
-      // Obtener el cuidadoHogar
-      //this.cuidadoHogar = this.route.snapshot.data['cuidadoHogar'];
-
-      this.cuidadoHogar = { 
-        id: 1, 
-        titulo: 'Item 1', 
-        descripcion: 'Descripción del Item 1' 
-      };
+      this.cuidadoHogar = this.route.snapshot.data['cuidadoHogar'];
+    } else {
+      this.esNuevo = true;
     }
 
     this.crearForm();
@@ -48,52 +44,36 @@ export class CuidadoDetalleComponent {
 
   crearForm() {
     this.formCuidados = this.formBuilder.group({
-      id: new FormControl({value: this.cuidadoHogar?.id, disabled: true}),
-      titulo: new FormControl({value: this.cuidadoHogar?.titulo , disabled: this.soloLectura}, [Validators.required, Validators.maxLength(200)]),
-      descripcion: new FormControl({value: this.cuidadoHogar?.descripcion, disabled: this.soloLectura}, [Validators.required, Validators.maxLength(2000)]),
+      cuidado_id: new FormControl({value: this.cuidadoHogar?.cuidado_id ? this.cuidadoHogar.cuidado_id : 0, disabled: true}),
+      titulo: new FormControl({value: this.cuidadoHogar?.titulo ? this.cuidadoHogar.titulo : null, disabled: this.soloLectura}, [Validators.required, Validators.maxLength(200)]),
+      descripcion: new FormControl({value: this.cuidadoHogar?.descripcion ? this.cuidadoHogar.descripcion : null, disabled: this.soloLectura}, [Validators.required, Validators.maxLength(2000)]),
+      isactive: new FormControl({value: this.cuidadoHogar?.isactive ? this.cuidadoHogar.isactive : true, disabled: true}),
+      posicion: new FormControl({value: this.cuidadoHogar?.posicion ? this.cuidadoHogar.posicion : 0, disabled: true}),
     })
   }
 
   limpiarCuidado() {
-    localStorage.removeItem('itemData');
-    this.router.navigate(['/cuidados'])
-  }
-
-  guardarCuidado() {
-    const body = this.formCuidados.getRawValue() as CuidadoHogar;
-    console.log(body);
-
+    localStorage.removeItem('cuidadoHogar');
     this.router.navigate(['/cuidados']);
   }
-
-  crearNuevoCuidado() {
+  
+  guardarCuidado() {
+    const body = this.formCuidados.getRawValue() as CuidadoHogar;
     this.loading= true;
-    let body = this.formCuidados.getRawValue() as CuidadoHogar;
-    console.log(body);
 
     this._cuidadosService.createCuidadoHogar(body).subscribe({
-      next: (data: CuidadoHogar) => {
-        this.cuidadoHogar = data;
-        this.crearItemSuccess();
+      next: (data) => {
+        this.loading= false;
+        this.router.navigate(['/cuidados'])
       },
       error: (err:any) => {
-        console.error(err);
-        this.crearItemFail();
+        this.loading= false;
+        this.toastr.error('No se pudo guardar el cuidado','Guardado');
       },
     });
   }
 
-  crearItemSuccess() {
-    this.loading= false;
-    this.router.navigate(['/cuidados'])
-  }
-
-  crearItemFail() {
-    this.toastr.error('Error. No se pudo crear el ítem');
-    this.loading= false;
-  }
-
-  toggleEnEdicion(){
+  toggleSoloLectura() {
     this.soloLectura = !this.soloLectura;
     this.formCuidados.get('titulo')?.enable();
     this.formCuidados.get('descripcion')?.enable();
