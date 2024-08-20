@@ -2,11 +2,8 @@
   --navbar-height: 65px;
 }
 
-html, body {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-}
+html, body { height: 100%; height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .main-page {
   padding: 2vw;
@@ -23,8 +20,18 @@ html, body {
   margin: 0;
   margin-top: 8px;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.is-required:after {
+  content: '*';
+  margin-left: 3px;
+  color: rgb(28, 27, 27);
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.btn-shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);  
+}
 
 .btn-primary {
   background: #1964d4 !important;

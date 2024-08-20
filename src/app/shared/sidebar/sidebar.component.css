@@ -1,8 +1,9 @@
 .sidebar {
-  height: calc(100vh - var(--navbar-height));
+  height: calc(100vh);
   width: 280px;
   position: fixed;
-  top: var(--navbar-height); 
+  box-shadow: 4px 0 6px rgba(0, 0, 0, 0.2);
+  z-index: 2;
 }
 
 .selected {
@@ -19,4 +20,14 @@
   display: flex;
   align-items: center;
   gap: 0.2rem;
+}
+
+.btn-nav {
+  height: 38px;
+  background-color: #333;
+  color: white;
+}
+
+.btn-nav:hover {
+  background-color: #555;
 }

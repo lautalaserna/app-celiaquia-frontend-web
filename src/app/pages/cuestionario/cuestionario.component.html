@@ -1,13 +1,69 @@
 <div class="main-page container-fluid">
-  <div class="row mb-5">
+  <div class="row mb-4">
     <div class="col-12">
       <h2 class="page-title">Cuestionario de Ingreso</h2>
       <hr>
     </div>
   </div>
-  <div class="container">
-    <div class="row">
-      <p>Cuestionario Works!</p>
+  
+  <div class="container-fluid">
+    <div class="row d-flex justify-content-end">
+      <div class="col-2 d-flex justify-content-end">
+        <button class="btn btn-primary btn-shadow" [routerLink]="'/cuestionario-detalle'" (click)="nuevoCuestionario()">Agregar Pregunta</button>
+      </div>
+    </div>
+    <form [formGroup]="formFiltros">
+      <div class="row align-items-end">
+        <div class="col-3">
+          <label class="mb-1"><strong>Pregunta</strong></label>
+          <input type="text" class="form-control" formControlName="titulo">
+        </div>
+        <div class="col-1 align-self-end p-0">
+          <button class="btn btn-search btn-primary btn-shadow" (click)="listarCuestionario()">
+            <i *ngIf="!loading" class="fas fa-sm fa-search text-white"></i>
+            <div *ngIf="loading" class="spinner-border spinner-border-sm text-white" role="status"></div>
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="row mt-4">
+      <div class="table-responsive">
+        <table class="table table-striped border table-hover">
+          <thead class="table-header">
+            <tr>
+              <th scope="col" class="w-30">
+                Pregunta
+              </th>
+              <th scope="col" class="w-15 text-center" style="min-width: 160px;">
+                Acciones
+              </th>
+            </tr>
+          </thead>
+          
+          <tbody>
+            <tr *ngFor="let cuestionario of this.listCuestionario">
+              <td>{{cuestionario.pregunta}}</td>
+              <td>
+                <div class="table-btns">
+                  <button class="btn btn-accion btn-primary btn-shadow" (click)="verCuestionarioSeleccionado(cuestionario.cuestionario_id)"><i class="fas fa-sm fa-pen text-white"></i></button>
+                  <button class="btn btn-accion btn-danger btn-shadow" (click)="toggleEliminarModal(cuestionario.cuestionario_id)"><i class="fas fa-times text-white"></i></button>
+                  
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <mat-paginator [pageSize]="this.size" [length]="this.total" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons="true" (page)="onPageChange($event)"></mat-paginator> 
     </div>
   </div>
 </div>
+
+<p-dialog header="Eliminar cuestionario para el hogar" [(visible)]="displayEliminarModal" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '30vw' }" [draggable]="true" [resizable]="true">
+  <div class="col-12 mb-3">
+    Está seguro que desea eliminar el cuestionario para el hogar seleccionado?
+  </div>
+  <div class="col-12 d-flex justify-content-end">
+    <button class="btn btn-danger" (click)="eliminarCuestionario()">Eliminar</button>
+  </div>
+</p-dialog>

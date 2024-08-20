@@ -1,7 +1,8 @@
 .main-wrapper {
   position: relative;
-  top: var(--navbar-height);
   margin-left: 280px;
-  min-height: calc(100vh - var(--navbar-height));
+  min-height: calc(100vh);
   background-color: #fdfbff;
+  /* top: var(--navbar-height); */
+  /* min-height: calc(100vh - var(--navbar-height)); */
 }

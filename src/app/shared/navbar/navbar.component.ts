@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
+import { UserService } from '../../services/user.service';
+import { Usuario } from '../../interfaces/user';
 
 @Component({
   selector: 'app-navbar',
@@ -11,10 +13,18 @@ import { DialogModule } from 'primeng/dialog';
 })
 export class NavbarComponent {
   displayConfigModal: boolean = false;
+  userLogeado!: Usuario;
   
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private _userService: UserService,
+  ) { }
 
   ngOnInit(): void {
+    this._userService.getUserData().subscribe(user => {
+      this.userLogeado = user;
+      this.userLogeado.nombre = 'Lautaro';
+    })
   }
 
   logOut() {

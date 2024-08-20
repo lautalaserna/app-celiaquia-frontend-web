@@ -6,6 +6,10 @@ import { CuestionarioComponent } from './cuestionario/cuestionario.component';
 import { RecetasComponent } from './recetas/recetas.component';
 import { CuidadoDetalleComponent } from './cuidados/cuidado-detalle/cuidado-detalle.component';
 import { CuidadosResolverService } from '../services/cuidados-resolver.service';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { UsuarioDetalleComponent } from './usuarios/usuario-detalle/usuario-detalle.component';
+import { CuestionarioResolverService } from '../services/cuestionario-resolver.service';
+import { CuestionarioDetalleComponent } from './cuestionario/cuestionario-detalle/cuestionario-detalle.component';
 
 export const pagesRoutes: Routes = [
   { 
@@ -27,6 +31,13 @@ export const pagesRoutes: Routes = [
     path: 'cuestionario', 
     component: CuestionarioComponent 
   },
+  {
+    path: 'cuestionario-detalle',
+    component: CuestionarioDetalleComponent,
+    resolve: {
+      cuidadoHogar: CuestionarioResolverService
+    }
+  },
   { 
     path: 'alimentos', 
     component: AlimentosComponent 
@@ -37,6 +48,13 @@ export const pagesRoutes: Routes = [
   },
   { 
     path: 'usuarios', 
-    component: RecetasComponent 
+    component: UsuariosComponent 
+  },
+  {
+    path: 'usuario-detalle',
+    component: UsuarioDetalleComponent,
+    resolve: {
+      cuidadoHogar: CuidadosResolverService
+    }
   },
 ];

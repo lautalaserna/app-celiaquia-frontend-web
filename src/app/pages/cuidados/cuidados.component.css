@@ -30,16 +30,6 @@
   margin: 0;
 }
 
-.btn-accion {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0px;
-  border-radius: 50%;
-}
-
 .btn-search {
   width: 44px;
   height: 38px;
@@ -47,4 +37,25 @@
   align-items: center;
   justify-content: center;
   margin: 0px;
+}
+
+.custom-dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.custom-dropdown-item i {
+  width: 20px;
+  text-align: center;
+}
+
+.custom-dropdown-item span {
+  flex-grow: 1;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.dropdown-item {
+  height: 38px;
 }

@@ -4,6 +4,7 @@
   height: var(--navbar-height);
   z-index: 100;
   background-color: #121519 !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1);  
 }
 
 .nav-logo {

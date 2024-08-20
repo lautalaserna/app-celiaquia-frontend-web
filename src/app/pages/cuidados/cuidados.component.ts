@@ -27,6 +27,7 @@ export class CuidadosComponent {
   page: number = 0;
   total: number = 0;
   loading: boolean = false;
+  puedeCambiarPosicion: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -59,6 +60,8 @@ export class CuidadosComponent {
       ? this.formFiltros.get('titulo')?.value 
       : '';
     
+    (this.tituloFilter != '') ? this.puedeCambiarPosicion = false : this.puedeCambiarPosicion = true; 
+    
     this._cuidadosService
       .listCuidadosHogar(
         this.page, 
@@ -67,6 +70,8 @@ export class CuidadosComponent {
       ).subscribe({
         next: (data: any) => {
           this.listCuidados = data.content;
+          console.log(this.listCuidados);
+          
           this.total = data.totalElements;
         },
         error: (err) => {
@@ -102,7 +107,7 @@ export class CuidadosComponent {
   }
 
   nuevoCuidado() {
-    localStorage.removeItem('itemData');
+    localStorage.removeItem('cuidadoHogar');
   }
   
   verCuidadoSeleccionado(cuidadoId: number) {

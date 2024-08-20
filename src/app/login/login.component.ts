@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { User } from '../interfaces/user';
+import { Usuario } from '../interfaces/user';
 import { SpinnerComponent } from "../shared/spinner/spinner.component";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -50,9 +50,9 @@ export class LoginComponent {
     }
 
     // Creamos el body
-    const user: User = {
+    const user: any = {
       username: this.username.value,
-      password: this.password.value
+      password: this.password.value,
     }
 
     this.loading = true;

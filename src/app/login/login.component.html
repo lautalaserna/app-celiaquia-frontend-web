@@ -8,17 +8,17 @@
                         <input type="text" class="form-control" formControlName="username" placeholder="Usuario" autocomplete="true"
                         [ngClass]="!(username.hasError('required') && username.touched) ? '': 'is-invalid' ">
                         <label>Usuario</label>
-                        <span class="text-danger" *ngIf="username?.hasError('required') && username?.touched"> 
-                            El campo es obligatorio 
-                        </span>
+                        <div class="invalid-feedback text-start" *ngIf="username?.hasError('required') && username?.touched">
+                            Campo requerido
+                        </div>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="password" class="form-control" formControlName="password" placeholder="Contraseña" autocomplete="true"
                         [ngClass]="!(password.hasError('required') && password.touched) ? '': 'is-invalid' ">
                         <label>Contraseña</label>
-                        <span class="text-danger" *ngIf="password?.hasError('required') && password?.touched"> 
-                            El campo es obligatorio 
-                        </span>
+                        <div class="invalid-feedback text-start" *ngIf="password?.hasError('required') && password?.touched">
+                            Campo requerido
+                        </div>
                     </div>
                     <div class="d-grid gap-2">
                         <button type="button" class="btn btn-primary btn-lg" [disabled]="formLogin.invalid" (click)="login()">Ingresar</button>

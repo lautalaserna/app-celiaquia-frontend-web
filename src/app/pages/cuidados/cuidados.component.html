@@ -9,7 +9,7 @@
   <div class="container-fluid">
     <div class="row d-flex justify-content-end">
       <div class="col-2 d-flex justify-content-end">
-        <button class="btn btn-primary" [routerLink]="'/cuidado-detalle'" (click)="nuevoCuidado()">Nuevo Cuidado</button>
+        <button class="btn btn-primary btn-shadow" [routerLink]="'/cuidado-detalle'" (click)="nuevoCuidado()">Nuevo Cuidado</button>
       </div>
     </div>
     <form [formGroup]="formFiltros">
@@ -19,7 +19,7 @@
           <input type="text" class="form-control" formControlName="titulo">
         </div>
         <div class="col-1 align-self-end p-0">
-          <button class="btn btn-search btn-primary " (click)="listarCuidados()">
+          <button class="btn btn-search btn-primary btn-shadow" (click)="listarCuidados()">
             <i *ngIf="!loading" class="fas fa-sm fa-search text-white"></i>
             <div *ngIf="loading" class="spinner-border spinner-border-sm text-white" role="status"></div>
           </button>
@@ -28,41 +28,66 @@
     </form>
     <div class="row mt-4">
       <div class="table-responsive">
-        <table class="table table-custom-striped border">
+        <table class="table table-striped border table-hover">
           <thead class="table-header">
             <tr>
+              <th scope="col" class="w-10 text-center" style="width: 100px;"></th>
               <th scope="col" class="w-30">
                 Título
               </th>
-              <th scope="col" class="w-55">
+              <th scope="col" class="w-60">
                 Contenido
               </th>
-              <th scope="col" class="w-15 text-center" style="min-width: 160px;">
-                Acciones
-              </th>
-              <!-- <th scope="col" class="w-10 text-center">
-                Mover
-              </th> -->
             </tr>
           </thead>
           
           <tbody>
-            <tr *ngFor="let cuidado of this.listCuidados">
-              <td>{{cuidado.titulo}}</td>
-              <td>{{cuidado.descripcion}}</td>
+            <tr *ngFor="let cuidado of this.listCuidados">           
               <td>
                 <div class="table-btns">
-                  <button class="btn btn-accion btn-primary" (click)="verCuidadoSeleccionado(cuidado.cuidado_id)"><i class="fas fa-sm fa-pen text-white"></i></button>
-                  <button class="btn btn-accion btn-danger" (click)="toggleEliminarModal(cuidado.cuidado_id)"><i class="fas fa-times text-white"></i></button>
-                  
+                  <div class="dropend">
+                    <button type="button" class="btn btn-primary btn-shadow" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fas fa-ellipsis-h text-white"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                      <li>
+                        <button class="dropdown-item custom-dropdown-item" (click)="verCuidadoSeleccionado(cuidado.cuidado_id)">
+                          <div class="d-flex align-items-center">
+                            <i class="fas fa-align-justify"></i>
+                            <span class="ms-2">Inspeccionar</span>
+                          </div>
+                        </button>
+                      </li>
+                      <li>
+                        <button class="dropdown-item custom-dropdown-item" (click)="toggleEliminarModal(cuidado.cuidado_id)">
+                          <div class="d-flex align-items-center">
+                            <i class="fas fa-trash"></i>
+                            <span class="ms-2">Eliminar</span>
+                          </div>
+                        </button>
+                      </li>
+                      <li>
+                        <button class="dropdown-item custom-dropdown-item" [hidden]="!puedeCambiarPosicion">
+                          <div class="d-flex align-items-center">
+                            <i class="fas fa-chevron-up"></i>
+                            <span class="ms-2">Mover arriba</span>
+                          </div>
+                        </button>
+                      </li>
+                      <li>
+                        <button class="dropdown-item custom-dropdown-item" [hidden]="!puedeCambiarPosicion">
+                          <div class="d-flex align-items-center">
+                            <i class="fas fa-chevron-down"></i>
+                            <span class="ms-2">Mover abajo</span>
+                          </div>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </td>
-              <!-- <td>
-                <div class="table-btns">
-                  <button class="btn btn-accion btn-secondary"><i class="fas fa-chevron-up text-white"></i></button>
-                  <button class="btn btn-accion btn-secondary"><i class="fas fa-chevron-down text-white"></i></button>
-                </div>
-              </td> -->
+              <td>{{cuidado.titulo}}</td>
+              <td>{{cuidado.descripcion}}</td>
             </tr>
           </tbody>
         </table>

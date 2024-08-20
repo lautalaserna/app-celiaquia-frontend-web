@@ -1,0 +1,105 @@
+<div class="main-page container-fluid">
+  <div class="row mb-5">
+    <div class="col-12">
+      <h2 class="page-title">Usuario</h2>
+      <hr>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <form *ngIf="!loading" [formGroup]="formUsuarios" class="mb-3">
+      
+      <div class="row">
+        <div class="col-12">
+          <h5 class="mb-3">Datos Personales</h5>
+        </div>
+        <div class="col-3">
+          <label class="is-required mb-1"><strong>Nombre</strong></label>
+          <input type="text" class="form-control" formControlName="nombre" maxlength="200"
+              [ngClass]="!formUsuarios.get('nombre')?.touched ? '' : formUsuarios.get('nombre')?.valid ? '' : 'is-invalid' ">
+          <div class="invalid-feedback" *ngIf="formUsuarios.get('nombre')?.hasError('required') && formUsuarios.get('nombre')?.touched">
+            Campo requerido
+          </div>
+        </div>
+        <div class="col-3">
+          <label class="is-required mb-1"><strong>Apellido</strong></label>
+          <input type="text" class="form-control" formControlName="apellido" maxlength="200"
+              [ngClass]="!formUsuarios.get('apellido')?.touched ? '' : formUsuarios.get('apellido')?.valid ? '' : 'is-invalid' ">
+          <div class="invalid-feedback" *ngIf="formUsuarios.get('apellido')?.hasError('required') && formUsuarios.get('apellido')?.touched">
+            Campo requerido
+          </div>
+        </div>
+        <div class="col-3">
+          <label class="is-required mb-1"><strong>DNI</strong></label>
+          <input type="text" class="form-control" formControlName="dni" maxlength="8"
+              [ngClass]="!formUsuarios.get('dni')?.touched ? '' : formUsuarios.get('dni')?.valid ? 'is-valid' : 'is-invalid' ">
+          <div class="invalid-feedback" *ngIf="formUsuarios.get('dni')?.hasError('required') && formUsuarios.get('dni')?.touched">
+            Campo requerido
+          </div>
+          <div class="invalid-feedback" *ngIf="formUsuarios.get('dni')?.hasError('pattern') && formUsuarios.get('dni')?.touched">
+            El DNI es inválido
+          </div>
+        </div>
+      </div>
+  
+      <div class="row mt-3">
+        <div class="col-3">
+          <label class="is-required mb-1"><strong>Fecha de Nacimiento</strong></label>
+          <input type="date" class="form-control" formControlName="fnac"
+              [ngClass]="!formUsuarios.get('fnac')?.touched ? '' : formUsuarios.get('fnac')?.valid ? '' : 'is-invalid' ">
+          <div class="invalid-feedback" *ngIf="formUsuarios.get('fnac')?.hasError('required') && formUsuarios.get('fnac')?.touched">
+            Campo requerido
+          </div>
+        </div>
+        <div class="col-4">
+          <label class="is-required mb-1"><strong>Email</strong></label>
+          <input type="email" class="form-control" formControlName="email" maxlength="200"
+              [ngClass]="!formUsuarios.get('email')?.touched ? '' : formUsuarios.get('email')?.valid ? '' : 'is-invalid' ">
+          <div class="invalid-feedback" *ngIf="formUsuarios.get('email')?.hasError('required') && formUsuarios.get('email')?.touched">
+            Campo requerido
+          </div>
+        </div>
+      </div>
+  
+      <hr class="my-5">
+  
+      <div class="row">
+        <div class="col-12">
+          <h5 class="mb-3">Datos de Usuario</h5>
+        </div>
+        <div class="col-3">
+          <label class="is-required mb-1"><strong>Nombre de Usuario</strong></label>
+          <input type="text" class="form-control" formControlName="username" maxlength="200"
+              [ngClass]="!formUsuarios.get('username')?.touched ? '' : formUsuarios.get('username')?.valid ? '' : 'is-invalid' ">
+          <div class="invalid-feedback" *ngIf="formUsuarios.get('username')?.hasError('required') && formUsuarios.get('username')?.touched">
+            Campo requerido
+          </div>
+        </div>
+        <div class="col-3">
+          <label class="is-required mb-1"><strong>Contraseña</strong></label>
+          <input type="password" class="form-control" formControlName="password" maxlength="200"
+              [ngClass]="!formUsuarios.get('password')?.touched ? '' : formUsuarios.get('password')?.valid ? '' : 'is-invalid' ">
+          <div class="invalid-feedback" *ngIf="formUsuarios.get('password')?.hasError('required') && formUsuarios.get('password')?.touched">
+            Campo requerido
+          </div>
+        </div>
+        <div class="col-3">
+          <label class="is-required mb-1"><strong>Confirmar Contraseña</strong></label>
+          <input type="password" class="form-control" formControlName="confirmPassword" maxlength="200"
+              [ngClass]="!formUsuarios.get('confirmPassword')?.touched ? '' : formUsuarios.get('confirmPassword')?.valid ? '' : 'is-invalid' ">
+          <div class="invalid-feedback" *ngIf="formUsuarios.get('confirmPassword')?.hasError('required') && formUsuarios.get('confirmPassword')?.touched">
+            Campo requerido
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-12 d-flex justify-content-between">
+          <button class="btn btn-secondary btn-shadow" (click)="limpiarCuidado()">Volver</button>
+          <button class="btn btn-primary btn-shadow" *ngIf="!this.esNuevo && this.soloLectura" (click)="toggleSoloLectura()">Editar</button>
+          <button class="btn btn-primary btn-shadow" *ngIf="this.esNuevo || !this.soloLectura" [disabled]="!this.formUsuarios.valid" (click)="guardarCuidado()">Guardar</button>
+        </div>
+      </div>
+    </form>
+    <app-spinner *ngIf="loading"></app-spinner>
+  </div>
+</div>

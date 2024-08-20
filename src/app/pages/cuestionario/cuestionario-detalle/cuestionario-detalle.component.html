@@ -1,0 +1,44 @@
+<div class="main-page container-fluid">
+  <div class="row mb-5">
+    <div class="col-12">
+      <h2 class="page-title">Pregunta de Cuestizonario</h2>
+      <hr>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <form *ngIf="!loading" [formGroup]="formCuestionario" class="mb-3">
+      <div class="row">
+        <div class="col-12">
+          <label class="is-required mb-1"><strong>Pregunta</strong></label>
+          <input type="text" class="form-control" formControlName="titulo" maxlength="200"
+              [ngClass]="!formCuestionario.get('titulo')?.touched ? '' :formCuestionario.get('titulo')?.valid ? '': 'is-invalid' ">
+          <div class="invalid-feedback" *ngIf="formCuestionario.get('titulo')?.hasError('required') && formCuestionario.get('titulo')?.touched">
+            Campo requerido
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="form-group">
+            <label class="is-required mb-1"><strong>Posibles respuestas</strong></label>      
+            <textarea class="form-control rounded-1" formControlName="descripcion" maxlength="2000" rows="12"
+              [ngClass]="!formCuestionario.get('descripcion')?.touched ? '' : formCuestionario.get('descripcion')?.valid ? '': 'is-invalid' "></textarea>
+            <div class="invalid-feedback" *ngIf="formCuestionario.get('descripcion')?.hasError('required') && formCuestionario.get('descripcion')?.touched">
+              Campo requerido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12 d-flex justify-content-between">
+          <button class="btn btn-secondary btn-shadow" (click)="limpiarCuestionario()">Volver</button>
+          <button class="btn btn-primary btn-shadow" *ngIf="!this.esNuevo && this.soloLectura" (click)="toggleSoloLectura()">Editar</button>
+          <button class="btn btn-primary btn-shadow" *ngIf="this.esNuevo || !this.soloLectura" [disabled]="!this.formCuestionario.valid" (click)="guardarCuestionario()">Guardar</button>
+        </div>
+      </div>
+    </form>
+    <app-spinner *ngIf="loading"></app-spinner>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 .main-page {
   padding: 2vw;
-  min-height: calc(100vh - var(--navbar-height));
+  /* min-height: calc(100vh - var(--navbar-height)); */
+  min-height: calc(100vh);
 }
 
 .page-title {

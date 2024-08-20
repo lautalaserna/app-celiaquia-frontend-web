@@ -11,31 +11,31 @@
         <div class="col-12">
           <label class="is-required mb-1"><strong>Título</strong></label>
           <input type="text" class="form-control" formControlName="titulo" maxlength="200"
-              [ngClass]="!formCuidados.get('titulo')?.touched ? '' :formCuidados.get('titulo')?.valid ? '': 'invalid rounded' ">
-          <span style="color: red;" *ngIf="formCuidados.get('titulo')?.hasError('required') && formCuidados.get('titulo')?.touched">
+              [ngClass]="!formCuidados.get('titulo')?.touched ? '' :formCuidados.get('titulo')?.valid ? '': 'is-invalid' ">
+          <div class="invalid-feedback" *ngIf="formCuidados.get('titulo')?.hasError('required') && formCuidados.get('titulo')?.touched">
             Campo requerido
-          </span>
+          </div>
         </div>
       </div>
 
       <div class="row mt-3">
         <div class="col-12">
           <div class="form-group">
-            <label class="is-required mb-1"><strong>Descripción</strong></label>
+            <label class="is-required mb-1"><strong>Descripción</strong></label>      
             <textarea class="form-control rounded-1" formControlName="descripcion" maxlength="2000" rows="12"
-              [ngClass]="!formCuidados.get('descripcion')?.touched ? '' : formCuidados.get('descripcion')?.valid ? '': 'invalid rounded' "></textarea>
-            <span style="color: red;" *ngIf="formCuidados.get('descripcion')?.hasError('required') && formCuidados.get('descripcion')?.touched">
+              [ngClass]="!formCuidados.get('descripcion')?.touched ? '' : formCuidados.get('descripcion')?.valid ? '': 'is-invalid' "></textarea>
+            <div class="invalid-feedback" *ngIf="formCuidados.get('descripcion')?.hasError('required') && formCuidados.get('descripcion')?.touched">
               Campo requerido
-            </span>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="row mt-3">
         <div class="col-12 d-flex justify-content-between">
-          <button class="btn btn-secondary" (click)="limpiarCuidado()">Volver</button>
-          <button class="btn btn-primary" *ngIf="!this.esNuevo && this.soloLectura" (click)="toggleSoloLectura()">Editar</button>
-          <button class="btn btn-primary" *ngIf="this.esNuevo || !this.soloLectura" [disabled]="!this.formCuidados.valid" (click)="guardarCuidado()">Guardar</button>
+          <button class="btn btn-secondary btn-shadow" (click)="limpiarCuidado()">Volver</button>
+          <button class="btn btn-primary btn-shadow" *ngIf="!this.esNuevo && this.soloLectura" (click)="toggleSoloLectura()">Editar</button>
+          <button class="btn btn-primary btn-shadow" *ngIf="this.esNuevo || !this.soloLectura" [disabled]="!this.formCuidados.valid" (click)="guardarCuidado()">Guardar</button>
         </div>
       </div>
     </form>
