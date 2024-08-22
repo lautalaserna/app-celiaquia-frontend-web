@@ -42,7 +42,7 @@
           </thead>
           
           <tbody>
-            <tr *ngFor="let cuidado of this.listCuidados">           
+            <tr *ngFor="let cuidado of this.listCuidados, index as i">           
               <td>
                 <div class="table-btns">
                   <div class="dropend">
@@ -67,7 +67,10 @@
                         </button>
                       </li>
                       <li>
-                        <button class="dropdown-item custom-dropdown-item" [hidden]="!puedeCambiarPosicion">
+                        <button class="dropdown-item custom-dropdown-item" 
+                          [hidden]="!puedeCambiarPosicion" 
+                          [disabled]="i === 0" 
+                          (click)="moverCuidadoArriba(cuidado.cuidado_id)">
                           <div class="d-flex align-items-center">
                             <i class="fas fa-chevron-up"></i>
                             <span class="ms-2">Mover arriba</span>
@@ -75,7 +78,10 @@
                         </button>
                       </li>
                       <li>
-                        <button class="dropdown-item custom-dropdown-item" [hidden]="!puedeCambiarPosicion">
+                        <button class="dropdown-item custom-dropdown-item" 
+                          [hidden]="!puedeCambiarPosicion" 
+                          [disabled]="disableMoverAbajo(i)" 
+                          (click)="moverCuidadoAbajo(cuidado.cuidado_id)">
                           <div class="d-flex align-items-center">
                             <i class="fas fa-chevron-down"></i>
                             <span class="ms-2">Mover abajo</span>
@@ -86,8 +92,8 @@
                   </div>
                 </div>
               </td>
-              <td>{{cuidado.titulo}}</td>
-              <td>{{cuidado.descripcion}}</td>
+              <td class="align-middle">{{cuidado.titulo}}</td>
+              <td class="align-middle">{{cuidado.descripcion}}</td>
             </tr>
           </tbody>
         </table>

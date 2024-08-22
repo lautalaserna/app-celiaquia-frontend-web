@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router, RouterLink } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { SpinnerComponent } from '../../../shared/spinner/spinner.component';
@@ -21,8 +21,6 @@ export class CuestionarioDetalleComponent {
   soloLectura: boolean = false;
   loading: boolean = false;
 
-  respuestas: Respuesta[] = [];
-
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
@@ -41,6 +39,20 @@ export class CuestionarioDetalleComponent {
       this.esNuevo = true;
     }
 
+    // Borrar este hardcode :)
+    this.cuestionario = {
+      cuestionario_id: 1,
+      pregunta: "¿Cuánto tiempo hace que te diagnosticaron con enfermedad celíaca?",
+      posicion: 1,
+      isactive: true,
+      respuestas: [
+        { respuesta_id: 1, descripcion: "Menos de 1 año" },
+        { respuesta_id: 2, descripcion: "1-3 años" },
+        { respuesta_id: 3, descripcion: "3-5 años" },
+        { respuesta_id: 4, descripcion: "Más de 5 años" }
+      ]
+    }
+
     this.crearForm();
   }
 
@@ -50,7 +62,27 @@ export class CuestionarioDetalleComponent {
       pregunta: new FormControl({value: this.cuestionario?.pregunta ? this.cuestionario.pregunta : null, disabled: this.soloLectura}, [Validators.required, Validators.maxLength(200)]),
       isactive: new FormControl({value: this.cuestionario?.isactive ? this.cuestionario.isactive : true, disabled: true}),
       posicion: new FormControl({value: this.cuestionario?.posicion ? this.cuestionario.posicion : 0, disabled: true}),
-    })
+      respuestas: this.formBuilder.array(this.cuestionario?.respuestas ? this.cuestionario.respuestas.map(respuesta => this.crearRespuesta(respuesta)) : [])
+    });
+  }
+  
+  crearRespuesta(respuesta?: Respuesta): FormGroup {
+    return this.formBuilder.group({
+      respuesta_id: new FormControl(respuesta?.respuesta_id || 0),
+      descripcion: new FormControl(respuesta?.descripcion || '', Validators.required)
+    });
+  }
+  
+  get respuestas(): FormArray {
+    return this.formCuestionario.get('respuestas') as FormArray;
+  }
+  
+  agregarRespuesta() {
+    this.respuestas.push(this.crearRespuesta());
+  }
+  
+  eliminarRespuesta(index: number) {
+    this.respuestas.removeAt(index);
   }
 
   limpiarCuestionario() {

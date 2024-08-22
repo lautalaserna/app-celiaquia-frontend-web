@@ -36,4 +36,9 @@ export class SidebarComponent {
   toggleConfigModal() {
     this.displayConfigModal = !this.displayConfigModal
   }
+
+  getUserName(): string {
+    if(!this.userLogeado?.nombre || !this.userLogeado?.apellido) return 'Usuario'
+    return this.userLogeado.nombre + " " + this.userLogeado.apellido
+  }
 }

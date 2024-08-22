@@ -15,8 +15,8 @@
     <form [formGroup]="formFiltros">
       <div class="row align-items-end">
         <div class="col-3">
-          <label class="mb-1"><strong>Nombre de Usuario</strong></label>
-          <input type="text" class="form-control" formControlName="username">
+          <label class="mb-1"><strong>Documento</strong></label>
+          <input type="text" class="form-control" formControlName="dni">
         </div>
         <div class="col-3">
           <label class="mb-1"><strong>Email</strong></label>
@@ -35,38 +35,47 @@
         <table class="table table-striped border table-hover">
           <thead class="table-header">
             <tr>
-              <th scope="col" class="w-30">
-                Nombre de Usuario
-              </th>
-              <th scope="col" class="w-50">
-                Email
-              </th>
-              <th scope="col" class="w-20 text-center" style="min-width: 160px;">
-                Acciones
-              </th>
-              <!-- <th scope="col" class="w-10 text-center">
-                Mover
-              </th> -->
+              <th scope="col" class="w-10 text-center" style="width: 100px;"></th>
+              <th scope="col" class="w-30">Nombre Completo</th>
+              <th scope="col" class="w-10">Documento</th>
+              <th scope="col" class="w-20">Usuario</th>
+              <th scope="col" class="w-30">Email</th>
             </tr>
           </thead>
           
           <tbody>
             <tr *ngFor="let usuario of this.listUsuarios">
-              <td>{{usuario.username}}</td>
-              <td>{{usuario.email}}</td>
               <td>
                 <div class="table-btns">
-                  <button class="btn btn-accion btn-primary btn-shadow" (click)="verUsuarioSeleccionado(usuario.usuario_id)"><i class="fas fa-sm fa-pen text-white"></i></button>
-                  <button class="btn btn-accion btn-danger btn-shadow" (click)="toggleEliminarModal(usuario.usuario_id)"><i class="fas fa-times text-white"></i></button>
-                  
+                  <div class="dropend">
+                    <button type="button" class="btn btn-primary btn-shadow" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fas fa-ellipsis-h text-white"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                      <li>
+                        <button class="dropdown-item custom-dropdown-item" (click)="verUsuarioSeleccionado(usuario.usuario_id)">
+                          <div class="d-flex align-items-center">
+                            <i class="fas fa-align-justify"></i>
+                            <span class="ms-2">Inspeccionar</span>
+                          </div>
+                        </button>
+                      </li>
+                      <li>
+                        <button class="dropdown-item custom-dropdown-item" (click)="toggleEliminarModal(usuario.usuario_id)">
+                          <div class="d-flex align-items-center">
+                            <i class="fas fa-trash"></i>
+                            <span class="ms-2">Eliminar</span>
+                          </div>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </td>
-              <!-- <td>
-                <div class="table-btns">
-                  <button class="btn btn-accion btn-secondary"><i class="fas fa-chevron-up text-white"></i></button>
-                  <button class="btn btn-accion btn-secondary"><i class="fas fa-chevron-down text-white"></i></button>
-                </div>
-              </td> -->
+              <td class="align-middle">{{usuario?.nombre + ' ' + usuario?.apellido}}</td>
+              <td class="align-middle">{{usuario.dni}}</td>
+              <td class="align-middle">{{usuario.username}}</td>
+              <td class="align-middle">{{usuario.email}}</td>
             </tr>
           </tbody>
         </table>

@@ -32,4 +32,17 @@ export class CuestionarioService {
   deleteCuestionario(id: number): Observable<Cuestionario> {
     return this.http.delete<Cuestionario>(`${this.baseUrl}${this.apiUrl}/${id}`);
   }
+
+  moveCuestionario(id: number, dir: MovimientoCuestionario) {
+    const body = {
+      cuestionario_id: id,
+      movimiento: dir
+    }
+    return this.http.post<Cuestionario>(`${this.baseUrl}${this.apiUrl}/mover`,body);
+  }
+}
+
+export enum MovimientoCuestionario {
+  ARRIBA = 'ARRIBA',
+  ABAJO = 'ABAJO'
 }

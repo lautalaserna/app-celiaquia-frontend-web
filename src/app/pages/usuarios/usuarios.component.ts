@@ -24,7 +24,7 @@ export class UsuariosComponent {
   displayEliminarModal: boolean = false;
   usuarioSeleccionadoId: number = 0;
   formFiltros!: FormGroup;
-  usernameFilter: string = '';
+  dniFilter: string = '';
   emailFilter: string = '';
   size: number = 5;
   page: number = 0;
@@ -42,12 +42,13 @@ export class UsuariosComponent {
 
   ngOnInit() {
     this.crearFormFiltros();
-    this.listarUsuarios();
+    // this.listarUsuarios();
+    this.listarUsuariosFake();
   }
 
   crearFormFiltros() {
     this.formFiltros = this.formBuilder.group({
-      username: new FormControl({ value: this.usernameFilter, disabled: false },  Validators.required ),
+      dni: new FormControl({ value: this.dniFilter, disabled: false },  Validators.required ),
       email: new FormControl({ value: this.emailFilter, disabled: false },  Validators.required ),
     });
   }
@@ -55,7 +56,51 @@ export class UsuariosComponent {
   onPageChange(event: PageEvent): void{
     this.page = event.pageIndex;
     this.size = event.pageSize;
-    this.listarUsuarios();
+    //this.listarUsuarios();
+    this.listarUsuariosFake();
+  }
+
+  listarUsuariosFake() {
+    this.total = 3;
+    this.listUsuarios = [
+      {
+        usuario_id: 1,
+        nombre: "Juan",
+        apellido: "Pérez",
+        dni: "12345678",
+        fnac: new Date(1985, 4, 15),
+        email: "juan.perez@example.com",
+        username: "jperez",
+        roles: [
+          { rol_id: 1, nombre: "Admin" },
+          { rol_id: 2, nombre: "Usuario" }
+        ]
+      },
+      {
+        usuario_id: 2,
+        nombre: "María",
+        apellido: "García",
+        dni: "87654321",
+        fnac: new Date(1990, 9, 22),
+        email: "maria.garcia@example.com",
+        username: "mgarcia",
+        roles: [
+          { rol_id: 2, nombre: "Usuario" }
+        ]
+      },
+      {
+        usuario_id: 3,
+        nombre: "Carlos",
+        apellido: "López",
+        dni: "11223344",
+        fnac: new Date(1978, 1, 5),
+        email: "carlos.lopez@example.com",
+        username: "clopez",
+        roles: [
+          { rol_id: 3, nombre: "Editor" }
+        ]
+      }
+    ];
   }
 
   listarUsuarios() {
@@ -68,7 +113,7 @@ export class UsuariosComponent {
       .listAllUsuarios(
         // this.page, 
         // this.size, 
-        // this.tituloFilter, 
+        // this.dniFilter, 
         // this.emailFilter
       ).subscribe({
         next: (data: any) => {

@@ -1,7 +1,7 @@
 <div class="main-page container-fluid">
   <div class="row mb-5">
     <div class="col-12">
-      <h2 class="page-title">Pregunta de Cuestizonario</h2>
+      <h2 class="page-title">Pregunta de Cuestionario</h2>
       <hr>
     </div>
   </div>
@@ -10,9 +10,9 @@
       <div class="row">
         <div class="col-12">
           <label class="is-required mb-1"><strong>Pregunta</strong></label>
-          <input type="text" class="form-control" formControlName="titulo" maxlength="200"
-              [ngClass]="!formCuestionario.get('titulo')?.touched ? '' :formCuestionario.get('titulo')?.valid ? '': 'is-invalid' ">
-          <div class="invalid-feedback" *ngIf="formCuestionario.get('titulo')?.hasError('required') && formCuestionario.get('titulo')?.touched">
+          <input type="text" class="form-control" formControlName="pregunta" maxlength="200"
+              [ngClass]="!formCuestionario.get('pregunta')?.touched ? '' :formCuestionario.get('pregunta')?.valid ? '': 'is-invalid' ">
+          <div class="invalid-feedback" *ngIf="formCuestionario.get('pregunta')?.hasError('required') && formCuestionario.get('pregunta')?.touched">
             Campo requerido
           </div>
         </div>
@@ -21,11 +21,30 @@
       <div class="row mt-3">
         <div class="col-12">
           <div class="form-group">
-            <label class="is-required mb-1"><strong>Posibles respuestas</strong></label>      
-            <textarea class="form-control rounded-1" formControlName="descripcion" maxlength="2000" rows="12"
-              [ngClass]="!formCuestionario.get('descripcion')?.touched ? '' : formCuestionario.get('descripcion')?.valid ? '': 'is-invalid' "></textarea>
-            <div class="invalid-feedback" *ngIf="formCuestionario.get('descripcion')?.hasError('required') && formCuestionario.get('descripcion')?.touched">
-              Campo requerido
+            <label class="is-required mb-1"><strong>Posibles respuestas</strong></label>
+            <div formArrayName="respuestas">
+              <div *ngFor="let respuesta of respuestas.controls; let i = index" [formGroupName]="i">
+                <div class="row">
+                  <div class="col-10 mt-2 mb-1">
+                    <input type="text" class="form-control" formControlName="descripcion" [ngClass]="{'is-invalid': respuesta.get('descripcion')?.invalid && respuesta.get('descripcion')?.touched}">
+                    <div class="invalid-feedback" *ngIf="respuesta.get('descripcion')?.hasError('required') && respuesta.get('descripcion')?.touched">
+                      Descripción requerida
+                    </div>
+                  </div>
+                  <div class="col-1 mt-2 mb-1 ps-0">
+                    <button class="btn btn-delete btn-danger btn-shadow" type="button" (click)="eliminarRespuesta(i)">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 d-flex justify-content-start mt-3 mb-4">
+                <button class="btn btn-primary btn-shadow" type="button" (click)="agregarRespuesta()">
+                  <i class="fas fa-plus"></i> Agregar respuesta
+                </button>
+              </div>
             </div>
           </div>
         </div>

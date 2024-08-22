@@ -5,10 +5,11 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { CommonModule } from '@angular/common';
 import { PaginatorModule } from 'primeng/paginator';
 import { ActivatedRoute, NavigationStart, Router, RouterLink } from '@angular/router';
-import { CuidadosService } from '../../services/cuidados.service';
+import { CuidadosService, MovimientoCuidado } from '../../services/cuidados.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { SpinnerComponent } from "../../shared/spinner/spinner.component";
+import { MovimientoCuestionario } from '../../services/cuestionario.service';
 
 @Component({
   selector: 'app-cuidados',
@@ -70,8 +71,6 @@ export class CuidadosComponent {
       ).subscribe({
         next: (data: any) => {
           this.listCuidados = data.content;
-          console.log(this.listCuidados);
-          
           this.total = data.totalElements;
         },
         error: (err) => {
@@ -114,5 +113,19 @@ export class CuidadosComponent {
     this.router.navigate(['/cuidado-detalle'],{ queryParams: { id: cuidadoId } });
   }
 
+  moverCuidadoArriba(id:number) {
+    // this._cuidadosService.moveCuestionario(id, MovimientoCuidado.ARRIBA); 
+    this.listarCuidados();
+  }
+
+  moverCuidadoAbajo(id:number) {
+    // this._cuidadosService.moveCuestionario(id, MovimientoCuidado.ABAJO);
+    this.listarCuidados();
+  }
+
+  disableMoverAbajo(i:number ): boolean {
+    const posActual = (this.page) * this.size + i;
+    return posActual === this.total - 1;
+  }
 }
 

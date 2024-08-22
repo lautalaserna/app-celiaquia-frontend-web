@@ -27,6 +27,7 @@ export class CuestionarioComponent {
   page: number = 0;
   total: number = 0;
   loading: boolean = false;
+  puedeCambiarPosicion: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,19 +39,83 @@ export class CuestionarioComponent {
 
   ngOnInit() {
     this.crearFormFiltros();
-    this.listarCuestionario();
+    // this.listarCuestionario();
+    this.listarCuestionarioFake();
   }
 
   crearFormFiltros() {
     this.formFiltros = this.formBuilder.group({
-      titulo: new FormControl({ value: this.preguntaFilter, disabled: false },  Validators.required ),
+      pregunta: new FormControl({ value: this.preguntaFilter, disabled: false },  Validators.required ),
     });
   }
 
   onPageChange(event: PageEvent): void{
     this.page = event.pageIndex;
     this.size = event.pageSize;
-    this.listarCuestionario();
+    // this.listarCuestionario();
+    this.listarCuestionarioFake();
+  }
+
+  listarCuestionarioFake() {
+    this.total = 5;
+    this.listCuestionario = [
+      {
+        cuestionario_id: 1,
+        pregunta: "¿Cuánto tiempo hace que te diagnosticaron con enfermedad celíaca?",
+        posicion: 1,
+        isactive: true,
+        respuestas: [
+          { respuesta_id: 1, descripcion: "Menos de 1 año" },
+          { respuesta_id: 2, descripcion: "1-3 años" },
+          { respuesta_id: 3, descripcion: "3-5 años" },
+          { respuesta_id: 4, descripcion: "Más de 5 años" }
+        ]
+      },
+      {
+        cuestionario_id: 2,
+        pregunta: "¿Qué tipo de dieta sigues actualmente?",
+        posicion: 2,
+        isactive: true,
+        respuestas: [
+          { respuesta_id: 1, descripcion: "Estrictamente sin gluten" },
+          { respuesta_id: 2, descripcion: "Sin gluten, pero con algunos descuidos" },
+          { respuesta_id: 3, descripcion: "No sigo una dieta específica" }
+        ]
+      },
+      {
+        cuestionario_id: 3,
+        pregunta: "¿Tienes alguna otra alergia o intolerancia alimentaria además del gluten?",
+        posicion: 3,
+        isactive: true,
+        respuestas: [
+          { respuesta_id: 1, descripcion: "Sí, alergias alimentarias" },
+          { respuesta_id: 2, descripcion: "Sí, intolerancia a la lactosa" },
+          { respuesta_id: 3, descripcion: "No, solo soy celíaco" }
+        ]
+      },
+      {
+        cuestionario_id: 4,
+        pregunta: "¿Qué tan frecuentemente revisas las etiquetas de los alimentos para asegurarte de que sean sin gluten?",
+        posicion: 4,
+        isactive: true,
+        respuestas: [
+          { respuesta_id: 1, descripcion: "Siempre" },
+          { respuesta_id: 2, descripcion: "A veces" },
+          { respuesta_id: 3, descripcion: "Nunca" }
+        ]
+      },
+      {
+        cuestionario_id: 5,
+        pregunta: "¿Cuánto conoces sobre la contaminación cruzada con gluten?",
+        posicion: 5,
+        isactive: true,
+        respuestas: [
+          { respuesta_id: 1, descripcion: "Muy bien informado" },
+          { respuesta_id: 2, descripcion: "Tengo conocimientos básicos" },
+          { respuesta_id: 3, descripcion: "No estoy seguro" }
+        ]
+      }
+    ];
   }
 
   listarCuestionario() {
@@ -109,5 +174,19 @@ export class CuestionarioComponent {
     this.router.navigate(['/cuestionario-detalle'],{ queryParams: { id: cuestionarioId } });
   }
 
+  moverCuestionarioArriba(id:number) {
+    // this._cuidadosService.moveCuestionario(id, MovimientoCuidado.ARRIBA); 
+    this.listarCuestionario();
+  }
+
+  moverCuestionarioAbajo(id:number) {
+    // this._cuidadosService.moveCuestionario(id, MovimientoCuidado.ABAJO);
+    this.listarCuestionario();
+  }
+
+  disableMoverAbajo(i:number ): boolean {
+    const posActual = (this.page) * this.size + i;
+    return posActual === this.total - 1;
+  }
 }
 

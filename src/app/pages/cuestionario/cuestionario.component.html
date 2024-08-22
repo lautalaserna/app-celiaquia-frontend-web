@@ -16,7 +16,7 @@
       <div class="row align-items-end">
         <div class="col-3">
           <label class="mb-1"><strong>Pregunta</strong></label>
-          <input type="text" class="form-control" formControlName="titulo">
+          <input type="text" class="form-control" formControlName="pregunta">
         </div>
         <div class="col-1 align-self-end p-0">
           <button class="btn btn-search btn-primary btn-shadow" (click)="listarCuestionario()">
@@ -31,25 +31,63 @@
         <table class="table table-striped border table-hover">
           <thead class="table-header">
             <tr>
-              <th scope="col" class="w-30">
-                Pregunta
-              </th>
-              <th scope="col" class="w-15 text-center" style="min-width: 160px;">
-                Acciones
-              </th>
+              <th scope="col" class="w-10 text-center" style="width: 100px;"></th>
+              <th scope="col" class="w-30">Pregunta</th>
             </tr>
           </thead>
           
           <tbody>
-            <tr *ngFor="let cuestionario of this.listCuestionario">
-              <td>{{cuestionario.pregunta}}</td>
+            <tr *ngFor="let cuestionario of this.listCuestionario, index as i">
               <td>
                 <div class="table-btns">
-                  <button class="btn btn-accion btn-primary btn-shadow" (click)="verCuestionarioSeleccionado(cuestionario.cuestionario_id)"><i class="fas fa-sm fa-pen text-white"></i></button>
-                  <button class="btn btn-accion btn-danger btn-shadow" (click)="toggleEliminarModal(cuestionario.cuestionario_id)"><i class="fas fa-times text-white"></i></button>
-                  
+                  <div class="dropend">
+                    <button type="button" class="btn btn-primary btn-shadow" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fas fa-ellipsis-h text-white"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                      <li>
+                        <button class="dropdown-item custom-dropdown-item" (click)="verCuestionarioSeleccionado(cuestionario.cuestionario_id)">
+                          <div class="d-flex align-items-center">
+                            <i class="fas fa-align-justify"></i>
+                            <span class="ms-2">Inspeccionar</span>
+                          </div>
+                        </button>
+                      </li>
+                      <li>
+                        <button class="dropdown-item custom-dropdown-item" (click)="toggleEliminarModal(cuestionario.cuestionario_id)">
+                          <div class="d-flex align-items-center">
+                            <i class="fas fa-trash"></i>
+                            <span class="ms-2">Eliminar</span>
+                          </div>
+                        </button>
+                      </li>
+                      <li>
+                        <button class="dropdown-item custom-dropdown-item" 
+                          [hidden]="!puedeCambiarPosicion" 
+                          [disabled]="i === 0" 
+                          (click)="moverCuestionarioArriba(cuestionario.cuestionario_id)">
+                          <div class="d-flex align-items-center">
+                            <i class="fas fa-chevron-up"></i>
+                            <span class="ms-2">Mover arriba</span>
+                          </div>
+                        </button>
+                      </li>
+                      <li>
+                        <button class="dropdown-item custom-dropdown-item" 
+                          [hidden]="!puedeCambiarPosicion" 
+                          [disabled]="disableMoverAbajo(i)" 
+                          (click)="moverCuestionarioAbajo(cuestionario.cuestionario_id)">
+                          <div class="d-flex align-items-center">
+                            <i class="fas fa-chevron-down"></i>
+                            <span class="ms-2">Mover abajo</span>
+                          </div>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </td>
+              <td class="align-middle">{{cuestionario.pregunta}}</td>
             </tr>
           </tbody>
         </table>

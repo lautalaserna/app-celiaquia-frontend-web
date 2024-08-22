@@ -29,4 +29,17 @@ export class CuidadosService {
   deleteCuidadoHogar(id: number): Observable<CuidadoHogar> {
     return this.http.delete<CuidadoHogar>(`${this.baseUrl}${this.apiUrl}/${id}`);
   }
+
+  moveCuestionario(id: number, dir: MovimientoCuidado) {
+    const body = {
+      cuidado_id: id,
+      movimiento: dir
+    }
+    return this.http.post<CuidadoHogar>(`${this.baseUrl}${this.apiUrl}/mover`,body);
+  }
+}
+
+export enum MovimientoCuidado {
+  ARRIBA = 'ARRIBA',
+  ABAJO = 'ABAJO'
 }
