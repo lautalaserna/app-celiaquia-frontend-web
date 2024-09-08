@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Usuario } from '../interfaces/user';
-import { SpinnerComponent } from "../shared/spinner/spinner.component";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../services/user.service';
@@ -14,7 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     standalone: true,
     templateUrl: './login.component.html',
     styleUrl: './login.component.css',
-    imports: [CommonModule, SpinnerComponent, ReactiveFormsModule]
+    imports: [CommonModule, ReactiveFormsModule]
 })
 export class LoginComponent {
   formLogin!: FormGroup;
@@ -59,7 +58,6 @@ export class LoginComponent {
     this._userService.login(user).subscribe({
       next: (data) => {
         this.loading = false;
-        localStorage.setItem('token', data.token);
         this.router.navigate(['/home'])
       },
       error: (e: HttpErrorResponse) => {

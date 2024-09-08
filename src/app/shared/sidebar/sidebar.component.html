@@ -36,7 +36,7 @@
         </span>
       </a>
     </li>
-    <li>
+    <li *ngIf="_userService.validateRoles([UserRoles.ROL_ADMIN])">
       <a [routerLink]="'/usuarios'" routerLinkActive="btn-primary" [routerLinkActiveOptions]="{ exact: true }" class="nav-link text-white">
         <span class="nav-item">
           <i class="fas fa-users me-2"></i>Usuarios
@@ -48,7 +48,7 @@
   <div class="mt-auto pt-3 pb-2 text-center" style="border-top: solid 1px #666">
     <div class="d-flex align-items-center gap-2 mt-2 mb-3 ms-3">
       <img  src="/assets/images/doctor.png" alt="Foto de perfil" class="rounded-circle" width="40" height="40">
-      <span class="text-white">{{getUserName()}}</span>
+      <span class="text-white">{{userName}}</span>
     </div>
     <div class="d-flex justify-content-center align-items-center gap-2 pt-2">
       <button class="btn btn-nav flex-grow-1 d-flex align-items-center justify-content-center" (click)="toggleConfigModal()">

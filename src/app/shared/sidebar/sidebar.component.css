@@ -3,7 +3,7 @@
   width: 280px;
   position: fixed;
   box-shadow: 4px 0 6px rgba(0, 0, 0, 0.2);
-  z-index: 2;
+  z-index: 1;
 }
 
 .selected {

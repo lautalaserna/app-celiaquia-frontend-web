@@ -1,17 +1,8 @@
+<div class="title-bar">
+  <h2 class="page-title">Cuidados para el Hogar</h2>
+</div>
 <div class="main-page container-fluid">
-  <div class="row mb-4">
-    <div class="col-12">
-      <h2 class="page-title">Cuidados para el Hogar</h2>
-      <hr>
-    </div>
-  </div>
-  
   <div class="container-fluid">
-    <div class="row d-flex justify-content-end">
-      <div class="col-2 d-flex justify-content-end">
-        <button class="btn btn-primary btn-shadow" [routerLink]="'/cuidado-detalle'" (click)="nuevoCuidado()">Nuevo Cuidado</button>
-      </div>
-    </div>
     <form [formGroup]="formFiltros">
       <div class="row align-items-end">
         <div class="col-3">
@@ -22,6 +13,12 @@
           <button class="btn btn-search btn-primary btn-shadow" (click)="listarCuidados()">
             <i *ngIf="!loading" class="fas fa-sm fa-search text-white"></i>
             <div *ngIf="loading" class="spinner-border spinner-border-sm text-white" role="status"></div>
+          </button>
+        </div>
+        <div class="col-6"></div>
+        <div class="col-2 d-flex justify-content-end">
+          <button class="btn btn-primary btn-shadow" [routerLink]="'/cuidado-detalle'" (click)="nuevoCuidado()">
+            <i class="fas fa-plus me-2"></i> Agregar
           </button>
         </div>
       </div>
@@ -43,53 +40,51 @@
           
           <tbody>
             <tr *ngFor="let cuidado of this.listCuidados, index as i">           
-              <td>
-                <div class="table-btns">
-                  <div class="dropend">
-                    <button type="button" class="btn btn-primary btn-shadow" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="fas fa-ellipsis-h text-white"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                      <li>
-                        <button class="dropdown-item custom-dropdown-item" (click)="verCuidadoSeleccionado(cuidado.cuidado_id)">
-                          <div class="d-flex align-items-center">
-                            <i class="fas fa-align-justify"></i>
-                            <span class="ms-2">Inspeccionar</span>
-                          </div>
-                        </button>
-                      </li>
-                      <li>
-                        <button class="dropdown-item custom-dropdown-item" (click)="toggleEliminarModal(cuidado.cuidado_id)">
-                          <div class="d-flex align-items-center">
-                            <i class="fas fa-trash"></i>
-                            <span class="ms-2">Eliminar</span>
-                          </div>
-                        </button>
-                      </li>
-                      <li>
-                        <button class="dropdown-item custom-dropdown-item" 
-                          [hidden]="!puedeCambiarPosicion" 
-                          [disabled]="i === 0" 
-                          (click)="moverCuidadoArriba(cuidado.cuidado_id)">
-                          <div class="d-flex align-items-center">
-                            <i class="fas fa-chevron-up"></i>
-                            <span class="ms-2">Mover arriba</span>
-                          </div>
-                        </button>
-                      </li>
-                      <li>
-                        <button class="dropdown-item custom-dropdown-item" 
-                          [hidden]="!puedeCambiarPosicion" 
-                          [disabled]="disableMoverAbajo(i)" 
-                          (click)="moverCuidadoAbajo(cuidado.cuidado_id)">
-                          <div class="d-flex align-items-center">
-                            <i class="fas fa-chevron-down"></i>
-                            <span class="ms-2">Mover abajo</span>
-                          </div>
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
+              <td class="align-middle text-center">
+                <div class="dropend">
+                  <button type="button" class="btn btn-primary btn-shadow" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-ellipsis-h text-white"></i>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-dark">
+                    <li>
+                      <button class="dropdown-item custom-dropdown-item" (click)="verCuidadoSeleccionado(cuidado.cuidado_id)">
+                        <div class="d-flex align-items-center">
+                          <i class="fas fa-align-justify"></i>
+                          <span class="ms-2">Inspeccionar</span>
+                        </div>
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item custom-dropdown-item" (click)="toggleEliminarModal(cuidado.cuidado_id)">
+                        <div class="d-flex align-items-center">
+                          <i class="fas fa-trash"></i>
+                          <span class="ms-2">Eliminar</span>
+                        </div>
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item custom-dropdown-item" 
+                        [hidden]="!puedeCambiarPosicion" 
+                        [disabled]="i === 0" 
+                        (click)="switchCuidadoUP(cuidado.cuidado_id)">
+                        <div class="d-flex align-items-center">
+                          <i class="fas fa-chevron-up"></i>
+                          <span class="ms-2">Mover arriba</span>
+                        </div>
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item custom-dropdown-item" 
+                        [hidden]="!puedeCambiarPosicion" 
+                        [disabled]="disableMoverAbajo(i)" 
+                        (click)="switchCuidadoDOWN(cuidado.cuidado_id)">
+                        <div class="d-flex align-items-center">
+                          <i class="fas fa-chevron-down"></i>
+                          <span class="ms-2">Mover abajo</span>
+                        </div>
+                      </button>
+                    </li>
+                  </ul>
                 </div>
               </td>
               <td class="align-middle">{{cuidado.titulo}}</td>

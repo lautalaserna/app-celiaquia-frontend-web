@@ -1,44 +1,40 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Usuario } from '../../interfaces/user';
-import { UserService } from '../../services/user.service';
+import { UserRoles, UserService } from '../../services/user.service';
 import { DialogModule } from 'primeng/dialog';
+import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, DialogModule],
+  imports: [RouterLink, RouterLinkActive, DialogModule, CommonModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+  subscription = new Subscription();
   displayConfigModal: boolean = false;
-  userLogeado!: Usuario;
+  UserRoles = UserRoles
+  userName: string = '';
 
   constructor(
     private router: Router,
-    private _userService: UserService,
+    public _userService: UserService,
   ){}
 
   ngOnInit(): void {
-    this._userService.getUserData().subscribe(user => {
-      this.userLogeado = user;
-      this.userLogeado.nombre = 'Lautaro';
-      this.userLogeado.apellido = 'Laserna';
-    })
+    this.userName = this._userService.getUserFullName();
   }
 
   logOut() {
     localStorage.removeItem('token');
-    this.router.navigate(['/login'])
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
   }
 
   toggleConfigModal() {
     this.displayConfigModal = !this.displayConfigModal
-  }
-
-  getUserName(): string {
-    if(!this.userLogeado?.nombre || !this.userLogeado?.apellido) return 'Usuario'
-    return this.userLogeado.nombre + " " + this.userLogeado.apellido
   }
 }

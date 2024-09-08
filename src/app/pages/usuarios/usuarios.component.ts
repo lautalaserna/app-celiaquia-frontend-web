@@ -7,14 +7,13 @@ import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { PaginatorModule } from 'primeng/paginator';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { SpinnerComponent } from '../../shared/spinner/spinner.component';
 import { AdminService } from '../../services/admin.service';
 import { Usuario } from '../../interfaces/user';
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule, SpinnerComponent],
+  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule],
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.css'
 })
@@ -42,8 +41,7 @@ export class UsuariosComponent {
 
   ngOnInit() {
     this.crearFormFiltros();
-    // this.listarUsuarios();
-    this.listarUsuariosFake();
+    this.listarUsuarios();
   }
 
   crearFormFiltros() {
@@ -56,51 +54,7 @@ export class UsuariosComponent {
   onPageChange(event: PageEvent): void{
     this.page = event.pageIndex;
     this.size = event.pageSize;
-    //this.listarUsuarios();
-    this.listarUsuariosFake();
-  }
-
-  listarUsuariosFake() {
-    this.total = 3;
-    this.listUsuarios = [
-      {
-        usuario_id: 1,
-        nombre: "Juan",
-        apellido: "Pérez",
-        dni: "12345678",
-        fnac: new Date(1985, 4, 15),
-        email: "juan.perez@example.com",
-        username: "jperez",
-        roles: [
-          { rol_id: 1, nombre: "Admin" },
-          { rol_id: 2, nombre: "Usuario" }
-        ]
-      },
-      {
-        usuario_id: 2,
-        nombre: "María",
-        apellido: "García",
-        dni: "87654321",
-        fnac: new Date(1990, 9, 22),
-        email: "maria.garcia@example.com",
-        username: "mgarcia",
-        roles: [
-          { rol_id: 2, nombre: "Usuario" }
-        ]
-      },
-      {
-        usuario_id: 3,
-        nombre: "Carlos",
-        apellido: "López",
-        dni: "11223344",
-        fnac: new Date(1978, 1, 5),
-        email: "carlos.lopez@example.com",
-        username: "clopez",
-        roles: [
-          { rol_id: 3, nombre: "Editor" }
-        ]
-      }
-    ];
+    this.listarUsuarios();
   }
 
   listarUsuarios() {
@@ -117,7 +71,7 @@ export class UsuariosComponent {
         // this.emailFilter
       ).subscribe({
         next: (data: any) => {
-          this.listUsuarios = data.content;
+          this.listUsuarios = data;
           this.total = data.totalElements;
         },
         error: (err) => {

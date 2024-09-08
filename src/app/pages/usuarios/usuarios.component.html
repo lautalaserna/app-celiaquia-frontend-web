@@ -1,17 +1,8 @@
+<div class="title-bar">
+  <h2 class="page-title">Gestión de Usuarios</h2>
+</div>
 <div class="main-page container-fluid">
-  <div class="row mb-4">
-    <div class="col-12">
-      <h2 class="page-title">Gestión de Usuarios</h2>
-      <hr>
-    </div>
-  </div>
-
   <div class="container-fluid">
-    <div class="row d-flex justify-content-end">
-      <div class="col-2 d-flex justify-content-end">
-        <button class="btn btn-primary btn-shadow" [routerLink]="'/usuario-detalle'" (click)="nuevoUsuario()">Crear Usuario</button>
-      </div>
-    </div>
     <form [formGroup]="formFiltros">
       <div class="row align-items-end">
         <div class="col-3">
@@ -28,6 +19,12 @@
             <div *ngIf="loading" class="spinner-border spinner-border-sm text-white" role="status"></div>
           </button>
         </div>
+        <div class="col-3"></div>
+        <div class="col-2 d-flex justify-content-end">
+          <button class="btn btn-primary btn-shadow" [routerLink]="'/usuario-detalle'" (click)="nuevoUsuario()">
+            <i class="fas fa-plus me-2"></i> Agregar
+          </button>
+        </div>
       </div>
     </form>
     <div class="row mt-4">
@@ -41,35 +38,32 @@
               <th scope="col" class="w-20">Usuario</th>
               <th scope="col" class="w-30">Email</th>
             </tr>
-          </thead>
-          
+          </thead> 
           <tbody>
             <tr *ngFor="let usuario of this.listUsuarios">
-              <td>
-                <div class="table-btns">
-                  <div class="dropend">
-                    <button type="button" class="btn btn-primary btn-shadow" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="fas fa-ellipsis-h text-white"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                      <li>
-                        <button class="dropdown-item custom-dropdown-item" (click)="verUsuarioSeleccionado(usuario.usuario_id)">
-                          <div class="d-flex align-items-center">
-                            <i class="fas fa-align-justify"></i>
-                            <span class="ms-2">Inspeccionar</span>
-                          </div>
-                        </button>
-                      </li>
-                      <li>
-                        <button class="dropdown-item custom-dropdown-item" (click)="toggleEliminarModal(usuario.usuario_id)">
-                          <div class="d-flex align-items-center">
-                            <i class="fas fa-trash"></i>
-                            <span class="ms-2">Eliminar</span>
-                          </div>
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
+              <td class="align-middle text-center">
+                <div class="dropend">
+                  <button type="button" class="btn btn-primary btn-shadow" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-ellipsis-h text-white"></i>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-dark">
+                    <li>
+                      <button class="dropdown-item custom-dropdown-item" (click)="verUsuarioSeleccionado(usuario.usuario_id)">
+                        <div class="d-flex align-items-center">
+                          <i class="fas fa-align-justify"></i>
+                          <span class="ms-2">Inspeccionar</span>
+                        </div>
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item custom-dropdown-item" (click)="toggleEliminarModal(usuario.usuario_id)">
+                        <div class="d-flex align-items-center">
+                          <i class="fas fa-trash"></i>
+                          <span class="ms-2">Eliminar</span>
+                        </div>
+                      </button>
+                    </li>
+                  </ul>
                 </div>
               </td>
               <td class="align-middle">{{usuario?.nombre + ' ' + usuario?.apellido}}</td>

@@ -2,11 +2,11 @@ export class Cuestionario {
   cuestionario_id!: number;
   pregunta!: string;
   posicion!:number;
-  isactive!:boolean;
-  respuestas!: Respuesta[];
+  //isactive!:boolean;
+  opciones!: Opcion[];
 }
 
-export class Respuesta {
-  respuesta_id!: number;
-  descripcion!: string;
+export class Opcion {
+  opcion_id!: number;
+  opcion!: string;
 }

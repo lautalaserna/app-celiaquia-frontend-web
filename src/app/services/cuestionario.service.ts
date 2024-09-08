@@ -9,7 +9,7 @@ import { Cuestionario } from '../interfaces/cuestionario';
 })
 export class CuestionarioService {
   baseUrl = env.endpoint;
-  apiUrl = '/api/cuestionario';
+  apiUrl = '/api/cuestionarios';
 
   constructor(private http: HttpClient) { }
 
@@ -33,16 +33,16 @@ export class CuestionarioService {
     return this.http.delete<Cuestionario>(`${this.baseUrl}${this.apiUrl}/${id}`);
   }
 
-  moveCuestionario(id: number, dir: MovimientoCuestionario) {
+  switchCuestionario(id: number, action: ActionCuestionario) {
     const body = {
       cuestionario_id: id,
-      movimiento: dir
+      action: action
     }
-    return this.http.post<Cuestionario>(`${this.baseUrl}${this.apiUrl}/mover`,body);
+    return this.http.post<Cuestionario>(`${this.baseUrl}${this.apiUrl}/switch`,body);
   }
 }
 
-export enum MovimientoCuestionario {
-  ARRIBA = 'ARRIBA',
-  ABAJO = 'ABAJO'
+export enum ActionCuestionario {
+  UP = 'up',
+  DOWN = 'down'
 }

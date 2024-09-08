@@ -24,7 +24,7 @@
                         <button type="button" class="btn btn-primary btn-lg" [disabled]="formLogin.invalid" (click)="login()">Ingresar</button>
                     </div>
                 </form>
-                <app-spinner *ngIf="loading"></app-spinner>
+                <div *ngIf="loading" class="spinner-border text-primary" style="width: 5rem; height: 5rem;" role="status"></div>
             </div>
         </div>
         <div class="col-md-8 bg-image d-flex flex-column align-items-left justify-content-center">

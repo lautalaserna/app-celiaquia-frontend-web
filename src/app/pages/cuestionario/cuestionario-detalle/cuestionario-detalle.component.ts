@@ -3,14 +3,13 @@ import { ActivatedRoute, NavigationExtras, Router, RouterLink } from '@angular/r
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { SpinnerComponent } from '../../../shared/spinner/spinner.component';
 import { CuestionarioService } from '../../../services/cuestionario.service';
-import { Cuestionario, Respuesta } from '../../../interfaces/cuestionario';
+import { Cuestionario, Opcion } from '../../../interfaces/cuestionario';
 
 @Component({
   selector: 'app-cuestionario-detalle',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, SpinnerComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './cuestionario-detalle.component.html',
   styleUrl: './cuestionario-detalle.component.css'
 })
@@ -35,22 +34,9 @@ export class CuestionarioDetalleComponent {
     if(id){
       this.soloLectura = true;
       this.cuestionario = this.route.snapshot.data['cuestionario'];
+      console.log(this.cuestionario);
     } else {
       this.esNuevo = true;
-    }
-
-    // Borrar este hardcode :)
-    this.cuestionario = {
-      cuestionario_id: 1,
-      pregunta: "¿Cuánto tiempo hace que te diagnosticaron con enfermedad celíaca?",
-      posicion: 1,
-      isactive: true,
-      respuestas: [
-        { respuesta_id: 1, descripcion: "Menos de 1 año" },
-        { respuesta_id: 2, descripcion: "1-3 años" },
-        { respuesta_id: 3, descripcion: "3-5 años" },
-        { respuesta_id: 4, descripcion: "Más de 5 años" }
-      ]
     }
 
     this.crearForm();
@@ -60,29 +46,29 @@ export class CuestionarioDetalleComponent {
     this.formCuestionario = this.formBuilder.group({
       cuestionario_id: new FormControl({value: this.cuestionario?.cuestionario_id ? this.cuestionario.cuestionario_id : 0, disabled: true}),
       pregunta: new FormControl({value: this.cuestionario?.pregunta ? this.cuestionario.pregunta : null, disabled: this.soloLectura}, [Validators.required, Validators.maxLength(200)]),
-      isactive: new FormControl({value: this.cuestionario?.isactive ? this.cuestionario.isactive : true, disabled: true}),
+      //isactive: new FormControl({value: this.cuestionario?.isactive ? this.cuestionario.isactive : true, disabled: true}),
       posicion: new FormControl({value: this.cuestionario?.posicion ? this.cuestionario.posicion : 0, disabled: true}),
-      respuestas: this.formBuilder.array(this.cuestionario?.respuestas ? this.cuestionario.respuestas.map(respuesta => this.crearRespuesta(respuesta)) : [])
+      opciones: this.formBuilder.array(this.cuestionario?.opciones ? this.cuestionario.opciones.map(opcion => this.crearOpciones(opcion)) : [])
     });
   }
   
-  crearRespuesta(respuesta?: Respuesta): FormGroup {
+  crearOpciones(opcion?: Opcion): FormGroup {
     return this.formBuilder.group({
-      respuesta_id: new FormControl(respuesta?.respuesta_id || 0),
-      descripcion: new FormControl(respuesta?.descripcion || '', Validators.required)
+      opcion_id: new FormControl({value: opcion?.opcion_id ? opcion.opcion_id : 0, disabled: this.soloLectura}),
+      opcion: new FormControl({value: opcion?.opcion ? opcion.opcion : null, disabled: this.soloLectura}, Validators.required)
     });
   }
   
-  get respuestas(): FormArray {
-    return this.formCuestionario.get('respuestas') as FormArray;
+  get opciones(): FormArray {
+    return this.formCuestionario.get('opciones') as FormArray;
   }
   
-  agregarRespuesta() {
-    this.respuestas.push(this.crearRespuesta());
+  agregarOpcion() {
+    this.opciones.push(this.crearOpciones());
   }
   
-  eliminarRespuesta(index: number) {
-    this.respuestas.removeAt(index);
+  eliminarOpcion(index: number) {
+    this.opciones.removeAt(index);
   }
 
   limpiarCuestionario() {
@@ -94,7 +80,7 @@ export class CuestionarioDetalleComponent {
     const body = this.formCuestionario.getRawValue() as Cuestionario;
     this.loading= true;
 
-    this._cuestionarioService.createCuestionario(body).subscribe({
+   this._cuestionarioService.createCuestionario(body).subscribe({
       next: (data) => {
         this.loading= false;
         this.router.navigate(['/cuestionario'])
@@ -108,8 +94,8 @@ export class CuestionarioDetalleComponent {
 
   toggleSoloLectura() {
     this.soloLectura = !this.soloLectura;
-    this.formCuestionario.get('titulo')?.enable();
-    this.formCuestionario.get('descripcion')?.enable();
+    this.formCuestionario.get('pregunta')?.enable();
+    this.formCuestionario.get('opciones')?.enable();
   }
 
 }

@@ -2,7 +2,5 @@
   position: relative;
   margin-left: 280px;
   min-height: calc(100vh);
-  background-color: #fdfbff;
-  /* top: var(--navbar-height); */
-  /* min-height: calc(100vh - var(--navbar-height)); */
+  background-color: #f2f2f2;
 }

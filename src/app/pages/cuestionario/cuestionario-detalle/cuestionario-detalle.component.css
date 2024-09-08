@@ -1,24 +1,64 @@
 .main-page {
+  box-sizing: border-box;
   padding: 2vw;
-  min-height: calc(100vh - var(--navbar-height));
+  width: calc(100% - 40px);
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2), 0 0 6px rgba(0, 0, 0, 0.05);
+  background-color: #fefefe;
+}
+
+.title-bar {
+  background-color: #1964d4;
+  height: 100px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding-left: 2rem;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
 }
 
 .page-title {
   margin: 0;
-  font-size: 32px;
+  font-size: 25px;
   font-weight: 400;
 }
 
-.main-page hr {
-  margin: 0;
-  margin-top: 8px;
+.table-header th {
+  padding: 15px;
+  padding-left: 10px;
+  font-size: 16px;
+  color: #fff;
+  border: solid 1px #343a40;
+  background-color: #343a40;
 }
 
-.btn-delete {
-  width: 40px;
-  height: 36px;
+.btn-search {
+  width: 44px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0px;
+}
+
+.custom-dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.custom-dropdown-item i {
+  width: 20px;
+  text-align: center;
+}
+
+.custom-dropdown-item span {
+  flex-grow: 1;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.dropdown-item {
+  height: 38px;
 }

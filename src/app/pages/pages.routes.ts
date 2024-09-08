@@ -10,6 +10,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { UsuarioDetalleComponent } from './usuarios/usuario-detalle/usuario-detalle.component';
 import { CuestionarioResolverService } from '../services/cuestionario-resolver.service';
 import { CuestionarioDetalleComponent } from './cuestionario/cuestionario-detalle/cuestionario-detalle.component';
+import { UsuariosResolverService } from '../services/usuarios-resolver.service';
 
 export const pagesRoutes: Routes = [
   { 
@@ -35,7 +36,7 @@ export const pagesRoutes: Routes = [
     path: 'cuestionario-detalle',
     component: CuestionarioDetalleComponent,
     resolve: {
-      cuidadoHogar: CuestionarioResolverService
+      cuestionario: CuestionarioResolverService
     }
   },
   { 
@@ -54,7 +55,7 @@ export const pagesRoutes: Routes = [
     path: 'usuario-detalle',
     component: UsuarioDetalleComponent,
     resolve: {
-      cuidadoHogar: CuidadosResolverService
+      usuario: UsuariosResolverService
     }
   },
 ];

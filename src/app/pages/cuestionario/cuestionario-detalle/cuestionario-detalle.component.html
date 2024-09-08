@@ -1,12 +1,9 @@
+<div class="title-bar">
+  <h2 class="page-title">Pregunta de Cuestionario</h2>
+</div>
 <div class="main-page container-fluid">
-  <div class="row mb-5">
-    <div class="col-12">
-      <h2 class="page-title">Pregunta de Cuestionario</h2>
-      <hr>
-    </div>
-  </div>
   <div class="container-fluid">
-    <form *ngIf="!loading" [formGroup]="formCuestionario" class="mb-3">
+    <form [formGroup]="formCuestionario" class="mb-3">
       <div class="row">
         <div class="col-12">
           <label class="is-required mb-1"><strong>Pregunta</strong></label>
@@ -21,18 +18,18 @@
       <div class="row mt-3">
         <div class="col-12">
           <div class="form-group">
-            <label class="is-required mb-1"><strong>Posibles respuestas</strong></label>
-            <div formArrayName="respuestas">
-              <div *ngFor="let respuesta of respuestas.controls; let i = index" [formGroupName]="i">
+            <label class="is-required mb-1"><strong>Opciones</strong></label>
+            <div formArrayName="opciones">
+              <div *ngFor="let opcion of opciones.controls; let i = index" [formGroupName]="i">
                 <div class="row">
                   <div class="col-10 mt-2 mb-1">
-                    <input type="text" class="form-control" formControlName="descripcion" [ngClass]="{'is-invalid': respuesta.get('descripcion')?.invalid && respuesta.get('descripcion')?.touched}">
-                    <div class="invalid-feedback" *ngIf="respuesta.get('descripcion')?.hasError('required') && respuesta.get('descripcion')?.touched">
-                      Descripción requerida
+                    <input type="text" class="form-control" formControlName="opcion" [ngClass]="{'is-invalid': opcion.get('opcion')?.invalid && opcion.get('opcion')?.touched}">
+                    <div class="invalid-feedback" *ngIf="opcion.get('opcion')?.hasError('required') && opcion.get('opcion')?.touched">
+                      Campo requerido
                     </div>
                   </div>
                   <div class="col-1 mt-2 mb-1 ps-0">
-                    <button class="btn btn-delete btn-danger btn-shadow" type="button" (click)="eliminarRespuesta(i)">
+                    <button class="btn btn-delete btn-danger btn-shadow" type="button" [hidden]="this.soloLectura" (click)="eliminarOpcion(i)">
                       <i class="fas fa-trash"></i>
                     </button>
                   </div>
@@ -41,8 +38,8 @@
             </div>
             <div class="row">
               <div class="col-12 d-flex justify-content-start mt-3 mb-4">
-                <button class="btn btn-primary btn-shadow" type="button" (click)="agregarRespuesta()">
-                  <i class="fas fa-plus"></i> Agregar respuesta
+                <button class="btn btn-primary btn-shadow" type="button" (click)="agregarOpcion()" [hidden]="this.soloLectura">
+                  <i class="fas fa-plus"></i> Agregar opción
                 </button>
               </div>
             </div>
@@ -58,6 +55,5 @@
         </div>
       </div>
     </form>
-    <app-spinner *ngIf="loading"></app-spinner>
   </div>
 </div>

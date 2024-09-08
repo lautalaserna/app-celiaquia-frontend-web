@@ -4,14 +4,13 @@ import { CuidadoHogar } from '../../../interfaces/cuidados';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { SpinnerComponent } from '../../../shared/spinner/spinner.component';
 import { Usuario } from '../../../interfaces/user';
 import { AdminService } from '../../../services/admin.service';
 
 @Component({
   selector: 'app-usuario-detalle',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, SpinnerComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './usuario-detalle.component.html',
   styleUrl: './usuario-detalle.component.css'
 })
@@ -35,7 +34,9 @@ export class UsuarioDetalleComponent {
 
     if(id){
       this.soloLectura = true;
-      this.usuario = this.route.snapshot.data['cuidadoHogar'];
+      this.usuario = this.route.snapshot.data['usuario'];
+      console.log(this.usuario);
+      
     } else {
       this.esNuevo = true;
     }
@@ -45,15 +46,15 @@ export class UsuarioDetalleComponent {
 
   crearForm() {
     this.formUsuarios = this.formBuilder.group({
-      usuario_id: new FormControl(this.usuario?.usuario_id ? this.usuario.usuario_id : 0, [Validators.required, Validators.maxLength(200)]),
-      nombre: new FormControl(this.usuario?.nombre ? this.usuario.nombre : null, [Validators.required, Validators.maxLength(200)]),
-      apellido: new FormControl(this.usuario?.apellido ? this.usuario.apellido : null, [Validators.required, Validators.maxLength(200)]),
-      dni: new FormControl(this.usuario?.dni ? this.usuario.dni : null, [Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern(/^\d{8}$/)]),
-      fnac: new FormControl(this.usuario?.fnac ? this.usuario.fnac : null, [Validators.required]),
-      email: new FormControl(this.usuario?.email ? this.usuario.email : null, [Validators.required, Validators.email, Validators.maxLength(200)]),
-      username: new FormControl(this.usuario?.username ? this.usuario.username : null, [Validators.required, Validators.maxLength(200)]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(200)]),
-      confirmPassword: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(200)]),
+      usuario_id: new FormControl({value: this.usuario?.usuario_id ? this.usuario.usuario_id : 0, disabled: true}, [Validators.required, Validators.maxLength(200)]),
+      nombre: new FormControl({value: this.usuario?.nombre ? this.usuario.nombre : null, disabled: true}, [Validators.required, Validators.maxLength(200)]),
+      apellido: new FormControl({value: this.usuario?.apellido ? this.usuario.apellido : null, disabled: true}, [Validators.required, Validators.maxLength(200)]),
+      dni: new FormControl({value: this.usuario?.dni ? this.usuario.dni : null, disabled: true}, [Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern(/^\d{8}$/)]),
+      fnac: new FormControl({value: this.usuario?.fnac ? this.usuario.fnac : null, disabled: true}, [Validators.required]),
+      email: new FormControl({value: this.usuario?.email ? this.usuario.email : null, disabled: true}, [Validators.required, Validators.email, Validators.maxLength(200)]),
+      username: new FormControl({value: this.usuario?.username ? this.usuario.username : null, disabled: true}, [Validators.required, Validators.maxLength(200)]),
+      password: new FormControl({value: null, disabled: true}, [Validators.minLength(8), Validators.maxLength(200)]),
+      confirmPassword: new FormControl({value: null, disabled: true}, [Validators.minLength(8), Validators.maxLength(200)]),
     });
   }  
 

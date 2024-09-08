@@ -1,17 +1,8 @@
+<div class="title-bar">
+  <h2 class="page-title">Cuestionario de Ingreso</h2>
+</div>
 <div class="main-page container-fluid">
-  <div class="row mb-4">
-    <div class="col-12">
-      <h2 class="page-title">Cuestionario de Ingreso</h2>
-      <hr>
-    </div>
-  </div>
-  
   <div class="container-fluid">
-    <div class="row d-flex justify-content-end">
-      <div class="col-2 d-flex justify-content-end">
-        <button class="btn btn-primary btn-shadow" [routerLink]="'/cuestionario-detalle'" (click)="nuevoCuestionario()">Agregar Pregunta</button>
-      </div>
-    </div>
     <form [formGroup]="formFiltros">
       <div class="row align-items-end">
         <div class="col-3">
@@ -22,6 +13,12 @@
           <button class="btn btn-search btn-primary btn-shadow" (click)="listarCuestionario()">
             <i *ngIf="!loading" class="fas fa-sm fa-search text-white"></i>
             <div *ngIf="loading" class="spinner-border spinner-border-sm text-white" role="status"></div>
+          </button>
+        </div>
+        <div class="col-6"></div>
+        <div class="col-2 d-flex justify-content-end">
+          <button class="btn btn-primary btn-shadow" [routerLink]="'/cuestionario-detalle'" (click)="nuevoCuestionario()">
+            <i class="fas fa-plus me-2"></i> Agregar
           </button>
         </div>
       </div>
@@ -38,53 +35,51 @@
           
           <tbody>
             <tr *ngFor="let cuestionario of this.listCuestionario, index as i">
-              <td>
-                <div class="table-btns">
-                  <div class="dropend">
-                    <button type="button" class="btn btn-primary btn-shadow" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="fas fa-ellipsis-h text-white"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                      <li>
-                        <button class="dropdown-item custom-dropdown-item" (click)="verCuestionarioSeleccionado(cuestionario.cuestionario_id)">
-                          <div class="d-flex align-items-center">
-                            <i class="fas fa-align-justify"></i>
-                            <span class="ms-2">Inspeccionar</span>
-                          </div>
-                        </button>
-                      </li>
-                      <li>
-                        <button class="dropdown-item custom-dropdown-item" (click)="toggleEliminarModal(cuestionario.cuestionario_id)">
-                          <div class="d-flex align-items-center">
-                            <i class="fas fa-trash"></i>
-                            <span class="ms-2">Eliminar</span>
-                          </div>
-                        </button>
-                      </li>
-                      <li>
-                        <button class="dropdown-item custom-dropdown-item" 
-                          [hidden]="!puedeCambiarPosicion" 
-                          [disabled]="i === 0" 
-                          (click)="moverCuestionarioArriba(cuestionario.cuestionario_id)">
-                          <div class="d-flex align-items-center">
-                            <i class="fas fa-chevron-up"></i>
-                            <span class="ms-2">Mover arriba</span>
-                          </div>
-                        </button>
-                      </li>
-                      <li>
-                        <button class="dropdown-item custom-dropdown-item" 
-                          [hidden]="!puedeCambiarPosicion" 
-                          [disabled]="disableMoverAbajo(i)" 
-                          (click)="moverCuestionarioAbajo(cuestionario.cuestionario_id)">
-                          <div class="d-flex align-items-center">
-                            <i class="fas fa-chevron-down"></i>
-                            <span class="ms-2">Mover abajo</span>
-                          </div>
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
+              <td class="align-middle text-center">
+                <div class="dropend">
+                  <button type="button" class="btn btn-primary btn-shadow" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-ellipsis-h text-white"></i>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-dark">
+                    <li>
+                      <button class="dropdown-item custom-dropdown-item" (click)="verCuestionarioSeleccionado(cuestionario.cuestionario_id)">
+                        <div class="d-flex align-items-center">
+                          <i class="fas fa-align-justify"></i>
+                          <span class="ms-2">Inspeccionar</span>
+                        </div>
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item custom-dropdown-item" (click)="toggleEliminarModal(cuestionario.cuestionario_id)">
+                        <div class="d-flex align-items-center">
+                          <i class="fas fa-trash"></i>
+                          <span class="ms-2">Eliminar</span>
+                        </div>
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item custom-dropdown-item" 
+                        [hidden]="!puedeCambiarPosicion" 
+                        [disabled]="i === 0" 
+                        (click)="switchCuestionarioUp(cuestionario.cuestionario_id)">
+                        <div class="d-flex align-items-center">
+                          <i class="fas fa-chevron-up"></i>
+                          <span class="ms-2">Mover arriba</span>
+                        </div>
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item custom-dropdown-item" 
+                        [hidden]="!puedeCambiarPosicion" 
+                        [disabled]="disableMoverAbajo(i)" 
+                        (click)="switchCuestionarioDown(cuestionario.cuestionario_id)">
+                        <div class="d-flex align-items-center">
+                          <i class="fas fa-chevron-down"></i>
+                          <span class="ms-2">Mover abajo</span>
+                        </div>
+                      </button>
+                    </li>
+                  </ul>
                 </div>
               </td>
               <td class="align-middle">{{cuestionario.pregunta}}</td>

@@ -14,7 +14,7 @@ export class AdminService {
   constructor(private http: HttpClient) { }
 
   getUsuario(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}${this.apiUrl}/${id}`);
+    return this.http.get<any>(`${this.baseUrl}${this.apiUrl}/users/${id}`);
   }
 
   listAllUsuarios(): Observable<any> {

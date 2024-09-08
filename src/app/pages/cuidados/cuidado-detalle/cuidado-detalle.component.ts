@@ -5,12 +5,11 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { CommonModule } from '@angular/common';
 import { CuidadosService } from '../../../services/cuidados.service';
 import { ToastrService } from 'ngx-toastr';
-import { SpinnerComponent } from '../../../shared/spinner/spinner.component';
 
 @Component({
   selector: 'app-cuidado-detalle',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, SpinnerComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './cuidado-detalle.component.html',
   styleUrl: './cuidado-detalle.component.css'
 })
@@ -47,7 +46,7 @@ export class CuidadoDetalleComponent {
       cuidado_id: new FormControl({value: this.cuidadoHogar?.cuidado_id ? this.cuidadoHogar.cuidado_id : 0, disabled: true}),
       titulo: new FormControl({value: this.cuidadoHogar?.titulo ? this.cuidadoHogar.titulo : null, disabled: this.soloLectura}, [Validators.required, Validators.maxLength(200)]),
       descripcion: new FormControl({value: this.cuidadoHogar?.descripcion ? this.cuidadoHogar.descripcion : null, disabled: this.soloLectura}, [Validators.required, Validators.maxLength(2000)]),
-      isactive: new FormControl({value: this.cuidadoHogar?.isactive ? this.cuidadoHogar.isactive : true, disabled: true}),
+      //isactive: new FormControl({value: this.cuidadoHogar?.isactive ? this.cuidadoHogar.isactive : true, disabled: true}),
       posicion: new FormControl({value: this.cuidadoHogar?.posicion ? this.cuidadoHogar.posicion : 0, disabled: true}),
     })
   }

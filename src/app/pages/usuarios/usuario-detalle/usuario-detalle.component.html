@@ -1,12 +1,9 @@
+<div class="title-bar">
+  <h2 class="page-title">Usuario</h2>
+</div>
 <div class="main-page container-fluid">
-  <div class="row mb-5">
-    <div class="col-12">
-      <h2 class="page-title">Usuario</h2>
-      <hr>
-    </div>
-  </div>
   <div class="container-fluid">
-    <form *ngIf="!loading" [formGroup]="formUsuarios" class="mb-3">
+    <form [formGroup]="formUsuarios" class="mb-3">
       
       <div class="row">
         <div class="col-12">
@@ -100,6 +97,5 @@
         </div>
       </div>
     </form>
-    <app-spinner *ngIf="loading"></app-spinner>
   </div>
 </div>

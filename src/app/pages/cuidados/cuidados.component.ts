@@ -5,16 +5,14 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { CommonModule } from '@angular/common';
 import { PaginatorModule } from 'primeng/paginator';
 import { ActivatedRoute, NavigationStart, Router, RouterLink } from '@angular/router';
-import { CuidadosService, MovimientoCuidado } from '../../services/cuidados.service';
+import { ActionCuidadoHogar, CuidadosService } from '../../services/cuidados.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { SpinnerComponent } from "../../shared/spinner/spinner.component";
-import { MovimientoCuestionario } from '../../services/cuestionario.service';
 
 @Component({
   selector: 'app-cuidados',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule, SpinnerComponent],
+  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule],
   templateUrl: './cuidados.component.html',
   styleUrl: './cuidados.component.css'
 })
@@ -113,14 +111,16 @@ export class CuidadosComponent {
     this.router.navigate(['/cuidado-detalle'],{ queryParams: { id: cuidadoId } });
   }
 
-  moverCuidadoArriba(id:number) {
-    // this._cuidadosService.moveCuestionario(id, MovimientoCuidado.ARRIBA); 
-    this.listarCuidados();
+  switchCuidadoUP(id:number) {
+    this._cuidadosService.switchCuidadoHogar(id, ActionCuidadoHogar.UP).subscribe(res => {
+      this.listarCuidados();
+    }); 
   }
 
-  moverCuidadoAbajo(id:number) {
-    // this._cuidadosService.moveCuestionario(id, MovimientoCuidado.ABAJO);
-    this.listarCuidados();
+  switchCuidadoDOWN(id:number) {
+    this._cuidadosService.switchCuidadoHogar(id, ActionCuidadoHogar.DOWN).subscribe(res => {
+      this.listarCuidados();
+    });
   }
 
   disableMoverAbajo(i:number ): boolean {

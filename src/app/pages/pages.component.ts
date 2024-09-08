@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from '../shared/sidebar/sidebar.component';
 
@@ -8,7 +7,7 @@ import { SidebarComponent } from '../shared/sidebar/sidebar.component';
   standalone: true,
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.css'],
-  imports: [NavbarComponent, SidebarComponent, RouterOutlet]
+  imports: [SidebarComponent, RouterOutlet]
 })
 export class PagesComponent implements OnInit {
   showSideBar:boolean = true;

@@ -13,17 +13,3 @@ export class Rol {
   rol_id!: number;
   nombre!: string;
 } 
-
-export interface IUsuario {
-  usuario_id: number,
-  username: string,
-  password: string,
-  email: string,
-  fnac: Date,
-  roles: Rol[],
-}
-
-export interface Rol {
-  rol_id: number,
-  nombre: string,
-}
