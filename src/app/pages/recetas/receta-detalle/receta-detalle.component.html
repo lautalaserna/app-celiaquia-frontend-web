@@ -1,0 +1,59 @@
+<div class="title-bar">
+  <h2 class="page-title">Receta</h2>
+</div>
+<div class="main-page container-fluid">
+  <div class="container-fluid">
+    <form [formGroup]="formReceta" class="mb-3">
+      <div class="row">
+        <div class="col-12">
+          <label class="is-required mb-1"><strong>Titulo</strong></label>
+          <input type="text" class="form-control" formControlName="pregunta" maxlength="200"
+              [ngClass]="!formReceta.get('titulo')?.touched ? '' :formReceta.get('titulo')?.valid ? '': 'is-invalid' ">
+          <div class="invalid-feedback" *ngIf="formReceta.get('titulo')?.hasError('required') && formReceta.get('titulo')?.touched">
+            Campo requerido
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="form-group">
+            <label class="is-required mb-1"><strong>Ingredientes</strong></label>
+            <div formArrayName="opciones">
+              <div *ngFor="let ingrediente of ingredientes.controls; let i = index" [formGroupName]="i">
+                <div class="row">
+                  <div class="col-10 mt-2 mb-1">
+                    <input type="text" class="form-control" formControlName="ingrediente" [ngClass]="{'is-invalid': ingrediente.get('alimento')?.invalid && ingrediente.get('alimento')?.touched}">
+                    <div class="invalid-feedback" *ngIf="ingrediente.get('alimento')?.hasError('required') && ingrediente.get('alimento')?.touched">
+                      Campo requerido
+                    </div>
+                  </div>
+                  <div class="col-1 mt-2 mb-1 ps-0">
+                    <button class="btn btn-delete btn-danger btn-shadow" type="button" [hidden]="this.soloLectura" (click)="eliminarIngrediente(i)">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 d-flex justify-content-start mt-3 mb-4">
+                <button class="btn btn-primary btn-shadow" type="button" (click)="agregarIngrediente()" [hidden]="this.soloLectura">
+                  <i class="fas fa-plus"></i> Agregar ingrediente
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12 d-flex justify-content-between">
+          <button class="btn btn-secondary btn-shadow" (click)="limpiarCuestionario()">Volver</button>
+          <button class="btn btn-primary btn-shadow" *ngIf="!this.esNuevo && this.soloLectura" (click)="toggleSoloLectura()">Editar</button>
+          <button class="btn btn-primary btn-shadow" *ngIf="this.esNuevo || !this.soloLectura" [disabled]="!this.formReceta.valid" (click)="guardarCuestionario()">Guardar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

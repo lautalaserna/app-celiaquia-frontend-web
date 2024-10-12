@@ -1,0 +1,7 @@
+<p-dialog [(visible)]="showDialog" [header]="title" [modal]="true" [closable]="false">
+  <p>{{ message }}</p>
+  <p-footer>
+    <button type="button" class="btn btn-search btn-secondary btn-shadow me-2" (click)="onCancel()">Cancelar</button>
+    <button type="button" class="btn btn-search btn-primary btn-shadow" (click)="onConfirm()">Confirmar</button>
+  </p-footer>
+</p-dialog>

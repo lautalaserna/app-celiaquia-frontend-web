@@ -8,11 +8,12 @@ import { ToastrService } from 'ngx-toastr';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Cuestionario } from '../../interfaces/cuestionario';
 import { ActionCuestionario, CuestionarioService } from '../../services/cuestionario.service';
+import { ModalConfirmarComponent } from "../../shared/modal-confirmar/modal-confirmar.component";
 
 @Component({
   selector: 'app-cuestionario',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule],
+  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule, ModalConfirmarComponent],
   templateUrl: './cuestionario.component.html',
   styleUrl: './cuestionario.component.css'
 })

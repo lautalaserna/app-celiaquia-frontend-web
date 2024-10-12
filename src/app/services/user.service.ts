@@ -1,8 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { env } from '../../env/environment';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Usuario } from '../interfaces/user';
-import { BehaviorSubject, Observable, Observer, tap } from 'rxjs';
+import { env } from '../../env/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,8 @@ import { BehaviorSubject, Observable, Observer, tap } from 'rxjs';
 export class UserService {
   appUrl = env.endpoint;
   apiUrl = '/api/auth';
-  userLogeado = null;
+  private userSubject = new BehaviorSubject<Usuario | null>(this.getUserData());
+  public user$ = this.userSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -20,9 +21,8 @@ export class UserService {
         if (response && response.token) {
           this.storeToken(response.token);
           this.getUser().subscribe(user => {
-            if(user && user.data){
-              localStorage.setItem('user', JSON.stringify(user.data));
-              this.userLogeado = user.data;
+            if (user && user.data) {
+              this.storeUserData(user.data);
             }
           });
         }
@@ -34,34 +34,40 @@ export class UserService {
     localStorage.setItem('token', token);
   }
 
+  private storeUserData(user: Usuario): void {
+    localStorage.setItem('user', JSON.stringify(user));
+    this.userSubject.next(user);
+  }
+
   getUser(): Observable<any> {
-    return this.http.get<any>(`${this.appUrl}${this.apiUrl}/user`)
+    return this.http.get<any>(`${this.appUrl}${this.apiUrl}/user`);
   }
 
   getUserData(): Usuario | null {
     const storedUser = localStorage.getItem('user');
-    if (storedUser) return JSON.parse(storedUser);
-    return null;
+    return storedUser ? JSON.parse(storedUser) : null;
   }
-  
-  getUserFullName():string {
+
+  getUserFullName(): string {
     const user = this.getUserData();
-    if(!user) return 'Usuario'
-    return user.nombre + ' ' + user.apellido; 
+    return user ? `${user.nombre} ${user.apellido}` : 'Usuario';
   }
 
   validateRoles(roles: UserRoles[]): boolean {
     const user = this.getUserData();
-    if(user && user.roles){
-      return roles.every(roleParam => 
-        user.roles.some(userRole => userRole.nombre === roleParam)
-      );
-    }
-    return false;
+    return user && user.roles
+      ? roles.every(role => user.roles.some(userRole => userRole.nombre === role))
+      : false;
+  }
+
+  logOut(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.userSubject.next(null);
   }
 }
 
 export enum UserRoles {
-  ROL_DEFAULT = "ROL_DEFAULT",
-  ROL_ADMIN = "ROL_ADMIN"
+  ROL_DEFAULT = 'ROL_DEFAULT',
+  ROL_ADMIN = 'ROL_ADMIN'
 }

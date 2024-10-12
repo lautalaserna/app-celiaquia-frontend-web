@@ -26,10 +26,10 @@ export class AdminService {
   }
 
   createUsuario(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(`${this.baseUrl}${this.apiUrl}`, usuario);
+    return this.http.post<Usuario>(`${this.baseUrl}${this.apiUrl}/users`, usuario);
   }
 
   deleteUsuario(id: number): Observable<Usuario> {
-    return this.http.delete<Usuario>(`${this.baseUrl}${this.apiUrl}/${id}`);
+    return this.http.delete<Usuario>(`${this.baseUrl}${this.apiUrl}/users/${id}`);
   }
 }

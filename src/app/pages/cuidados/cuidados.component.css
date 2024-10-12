@@ -5,13 +5,13 @@
   margin: 20px;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2), 0 0 6px rgba(0, 0, 0, 0.05);
-  background-color: #fefefe;
+  background-color: #fdfbff;
 }
 
 .title-bar {
   background-color: #1964d4;
   height: 100px;
-  color: #fff;
+  color: #fdfbff;
   display: flex;
   align-items: center;
   padding-left: 2rem;
@@ -28,7 +28,7 @@
   padding: 15px;
   padding-left: 10px;
   font-size: 16px;
-  color: #fff;
+  color: #fdfbff;
   border: solid 1px #343a40;
   background-color: #343a40;
 }

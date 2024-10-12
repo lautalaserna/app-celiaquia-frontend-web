@@ -8,11 +8,12 @@ import { ActivatedRoute, NavigationStart, Router, RouterLink } from '@angular/ro
 import { ActionCuidadoHogar, CuidadosService } from '../../services/cuidados.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { ModalConfirmarComponent } from "../../shared/modal-confirmar/modal-confirmar.component";
 
 @Component({
   selector: 'app-cuidados',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule],
+  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule, ModalConfirmarComponent],
   templateUrl: './cuidados.component.html',
   styleUrl: './cuidados.component.css'
 })

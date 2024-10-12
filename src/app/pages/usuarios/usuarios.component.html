@@ -78,3 +78,11 @@
     </div>
   </div>
 </div>
+
+<app-modal-confirmar
+  [title]="'Eliminar usuario'"
+  [message]="'¿Está seguro que desea eliminar este usuario?'"
+  [(showDialog)]="displayEliminarModal"
+  (confirm)="eliminarUsuario()"
+  (cancel)="displayEliminarModal = false">
+</app-modal-confirmar>

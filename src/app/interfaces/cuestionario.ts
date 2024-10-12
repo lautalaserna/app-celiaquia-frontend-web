@@ -2,7 +2,6 @@ export class Cuestionario {
   cuestionario_id!: number;
   pregunta!: string;
   posicion!:number;
-  //isactive!:boolean;
   opciones!: Opcion[];
 }
 

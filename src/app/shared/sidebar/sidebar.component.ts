@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
-  subscription = new Subscription();
+  subscription: Subscription = new Subscription();
   displayConfigModal: boolean = false;
   UserRoles = UserRoles
   userName: string = '';
@@ -25,16 +25,21 @@ export class SidebarComponent {
   ){}
 
   ngOnInit(): void {
-    this.userName = this._userService.getUserFullName();
+    this.subscription = this._userService.user$.subscribe((user: Usuario | null) => {
+      this.userName = user ? `${user.nombre} ${user.apellido}` : 'Usuario';
+    });
   }
 
-  logOut() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+  logOut(): void {
+    this._userService.logOut();
     this.router.navigate(['/login']);
   }
 
   toggleConfigModal() {
     this.displayConfigModal = !this.displayConfigModal
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

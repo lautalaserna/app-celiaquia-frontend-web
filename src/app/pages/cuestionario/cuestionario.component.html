@@ -5,7 +5,7 @@
   <div class="container-fluid">
     <form [formGroup]="formFiltros">
       <div class="row align-items-end">
-        <div class="col-3">
+        <div class="col-5">
           <label class="mb-1"><strong>Pregunta</strong></label>
           <input type="text" class="form-control" formControlName="pregunta">
         </div>
@@ -15,7 +15,7 @@
             <div *ngIf="loading" class="spinner-border spinner-border-sm text-white" role="status"></div>
           </button>
         </div>
-        <div class="col-6"></div>
+        <div class="col-4"></div>
         <div class="col-2 d-flex justify-content-end">
           <button class="btn btn-primary btn-shadow" [routerLink]="'/cuestionario-detalle'" (click)="nuevoCuestionario()">
             <i class="fas fa-plus me-2"></i> Agregar
@@ -92,11 +92,10 @@
   </div>
 </div>
 
-<p-dialog header="Eliminar cuestionario para el hogar" [(visible)]="displayEliminarModal" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '30vw' }" [draggable]="true" [resizable]="true">
-  <div class="col-12 mb-3">
-    Está seguro que desea eliminar el cuestionario para el hogar seleccionado?
-  </div>
-  <div class="col-12 d-flex justify-content-end">
-    <button class="btn btn-danger" (click)="eliminarCuestionario()">Eliminar</button>
-  </div>
-</p-dialog>
+<app-modal-confirmar
+  [title]="'Eliminar pregunta'"
+  [message]="'¿Está seguro que desea eliminar este pregunta?'"
+  [(showDialog)]="displayEliminarModal"
+  (confirm)="eliminarCuestionario()"
+  (cancel)="displayEliminarModal = false">
+</app-modal-confirmar>

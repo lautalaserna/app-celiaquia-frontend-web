@@ -11,6 +11,10 @@ import { UsuarioDetalleComponent } from './usuarios/usuario-detalle/usuario-deta
 import { CuestionarioResolverService } from '../services/cuestionario-resolver.service';
 import { CuestionarioDetalleComponent } from './cuestionario/cuestionario-detalle/cuestionario-detalle.component';
 import { UsuariosResolverService } from '../services/usuarios-resolver.service';
+import { AlimentoDetalleComponent } from './alimentos/alimento-detalle/alimento-detalle.component';
+import { AlimentoResolverService } from '../services/alimento-resolver.service';
+import { RecetaResolverService } from '../services/receta-resolver.service';
+import { RecetaDetalleComponent } from './recetas/receta-detalle/receta-detalle.component';
 
 export const pagesRoutes: Routes = [
   { 
@@ -43,9 +47,23 @@ export const pagesRoutes: Routes = [
     path: 'alimentos', 
     component: AlimentosComponent 
   },
+  {
+    path: 'alimento-detalle',
+    component: AlimentoDetalleComponent,
+    resolve: {
+      alimento: AlimentoResolverService
+    }
+  },
   { 
     path: 'recetas', 
     component: RecetasComponent 
+  },
+  {
+    path: 'receta-detalle',
+    component: RecetaDetalleComponent,
+    resolve: {
+      receta: RecetaResolverService
+    }
   },
   { 
     path: 'usuarios', 
