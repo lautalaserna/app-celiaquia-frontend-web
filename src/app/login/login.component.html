@@ -2,10 +2,10 @@
     <div class="row">
         <div class="col-md-4 bg-white shadow-effect">
             <div class="wrapper">
-                <form *ngIf="!loading" [formGroup]="formLogin"  class="body" autocomplete="off">
+                <form *ngIf="!loading" [formGroup]="formLogin"  class="body" autocomplete="off" (keydown.enter)="onEnterKey()">
                     <img class="logo" src="/assets/images/doctor.png">
                     <div class="form-floating mb-3 mt-3">
-                        <input type="text" class="form-control" formControlName="username" placeholder="Usuario" autocomplete="true"
+                        <input #usernameInput type="text" class="form-control" formControlName="username" placeholder="Usuario" autocomplete="true"
                         [ngClass]="!(username.hasError('required') && username.touched) ? '': 'is-invalid' ">
                         <label>Usuario</label>
                         <div class="invalid-feedback text-start" *ngIf="username?.hasError('required') && username?.touched">
@@ -30,7 +30,7 @@
         <div class="col-md-8 bg-image d-flex flex-column align-items-left justify-content-center">
             <h1 class="title text-white">Sistema de gestión <br>profesional</h1>    
             
-            <h1 class="app-title"><img class="title-logo" src="/assets/images/logo.png">lu</h1>
+            <!-- <h1 class="app-title"></h1> -->
         </div>
     </div>
 </main>

@@ -35,8 +35,6 @@ export class UsuarioDetalleComponent {
     if(id){
       this.soloLectura = true;
       this.usuario = this.route.snapshot.data['usuario'];
-      console.log(this.usuario);
-      
     } else {
       this.esNuevo = true;
     }

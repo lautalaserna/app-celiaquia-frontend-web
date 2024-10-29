@@ -15,6 +15,7 @@ import { AlimentoDetalleComponent } from './alimentos/alimento-detalle/alimento-
 import { AlimentoResolverService } from '../services/alimento-resolver.service';
 import { RecetaResolverService } from '../services/receta-resolver.service';
 import { RecetaDetalleComponent } from './recetas/receta-detalle/receta-detalle.component';
+import { AdminGuard } from '../utils/guards/admin.guard';
 
 export const pagesRoutes: Routes = [
   { 
@@ -67,11 +68,13 @@ export const pagesRoutes: Routes = [
   },
   { 
     path: 'usuarios', 
-    component: UsuariosComponent 
+    component: UsuariosComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: 'usuario-detalle',
     component: UsuarioDetalleComponent,
+    canActivate: [AdminGuard],
     resolve: {
       usuario: UsuariosResolverService
     }

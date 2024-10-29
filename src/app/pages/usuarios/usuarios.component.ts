@@ -25,7 +25,6 @@ export class UsuariosComponent {
   usuarioSeleccionadoId: number = 0;
   formFiltros!: FormGroup;
   dniFilter: string = '';
-  emailFilter: string = '';
   size: number = 5;
   page: number = 0;
   total: number = 0;
@@ -47,8 +46,7 @@ export class UsuariosComponent {
 
   crearFormFiltros() {
     this.formFiltros = this.formBuilder.group({
-      dni: new FormControl({ value: this.dniFilter, disabled: false },  Validators.required ),
-      email: new FormControl({ value: this.emailFilter, disabled: false },  Validators.required ),
+      dni: new FormControl({ value: this.dniFilter, disabled: false },  Validators.required )
     });
   }
 
@@ -60,19 +58,16 @@ export class UsuariosComponent {
 
   listarUsuarios() {
     this.loading = true;
-    // this.usernameFilter = this.formFiltros.get('username')?.value ? this.formFiltros.get('username')?.value : '';
-    // this.emailFilter = this.formFiltros.get('email')?.value ? this.formFiltros.get('email')?.value : '';
-    
+    this.dniFilter = this.formFiltros.get('dni')?.value ? this.formFiltros.get('dni')?.value : '';
     this._adminService
-      // .listUsuarios(
+      //.listUsuarios(
       .listAllUsuarios(
-        // this.page, 
-        // this.size, 
-        // this.dniFilter, 
-        // this.emailFilter
+        //this.page, 
+        //this.size, 
+        //this.dniFilter
       ).subscribe({
         next: (data: any) => {
-          this.listUsuarios = data;
+          this.listUsuarios = data.content;
           this.total = data.totalElements;
         },
         error: (err) => {

@@ -20,11 +20,16 @@ export class ModalConfirmarComponent {
 
   onConfirm() {
     this.confirm.emit();
-    this.showDialog = false;
+    this.closeDialog();
   }
 
   onCancel() {
     this.cancel.emit();
+    this.closeDialog();
+  }
+
+  closeDialog() {
     this.showDialog = false;
+    this.showDialogChange.emit(this.showDialog);
   }
 }

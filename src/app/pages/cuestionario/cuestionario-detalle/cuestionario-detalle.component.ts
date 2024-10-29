@@ -34,7 +34,6 @@ export class CuestionarioDetalleComponent {
     if(id){
       this.soloLectura = true;
       this.cuestionario = this.route.snapshot.data['cuestionario'];
-      console.log(this.cuestionario);
     } else {
       this.esNuevo = true;
     }

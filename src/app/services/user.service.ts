@@ -39,6 +39,14 @@ export class UserService {
     this.userSubject.next(user);
   }
 
+  changePassword(passwords: any) {
+    return this.http.post<any>(`${this.appUrl}${this.apiUrl}/change-password`, passwords);
+  }
+
+  deleteMyUser(passwords: any) {
+    return this.http.post<any>(`${this.appUrl}${this.apiUrl}/delete-user`, passwords);
+  }
+
   getUser(): Observable<any> {
     return this.http.get<any>(`${this.appUrl}${this.apiUrl}/user`);
   }

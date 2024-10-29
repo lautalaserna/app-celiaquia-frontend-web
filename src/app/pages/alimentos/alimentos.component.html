@@ -29,7 +29,11 @@
           <thead class="table-header">
             <tr>
               <th scope="col" class="w-10 text-center" style="width: 100px;"></th>
-              <th scope="col" class="w-30">Nombre</th>
+              <th scope="col" class="w-10 text-center">Numero</th>
+              <th scope="col" class="w-50">Nombre</th>
+              <th scope="col" class="w-10 text-center">Proteinas</th>
+              <th scope="col" class="w-10 text-center">Carbohidratos</th>
+              <th scope="col" class="w-10 text-center">Grasas</th>
             </tr>
           </thead>
           
@@ -60,7 +64,11 @@
                   </ul>
                 </div>
               </td>
+              <td class="align-middle text-center">{{alimento.numero}}</td>
               <td class="align-middle">{{alimento.nombre}}</td>
+              <td class="align-middle text-center">{{alimento.proteinas}}</td>
+              <td class="align-middle text-center">{{alimento.carbohidratos_totales}}</td>
+              <td class="align-middle text-center">{{alimento.grasa_total}}</td>
             </tr>
           </tbody>
         </table>

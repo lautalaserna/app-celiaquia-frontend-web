@@ -1,0 +1,89 @@
+::ng-deep .custom-dialog .p-dialog-content {
+  background-color: #fdfbff;
+  padding-bottom: 40px;
+  z-index: 1 !important;
+}
+
+::ng-deep .custom-dialog .p-dialog-header {
+  padding: 1.4rem;
+  padding-bottom: 10px;
+  background-color: #fdfbff;
+}
+
+::ng-deep .custom-dialog .p-dialog-header .p-dialog-header-icon {
+  color: black;
+}
+
+.mat-paginator {
+  background-color: red;
+  z-index: 1001 !important; /* Ajusta el valor según sea necesario */
+}
+
+.custom-dialog {
+  z-index: 1000 !important; /* Este valor debe ser menor que el del paginator */
+}
+
+.main-page {
+  box-sizing: border-box;
+  padding: 2vw;
+  width: calc(100% - 40px);
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2), 0 0 6px rgba(0, 0, 0, 0.05);
+  background-color: #fdfbff;  
+}
+
+.title-bar {
+  background-color: #1964d4;
+  height: 100px;
+  color: #fdfbff;
+  display: flex;
+  align-items: center;
+  padding-left: 2rem;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+.page-title {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.table-header th {
+  padding: 15px;
+  padding-left: 10px;
+  font-size: 16px;
+  color: #fdfbff;
+  border: solid 1px #343a40;
+  background-color: #343a40;
+}
+
+.btn-search {
+  width: 44px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+}
+
+.custom-dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.custom-dropdown-item i {
+  width: 20px;
+  text-align: center;
+}
+
+.custom-dropdown-item span {
+  flex-grow: 1;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.dropdown-item {
+  height: 38px;
+}

@@ -13,7 +13,7 @@
       <div class="row mt-1">
         <div class="col-2">
           <div class="form-group">
-            <label class="is-required mb-1"><strong>Número de Alimento</strong></label>
+            <label class="is-required mb-1"><strong>Número</strong></label>
             <input type="number" class="form-control rounded-1" formControlName="numero" 
               [ngClass]="!formAlimento.get('numero')?.touched ? '' : formAlimento.get('numero')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('numero')?.hasError('required') && formAlimento.get('numero')?.touched">
@@ -69,6 +69,52 @@
 
       <div class="row">
         <div class="col-12">
+          <h5 class="mb-3">Porciones</h5>
+        </div>
+      </div>
+
+      <div class="row mt-1">
+        <div formArrayName="porciones">
+          <div *ngFor="let porcion of porciones.controls; let i = index" [formGroupName]="i">
+            <div class="row">
+              <div class="col-4 mt-2 mb-1">
+                <label class="is-required mb-1"><strong>Nombre</strong></label>
+                <input type="text" class="form-control" formControlName="nombre" [ngClass]="{'is-invalid': porcion.get('nombre')?.invalid && porcion.get('nombre')?.touched}">
+                <div class="invalid-feedback" *ngIf="porcion.get('nombre')?.hasError('required') && porcion.get('nombre')?.touched">
+                  Campo requerido
+                </div>
+              </div>
+              <div class="col-2 mt-2 mb-1">
+                <label class="is-required mb-1"><strong>Peso (g)</strong></label>
+                <input type="number" class="form-control" formControlName="peso" [ngClass]="{'is-invalid': porcion.get('peso')?.invalid && porcion.get('peso')?.touched}">
+                <div class="invalid-feedback" *ngIf="porcion.get('peso')?.hasError('required') && porcion.get('peso')?.touched">
+                  Campo requerido
+                </div>
+              </div>
+              <div class="col-1 ps-0" style="margin-top: 41px;">
+                <button class="btn btn-delete btn-danger btn-shadow" type="button" [hidden]="this.soloLectura" (click)="eliminarPorcion(i)">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="color: #dc3545; font-size: medium;" *ngIf="!this.validarPorciones()">
+          Este alimento debe tener al menos una porción.
+        </div>
+        <div class="row">
+          <div class="col-12 d-flex justify-content-start mt-3 mb-4">
+            <button class="btn btn-primary btn-shadow" type="button" (click)="agregarPorcion()" [hidden]="this.soloLectura">
+              <i class="fas fa-plus"></i> Agregar porción
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-5">
+
+      <div class="row">
+        <div class="col-12">
           <h5 class="mb-3">Valores Energéticos</h5>
         </div>
       </div>
@@ -95,7 +141,6 @@
           </div>
         </div>
       </div>
-
 
       <hr class="my-5">
 
@@ -345,7 +390,7 @@
         <div class="col-12 d-flex justify-content-between">
           <button class="btn btn-secondary btn-shadow" (click)="limpiarAlimento()">Volver</button>
           <button class="btn btn-primary btn-shadow" *ngIf="!this.esNuevo && this.soloLectura" (click)="toggleSoloLectura()">Editar</button>
-          <button class="btn btn-primary btn-shadow" *ngIf="this.esNuevo || !this.soloLectura" [disabled]="!this.formAlimento.valid" (click)="guardarAlimento()">Guardar</button>
+          <button class="btn btn-primary btn-shadow" *ngIf="this.esNuevo || !this.soloLectura" [disabled]="!this.formAlimento.valid || !this.validarPorciones()" (click)="guardarAlimento()">Guardar</button>
         </div>
       </div>
     </form>

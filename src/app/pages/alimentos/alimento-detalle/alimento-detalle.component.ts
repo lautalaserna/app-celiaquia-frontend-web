@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Alimento } from '../../../interfaces/recetas';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Alimento, Porcion } from '../../../interfaces/recetas';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { RecetasService } from '../../../services/recetas.service';
@@ -73,9 +73,33 @@ export class AlimentoDetalleComponent {
       zinc: new FormControl({ value: this.alimento?.zinc ? this.alimento.zinc : null, disabled: this.soloLectura }),
       colesterol: new FormControl({ value: this.alimento?.colesterol ? this.alimento.colesterol : null, disabled: this.soloLectura }),
       fibra_dietetica: new FormControl({ value: this.alimento?.fibra_dietetica ? this.alimento.fibra_dietetica : null, disabled: this.soloLectura }),
+      porciones: this.formBuilder.array(this.alimento?.porciones ? this.alimento.porciones.map(porcion => this.crearPorcion(porcion)) : [])
     });
+
+    if (this.esNuevo) {
+      this.agregarPorcion();
+    }
   }
   
+  crearPorcion(porcion?: Porcion): FormGroup {
+    return this.formBuilder.group({
+      porcion_id: new FormControl({value: porcion?.porcion_id ? porcion.porcion_id : 0, disabled: this.soloLectura}),
+      nombre: new FormControl({value: porcion?.nombre ? porcion.nombre : null, disabled: this.soloLectura}, Validators.required),
+      peso: new FormControl({value: porcion?.peso ? porcion.peso : null, disabled: this.soloLectura}, Validators.required),
+    });
+  }
+
+  get porciones(): FormArray {
+    return this.formAlimento.get('porciones') as FormArray;
+  }
+  
+  agregarPorcion() {
+    this.porciones.push(this.crearPorcion());
+  }
+  
+  eliminarPorcion(index: number) {
+    this.porciones.removeAt(index);
+  }
 
   limpiarAlimento() {
     localStorage.removeItem('alimento');
@@ -96,6 +120,10 @@ export class AlimentoDetalleComponent {
         this.toastr.error('No se pudo guardar el alimento','Guardado');
       },
     });
+  }
+
+  validarPorciones(): boolean {
+    return this.porciones.length > 0;
   }
 
   toggleSoloLectura() {

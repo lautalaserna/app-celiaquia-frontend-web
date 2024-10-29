@@ -919,16 +919,16 @@ COPY public.alimento (alimento_id, created, createdby, isactive, updated, update
 --
 
 COPY public.cuestionario (cuestionario_id, created, createdby, isactive, updated, updatedby, posicion, pregunta) FROM stdin;
-1	\N	\N	t	\N	\N	1	Hace cuanto tiempo te diagnosticaron celiaquia?
-2	\N	\N	t	\N	\N	2	Con qué frecuencia seguis una dieta libre de gluten?
-3	\N	\N	t	\N	\N	3	Te resulta difícil encontrar alimentos sin tacc?
-4	\N	\N	t	\N	\N	4	Lees las etiquetas de los alimentos para comprobar si contienen gluten?
-5	\N	\N	t	\N	\N	5	Qué tan seguido comes fuera de casa (restaurantes, eventos, etc.)?
-6	\N	\N	t	\N	\N	6	Conoces los efectos de no llevar adecuadamente una dieta sin tacc?
 7	\N	\N	t	\N	\N	7	Qué tanto confías en los menús sin gluten de los restaurantes?
 8	\N	\N	t	\N	\N	8	Sabes lo que es la contaminacion cruzada?
 9	\N	\N	t	\N	\N	9	Qué factor consideras más desafiante al seguir una dieta sin tacc?
-10	\N	\N	t	2024-09-01 17:06:56.529304	2	\N	test modificado desde insomnia
+5	\N	\N	t	2024-10-12 16:02:09.19828	1	6	Qué tan seguido comes fuera de casa (restaurantes, eventos, etc.)?
+6	\N	\N	t	2024-10-12 16:02:09.20304	1	5	Conoces los efectos de no llevar adecuadamente una dieta sin tacc?
+10	\N	\N	t	2024-09-01 17:06:56.529304	2	10	test modificado desde insomnia
+4	\N	\N	t	2024-10-12 16:04:12.145538	1	4	Lees las etiquetas de los alimentos para comprobar si contienen gluten?
+3	\N	\N	t	2024-10-12 16:06:06.712548	1	3	Te resulta difícil encontrar alimentos sin tacc?
+1	\N	\N	t	2024-10-12 16:07:10.34915	1	1	Hace cuanto tiempo te diagnosticaron celiaquia?
+2	\N	\N	t	2024-10-12 16:07:10.349275	1	2	Con qué frecuencia seguis una dieta libre de gluten?
 \.
 
 
@@ -937,14 +937,14 @@ COPY public.cuestionario (cuestionario_id, created, createdby, isactive, updated
 --
 
 COPY public.cuidado (cuidado_id, created, createdby, isactive, updated, updatedby, descripcion, posicion, titulo) FROM stdin;
-4	\N	\N	t	2024-08-25 14:30:49.077784	2	cuarto	3	cuarto
-3	\N	\N	t	2024-08-25 14:30:49.07942	2	tercero	4	tercero
-6	2024-08-26 19:05:54.203647	2	t	2024-08-26 19:05:54.203647	2	testeando posiciones	5	cuidado create
-7	2024-08-26 19:06:26.198948	2	t	2024-08-26 19:06:26.198948	2	testeando posiciones	6	cuidado create
-8	2024-08-26 19:06:50.797604	2	f	2024-08-26 19:18:57.884683	2	testeando posiciones	8	cuidado create
-5	2024-08-26 18:14:42.586822	\N	f	2024-09-03 20:26:06.098567	1	\N	\N	\N
-1	\N	\N	t	2024-09-03 22:38:42.539285	1	se modifico la descripcion	\N	\N
-2	\N	\N	t	\N	\N	segundo	2	segundo
+2	2024-08-26 19:05:54.203	2	t	2024-09-03 22:38:42.539	2	Usa aceite nuevo cuando frías alimentos sin gluten. Si utilizas aceite que previamente fue usado para freír alimentos con gluten, podría contaminar los alimentos sin gluten.	8	Cuidado con las frituras
+6	2024-08-26 19:05:54.203647	2	t	2024-08-26 19:05:54.203647	2	Limpia a fondo todas las superficies de trabajo antes de cocinar y asegúrate de lavar bien tus manos después de manipular alimentos que contengan gluten.	3	Lavar bien las superficies y manos
+7	2024-08-26 19:06:26.198948	2	t	2024-08-26 19:06:26.198948	2	Si es posible, usa una tostadora, horno o electrodomésticos separados para los alimentos sin gluten. Los restos de migas con gluten pueden causar contaminación.\n\n	4	Usar tostadoras y electrodomésticos separados
+4	2024-08-26 19:05:54.203	2	t	2024-08-25 14:30:49.077784	2	Utilizá utensilios de cocina, como cuchillos, tablas de cortar y sartenes, exclusivamente para alimentos sin gluten para evitar que secontaminen los alimentos.	1	Evitar la contaminación cruzada
+3	2024-08-26 19:05:54.203	2	t	2024-08-25 14:30:49.07942	2	Asegurate de revisar todas las etiquetas de los productos que compres, incluso los que consideres seguros. Muchos productos pueden contener gluten de forma inesperada, especialmente salsas o alimentos procesados.	2	Leer siempre las etiquetas
+8	2024-08-26 19:06:50.797604	2	t	2024-08-26 19:18:57.884683	2	Asegúrate de que los familiares y visitas que entren a tu cocina conozcan la importancia de evitar la contaminación cruzada y el manejo adecuado de los alimentos.	5	Informar a familiares y visitas
+5	2024-08-26 18:14:42.586822	2	t	2024-09-03 20:26:06.098567	1	Algunos cosméticos, pastas de dientes y medicamentos pueden contener gluten. Asegúrate de que todos estos productos que utilizas en tu hogar estén libres de gluten.	6	Comprobar los cosméticos y medicamentos
+1	2024-08-26 19:05:54.203	2	t	2024-09-03 22:38:42.539285	1	Si cocinas alimentos con y sin gluten en la misma cocina, prepara primero los alimentos sin gluten y luego los que contienen gluten. Esto minimizará la contaminación cruzada.	7	Cocinar alimentos sin gluten primero
 \.
 
 
@@ -1033,9 +1033,7 @@ COPY public.rol (rol_id, nombre) FROM stdin;
 COPY public.user_rol (usuario_id, rol_id) FROM stdin;
 2	2
 3	3
-5	3
 1	1
-6	2
 \.
 
 
@@ -1046,9 +1044,7 @@ COPY public.user_rol (usuario_id, rol_id) FROM stdin;
 COPY public.usuario (usuario_id, username, password, email, fnac, apellido, dni, nombre, created, createdby, updated, updatedby, isactive, isenabled) FROM stdin;
 3	paciente	$2a$10$HZeUo2TjNkEAQGCYmpYUwey7v45q0GEAjNWSHutT.C5LiK4dOD/FK	paciente@gmail.com	1999-05-18	paciente	1234	paciente	\N	\N	\N	\N	t	t
 2	user	$2a$10$OGNFRLqpy1.bmPWQCSXtH.uTgniemXKxLvoTTI4PE3gg5Gn.gYpMS	user@gmail.com	1997-09-11	user	1234	user	\N	\N	\N	\N	t	t
-5	test	$2a$10$kSjxEaiV6rH2amZCQ/3Z6uK0xVPAq5D9qYJvT/YyMVm019t8tafQa	test@test.com	2024-07-25	test	1234	test	\N	\N	\N	\N	t	t
 1	admin	$2a$10$L0rqEM2ATQL7gA2g175dSeHHO454iDncyqMhOy4h8u.x/vCAi7bsu	admin@gmail.com	1998-04-08	admin	1234	admin	\N	\N	\N	\N	t	t
-6	insomnia	$2a$10$xxngYfNyIhvhIjMwkQg2SuGiyPSC91gN/xhQFj5c.zbbf77m8LSN2	insomnia@gmail.com	1999-05-18	insomnia_modif2	12345678	insomnia_modif2	2024-09-05 23:18:28.301922	1	2024-09-05 23:46:46.839505	1	t	t
 \.
 
 

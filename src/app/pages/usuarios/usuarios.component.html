@@ -9,17 +9,13 @@
           <label class="mb-1"><strong>Documento</strong></label>
           <input type="text" class="form-control" formControlName="dni">
         </div>
-        <div class="col-3">
-          <label class="mb-1"><strong>Email</strong></label>
-          <input type="text" class="form-control" formControlName="email">
-        </div>
         <div class="col-1 align-self-end p-0">
           <button class="btn btn-search btn-primary btn-shadow" (click)="listarUsuarios()">
             <i *ngIf="!loading" class="fas fa-sm fa-search text-white"></i>
             <div *ngIf="loading" class="spinner-border spinner-border-sm text-white" role="status"></div>
           </button>
         </div>
-        <div class="col-3"></div>
+        <div class="col-6"></div>
         <div class="col-2 d-flex justify-content-end">
           <button class="btn btn-primary btn-shadow" [routerLink]="'/usuario-detalle'" (click)="nuevoUsuario()">
             <i class="fas fa-plus me-2"></i> Agregar

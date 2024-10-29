@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Usuario } from '../interfaces/user';
@@ -16,6 +16,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     imports: [CommonModule, ReactiveFormsModule]
 })
 export class LoginComponent {
+  @ViewChild('usernameInput') usernameInput!: ElementRef;
   formLogin!: FormGroup;
   loading: boolean = false;
   
@@ -45,6 +46,7 @@ export class LoginComponent {
   login() {
     if (this.username.value == '' || this.password.value == '') {
       this.toastr.error('Campos incompletos', 'Error');
+      this.usernameInput.nativeElement.focus();
       return
     }
 
@@ -61,9 +63,18 @@ export class LoginComponent {
         this.router.navigate(['/home'])
       },
       error: (e: HttpErrorResponse) => {
-        this.loading = false
+        this.loading = false;
         this._errorService.msjError(e);
       }
     })
+  }
+
+  onEnterKey(): void {
+    if (this.formLogin.valid) {
+      this.login();
+    } else {
+      this.usernameInput.nativeElement.focus();
+      this.toastr.error('Campos incompletos', 'Error');
+    }
   }
 }

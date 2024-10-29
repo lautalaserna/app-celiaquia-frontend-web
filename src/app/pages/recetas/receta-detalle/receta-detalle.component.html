@@ -1,59 +1,102 @@
 <div class="title-bar">
-  <h2 class="page-title">Receta</h2>
+  <h2 class="page-title">Detalle de Receta</h2>
 </div>
 <div class="main-page container-fluid">
   <div class="container-fluid">
     <form [formGroup]="formReceta" class="mb-3">
       <div class="row">
         <div class="col-12">
-          <label class="is-required mb-1"><strong>Titulo</strong></label>
-          <input type="text" class="form-control" formControlName="pregunta" maxlength="200"
-              [ngClass]="!formReceta.get('titulo')?.touched ? '' :formReceta.get('titulo')?.valid ? '': 'is-invalid' ">
-          <div class="invalid-feedback" *ngIf="formReceta.get('titulo')?.hasError('required') && formReceta.get('titulo')?.touched">
-            Campo requerido
-          </div>
+          <h5 class="mb-3">Datos Generales</h5>
         </div>
       </div>
 
       <div class="row mt-3">
         <div class="col-12">
-          <div class="form-group">
-            <label class="is-required mb-1"><strong>Ingredientes</strong></label>
-            <div formArrayName="opciones">
-              <div *ngFor="let ingrediente of ingredientes.controls; let i = index" [formGroupName]="i">
-                <div class="row">
-                  <div class="col-10 mt-2 mb-1">
-                    <input type="text" class="form-control" formControlName="ingrediente" [ngClass]="{'is-invalid': ingrediente.get('alimento')?.invalid && ingrediente.get('alimento')?.touched}">
-                    <div class="invalid-feedback" *ngIf="ingrediente.get('alimento')?.hasError('required') && ingrediente.get('alimento')?.touched">
-                      Campo requerido
-                    </div>
-                  </div>
-                  <div class="col-1 mt-2 mb-1 ps-0">
-                    <button class="btn btn-delete btn-danger btn-shadow" type="button" [hidden]="this.soloLectura" (click)="eliminarIngrediente(i)">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12 d-flex justify-content-start mt-3 mb-4">
-                <button class="btn btn-primary btn-shadow" type="button" (click)="agregarIngrediente()" [hidden]="this.soloLectura">
-                  <i class="fas fa-plus"></i> Agregar ingrediente
-                </button>
-              </div>
-            </div>
-          </div>
+          <label><strong>Título</strong></label>
+          <input type="text" class="form-control" formControlName="titulo" placeholder="Título de la receta">
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12">
+          <label><strong>Preparación</strong></label>
+          <textarea class="form-control" formControlName="preparacion" placeholder="Descripción de la preparación"></textarea>
         </div>
       </div>
 
       <div class="row mt-3">
+        <div class="col-4">
+          <label><strong>Apto vegetariano</strong></label>
+          <input type="checkbox" formControlName="apto_vegetariano">
+        </div>
+        <div class="col-4">
+          <label><strong>Apto vegano</strong></label>
+          <input type="checkbox" formControlName="apto_vegano">
+        </div>
+      </div>
+
+      <hr class="my-5">
+
+      <div class="row">
+        <div class="col-12">
+          <h5 class="mb-3">Valores Energéticos</h5>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-3"><label><strong>Calorías (kcal)</strong></label><input type="number" class="form-control" formControlName="energia_total_kcal" readonly></div>
+        <div class="col-3"><label><strong>Energía (kJ)</strong></label><input type="number" class="form-control" formControlName="energia_total_kj" readonly></div>
+      </div>
+
+      <hr class="my-5">
+
+      <div class="row">
+        <div class="col-12">
+          <h5 class="mb-3">Macronutrientes</h5>
+        </div>
+      </div>
+
+      <div class="row"> 
+        <div class="col-3"><label><strong>Proteínas</strong></label><input type="number" class="form-control" formControlName="proteinas_totales" readonly></div>
+        <div class="col-3"><label><strong>Carbohidratos</strong></label><input type="number" class="form-control" formControlName="carbohidratos_totales" readonly></div>
+        <div class="col-3"><label><strong>Grasas</strong></label><input type="number" class="form-control" formControlName="grasas_totales" readonly></div>
+      </div>
+
+      <hr class="my-5">
+
+      <div class="row">
+        <div class="col-12">
+          <h5 class="mb-0">Ingredientes</h5>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12">
+          <div formArrayName="ingredientes">
+            <div *ngFor="let ingrediente of ingredientes.controls; let i = index" [formGroupName]="i">
+              <div class="row mt-2">
+                <div class="col-6"><input type="text" class="form-control" formControlName="alimento" placeholder="Alimento" readonly></div>
+                <div class="col-2"><input type="text" class="form-control" formControlName="porcion" placeholder="Porcion" readonly></div>
+                <div class="col-1"><input type="number" class="form-control" formControlName="cantidad" placeholder="Cantidad" readonly></div>
+                <div class="col-1 ps-0"><button type="button" class="btn btn-danger" (click)="eliminarIngrediente(i)" [hidden]="soloLectura"><i class="fas fa-trash"></i></button></div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary mt-3" (click)="abrirModalIngrediente()" [hidden]="soloLectura"><i class="fas fa-plus"></i> Agregar ingrediente</button>
+        </div>
+      </div>
+
+      <div class="row mt-5">
         <div class="col-12 d-flex justify-content-between">
-          <button class="btn btn-secondary btn-shadow" (click)="limpiarCuestionario()">Volver</button>
-          <button class="btn btn-primary btn-shadow" *ngIf="!this.esNuevo && this.soloLectura" (click)="toggleSoloLectura()">Editar</button>
-          <button class="btn btn-primary btn-shadow" *ngIf="this.esNuevo || !this.soloLectura" [disabled]="!this.formReceta.valid" (click)="guardarCuestionario()">Guardar</button>
+          <button class="btn btn-secondary" (click)="limpiarReceta()">Volver</button>
+          <button *ngIf="!esNuevo && soloLectura" class="btn btn-primary" (click)="toggleSoloLectura()">Editar</button>
+          <button *ngIf="esNuevo || !soloLectura" class="btn btn-primary" [disabled]="!formReceta.valid" (click)="guardarReceta()">Guardar</button>
         </div>
       </div>
     </form>
   </div>
 </div>
+
+<app-modal-ingrediente
+  [(showDialog)]="mostrarModal"
+  (ingredienteSeleccionado)="agregarIngredienteSeleccionado($event)">
+</app-modal-ingrediente>

@@ -54,7 +54,7 @@ export class RecetasComponent {
   }
 
   listarRecetas() {
-    this.loading = true;
+   /*  this.loading = true;
     this.nombreFilter = this.formFiltros.get('nombre')?.value 
       ? this.formFiltros.get('nombre')?.value 
       : '';
@@ -76,7 +76,7 @@ export class RecetasComponent {
         complete: () => {
           this.loading = false;
         }
-      });
+      }); */
   } 
 
   toggleEliminarModal(id: number) {

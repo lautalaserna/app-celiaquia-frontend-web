@@ -2,19 +2,16 @@ export class Receta {
   receta_id!: number;
   titulo!: string;
   preparacion!: string;
+
+  apto_vegetariano!: boolean;
+  apto_vegano!: boolean;
   
-  caloriasTotales!: number;
-  proteinasTotales!: number;
-  carbohidratosTotales!: number;
-  
-  grasasTotales!: number;
-  grasasSaturadasTotales!: number;
-  grasasMonoinsaturadasTotales!: number;
-  grasasPoliinsaturadasTotales!: number;
-  
-  fibraTotal!: number;
-  sodioTotal!: number; 
-  colesterolTotal!: number; 
+  energia_total_kcal!: number;
+  energia_total_kj!: number;
+
+  proteinas_totales!: number;
+  carbohidratos_totales!: number;
+  grasas_totales!: number;
 
   ingredientes!: Ingrediente[]; 
 }
@@ -22,17 +19,22 @@ export class Receta {
 export class Ingrediente {
   ingrediente_id!: number;
   alimento!: Alimento;
+  porcion!: Porcion;
   cantidad!: number;
 }
 
 export class Alimento {
   alimento_id!: number;
   
+  numero!: number;
   nombre!: string;
   genero!: string;
+  tipo!: TipoAlimento;
   apto_celiaco!: boolean;
   apto_vegetariano!: boolean;
   apto_vegano!: boolean;
+
+  porciones!: Porcion[];
 
   energia_kcal!: number;
   energia_kj!: number;
@@ -51,7 +53,6 @@ export class Alimento {
   fosforo!: number;
   hierro!: number;
   niacina!: number;
-  numero!: number;
   potasio!: number;
   rivoflavina!: number;
   sodio!: number;
@@ -62,55 +63,15 @@ export class Alimento {
   fibra_dietetica!: number;
 }
 
-/* export class Alimento {
-  alimento_id!: number;
+export class Porcion {
+  porcion_id!: number;
   nombre!: string;
+  peso!: number;
+}
 
-  um!: UnidadMedida;
-  calorias!: number;
-  proteinas!: number;
-  carbohidratos!: number;
-  grasas!: number;
-  grasasSaturadas!: number;
-  grasasMonoinsaturadas!: number;
-  grasasPoliinsaturadas!: number;
-
-  vitaminas!: Vitaminas;
-  minerales!: Minerales;
-  
-  fibra!: number;
-  sodio!: number;
-  colesterol!: number;
-} */
-
-/* export class Vitaminas {
-  vitaminaA!: number;
-  vitaminaC!: number;
-  vitaminaD!: number;
-  vitaminaE!: number;
-  vitaminaK!: number;
-  vitaminaB1!: number;
-  vitaminaB2!: number;
-  vitaminaB3!: number;
-  vitaminaB6!: number;
-  vitaminaB12!: number;
-} */
-
-/* export class Minerales {
-  calcio!: number;
-  hierro!: number;
-  magnesio!: number;
-  fosforo!: number;
-  potasio!: number;
-  sodio!: number;
-  zinc!: number;
-  cobre!: number;
-  manganeso!: number;
-  selenio!: number;
-} */
-
-export class UnidadMedida {
-  unidadMedida_id!: number;
-  nombre!: string;
-  abreviatura!: string;
+export enum TipoAlimento {
+  VERDES = "Verdes",
+  PROTEINAS = "Proteinas",
+  HIDRATOS = "Hidratos",
+  COLASION = "Colasión"
 }

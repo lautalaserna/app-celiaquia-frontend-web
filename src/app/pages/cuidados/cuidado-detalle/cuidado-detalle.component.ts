@@ -67,7 +67,11 @@ export class CuidadoDetalleComponent {
       },
       error: (err:any) => {
         this.loading= false;
-        this.toastr.error('No se pudo guardar el cuidado','Guardado');
+        if(err && err.message) {
+          this.toastr.error(err.message,'Guardado');
+        } else {
+          this.toastr.error('No se pudo guardar el cuidado','Guardado');
+        }
       },
     });
   }

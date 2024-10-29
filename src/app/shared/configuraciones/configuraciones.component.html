@@ -1,0 +1,75 @@
+<p-dialog header="Configuraciones" [(visible)]="showDialog" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '40vw' }" [draggable]="true" [resizable]="true"  (onHide)="closeDialog()">
+  <div class="row">
+    <div class="col-12">
+      <h5>Cambio de Contraseña</h5>
+    </div>
+  </div>
+  <form [formGroup]="formContrasenia">
+    <div class="row mt-2">
+      <div class="col-6">
+        <label class="mb-1"><strong>Contraseña Actual</strong></label>
+        <input type="password" class="form-control" formControlName="oldPassword" maxlength="200">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-6">
+        <label class="mb-1"><strong>Nueva Contraseña</strong></label>
+        <input type="password" class="form-control" formControlName="newPassword" maxlength="200">
+      </div>
+      <div class="col-6">
+        <label class="mb-1"><strong>Repetir Contraseña</strong></label>
+        <input type="password" class="form-control" formControlName="confirmPassword" maxlength="200">
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-12 text-center">
+        <button class="btn btn-primary btn-shadow" (click)="openModalConfirmarContrasenia()" 
+          [disabled]="!this.formContrasenia.valid || !(formContrasenia.get('newPassword')?.value === formContrasenia.get('confirmPassword')?.value)">Cambiar Contraseña
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <hr class="my-4">
+  
+  <div class="row">
+    <div class="col-12">
+      <h5>Darse de baja</h5>
+    </div>
+  </div>
+  <form [formGroup]="formBaja">
+    <div class="row mt-2 mb-3">
+      <div class="col-6">
+        <label class="mb-1"><strong>Contraseña</strong></label>
+        <input type="password" class="form-control" formControlName="password" maxlength="200">
+      </div>
+      <div class="col-6">
+        <label class="mb-1"><strong>Repetir Contraseña</strong></label>
+        <input type="password" class="form-control" formControlName="confirmPassword" maxlength="200">
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-12 text-center">
+        <button class="btn btn-danger btn-shadow" (click)="openModalConfirmarBaja()" 
+          [disabled]="!this.formBaja.valid || !(formBaja.get('password')?.value === formBaja.get('confirmPassword')?.value)"> Dar de baja mi usuario
+        </button>
+      </div>
+    </div>
+  </form>
+</p-dialog>
+
+<app-modal-confirmar
+  [title]="'Cambio de Contraseña'"
+  [message]="'¿Está seguro que desea cambiar su contraseña?'"
+  [(showDialog)]="displayConfirmarContrasenia"
+  (confirm)="cambiarContrasenia()"
+  (cancel)="displayConfirmarContrasenia = false">
+</app-modal-confirmar>
+
+<app-modal-confirmar
+  [title]="'Baja de Usuario'"
+  [message]="'¿Está realmente seguro que desea darse de baja? El usuario será eliminado de forma permanente'"
+  [(showDialog)]="displayConfirmarBaja"
+  (confirm)="darseDeBaja()"
+  (cancel)="displayConfirmarBaja = false">
+</app-modal-confirmar>

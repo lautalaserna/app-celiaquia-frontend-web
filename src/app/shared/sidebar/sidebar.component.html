@@ -61,22 +61,6 @@
   </div>
 </nav>
 
-<p-dialog header="Desea cambiar contraseña?" [(visible)]="displayConfigModal" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '30vw' }" [draggable]="true" [resizable]="true">
-  <div class="row">
-    <div class="col-12 mt-2">
-      <label class="is-required mb-1"><strong>Contraseña Actual</strong></label>
-      <input type="password" class="form-control" formControlName="titulo" maxlength="200">
-    </div>
-    <div class="col-12 mt-2">
-      <label class="is-required mb-1"><strong>Nueva Contraseña</strong></label>
-      <input type="password" class="form-control" formControlName="titulo" maxlength="200">
-    </div>
-    <div class="col-12 mt-2">
-      <label class="is-required mb-1"><strong>Repetir Contraseña</strong></label>
-      <input type="password" class="form-control" formControlName="titulo" maxlength="200">
-    </div>
-  </div>
-  <div class="col-12 d-flex justify-content-end mt-2">
-    <button class="btn btn-primary" (click)="toggleConfigModal()">Cambiar</button>
-  </div>
-</p-dialog>
+<app-configuraciones 
+  [(showDialog)]="displayConfigModal">
+</app-configuraciones>
