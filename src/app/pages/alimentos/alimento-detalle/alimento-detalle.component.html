@@ -13,8 +13,8 @@
       <div class="row mt-1">
         <div class="col-2">
           <div class="form-group">
-            <label class="is-required mb-1"><strong>Número</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="numero" 
+            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Número</strong></label>
+            <input type="number" class="form-control rounded-1" formControlName="numero" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('numero')?.touched ? '' : formAlimento.get('numero')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('numero')?.hasError('required') && formAlimento.get('numero')?.touched">
               Campo requerido
@@ -23,8 +23,8 @@
         </div>
         <div class="col-8">
           <div class="form-group">
-            <label class="is-required mb-1"><strong>Nombre</strong></label>
-            <input type="text" class="form-control rounded-1" formControlName="nombre" maxlength="200" 
+            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Nombre</strong></label>
+            <input type="text" class="form-control rounded-1" formControlName="nombre" maxlength="200" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('nombre')?.touched ? '' : formAlimento.get('nombre')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('nombre')?.hasError('required') && formAlimento.get('nombre')?.touched">
               Campo requerido
@@ -35,8 +35,8 @@
       <div class="row mt-3">
         <div class="col-4">
           <div class="form-group">
-            <label class="is-required mb-1"><strong>Género</strong></label>
-            <input type="text" class="form-control rounded-1" formControlName="genero"
+            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Género</strong></label>
+            <input type="text" class="form-control rounded-1" formControlName="genero" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('genero')?.touched ? '' : formAlimento.get('genero')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('genero')?.hasError('required') && formAlimento.get('genero')?.touched">
               Campo requerido
@@ -77,22 +77,25 @@
         <div formArrayName="porciones">
           <div *ngFor="let porcion of porciones.controls; let i = index" [formGroupName]="i">
             <div class="row">
+              <div style="max-width: 50px;" class="col-1 p-0 mb-1 pe-2 d-flex justify-content-end align-items-end">
+                <h6 style="font-size: 14px;"><strong>{{i + 1}}.</strong></h6>
+              </div>
               <div class="col-4 mt-2 mb-1">
-                <label class="is-required mb-1"><strong>Nombre</strong></label>
-                <input type="text" class="form-control" formControlName="nombre" [ngClass]="{'is-invalid': porcion.get('nombre')?.invalid && porcion.get('nombre')?.touched}">
+                <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Nombre</strong></label>
+                <input type="text" class="form-control" formControlName="nombre" [readOnly]="soloLectura" [ngClass]="{'is-invalid': porcion.get('nombre')?.invalid && porcion.get('nombre')?.touched}">
                 <div class="invalid-feedback" *ngIf="porcion.get('nombre')?.hasError('required') && porcion.get('nombre')?.touched">
                   Campo requerido
                 </div>
               </div>
               <div class="col-2 mt-2 mb-1">
-                <label class="is-required mb-1"><strong>Peso (g)</strong></label>
-                <input type="number" class="form-control" formControlName="peso" [ngClass]="{'is-invalid': porcion.get('peso')?.invalid && porcion.get('peso')?.touched}">
+                <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Peso (g)</strong></label>
+                <input type="number" class="form-control" formControlName="peso" [readOnly]="soloLectura" [ngClass]="{'is-invalid': porcion.get('peso')?.invalid && porcion.get('peso')?.touched}">
                 <div class="invalid-feedback" *ngIf="porcion.get('peso')?.hasError('required') && porcion.get('peso')?.touched">
                   Campo requerido
                 </div>
               </div>
-              <div class="col-1 ps-0" style="margin-top: 41px;">
-                <button class="btn btn-delete btn-danger btn-shadow" type="button" [hidden]="this.soloLectura" (click)="eliminarPorcion(i)">
+              <div class="col-1 ps-0" style="margin-top: 41px;" [hidden]="soloLectura">
+                <button class="btn btn-delete btn-danger btn-shadow" type="button"  (click)="eliminarPorcion(i)">
                   <i class="fas fa-trash"></i>
                 </button>
               </div>
@@ -102,9 +105,9 @@
         <div style="color: #dc3545; font-size: medium;" *ngIf="!this.validarPorciones()">
           Este alimento debe tener al menos una porción.
         </div>
-        <div class="row">
-          <div class="col-12 d-flex justify-content-start mt-3 mb-4">
-            <button class="btn btn-primary btn-shadow" type="button" (click)="agregarPorcion()" [hidden]="this.soloLectura">
+        <div class="row" [hidden]="soloLectura">
+          <div class="col-12 d-flex justify-content-start mt-3 mb-2" >
+            <button class="btn btn-primary btn-shadow" type="button" (click)="agregarPorcion()">
               <i class="fas fa-plus"></i> Agregar porción
             </button>
           </div>
@@ -122,8 +125,8 @@
       <div class="row mt-1">
         <div class="col-3">
           <div class="form-group">
-            <label class="is-required mb-1"><strong>Energía (kcal)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="energia_kcal" 
+            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Energía (kcal)</strong></label>
+            <input type="number" class="form-control rounded-1" formControlName="energia_kcal" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('energia_kcal')?.touched ? '' : formAlimento.get('energia_kcal')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('energia_kcal')?.hasError('required') && formAlimento.get('energia_kcal')?.touched">
               Campo requerido
@@ -132,8 +135,8 @@
         </div>
         <div class="col-3">
           <div class="form-group">
-            <label class="is-required mb-1"><strong>Energía (kJ)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="energia_kj" 
+            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Energía (kJ)</strong></label>
+            <input type="number" class="form-control rounded-1" formControlName="energia_kj" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('energia_kj')?.touched ? '' : formAlimento.get('energia_kj')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('energia_kj')?.hasError('required') && formAlimento.get('energia_kj')?.touched">
               Campo requerido
@@ -153,8 +156,8 @@
       <div class="row">
         <div class="col-3">
           <div class="form-group">
-            <label class="is-required mb-1"><strong>Proteínas Totales (g)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="proteinas" 
+            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Proteínas Totales (g)</strong></label>
+            <input type="number" class="form-control rounded-1" formControlName="proteinas" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('proteinas')?.touched ? '' : formAlimento.get('proteinas')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('proteinas')?.hasError('required') && formAlimento.get('proteinas')?.touched">
               Campo requerido
@@ -163,28 +166,18 @@
         </div>        
         <div class="col-3">
           <div class="form-group">
-            <label class="is-required mb-1"><strong>Carbohidratos Totales (g)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="carbohidratos_totales" 
+            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Carbohidratos Totales (g)</strong></label>
+            <input type="number" class="form-control rounded-1" formControlName="carbohidratos_totales" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('carbohidratos_totales')?.touched ? '' : formAlimento.get('carbohidratos_totales')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('carbohidratos_totales')?.hasError('required') && formAlimento.get('carbohidratos_totales')?.touched">
               Campo requerido
             </div>
           </div>
         </div>
-        <!-- <div class="col-3">
-          <div class="form-group">
-            <label class="is-required mb-1"><strong>Carbohidratos Disponibles (g)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="carbohidratos_disponibles" 
-              [ngClass]="!formAlimento.get('carbohidratos_disponibles')?.touched ? '' : formAlimento.get('carbohidratos_disponibles')?.valid ? '' : 'is-invalid'" />
-            <div class="invalid-feedback" *ngIf="formAlimento.get('carbohidratos_disponibles')?.hasError('required') && formAlimento.get('carbohidratos_disponibles')?.touched">
-              Campo requerido
-            </div>
-          </div>
-        </div> -->
         <div class="col-3">
           <div class="form-group">
-            <label class="is-required mb-1"><strong>Grasa Total (g)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="grasa_total" 
+            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Grasa Total (g)</strong></label>
+            <input type="number" class="form-control rounded-1" formControlName="grasa_total" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('grasa_total')?.touched ? '' : formAlimento.get('grasa_total')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('grasa_total')?.hasError('required') && formAlimento.get('grasa_total')?.touched">
               Campo requerido
@@ -196,8 +189,8 @@
       <div class="row mt-3">
         <div class="col-3">
           <div class="form-group">
-            <label class="is-required mb-1"><strong>Ácidos Grasos Monoinsaturados (g)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="ac_grasos_monoinsaturados" 
+            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Ácidos Grasos Monoinsaturados (g)</strong></label>
+            <input type="number" class="form-control rounded-1" formControlName="ac_grasos_monoinsaturados" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('ac_grasos_monoinsaturados')?.touched ? '' : formAlimento.get('ac_grasos_monoinsaturados')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('ac_grasos_monoinsaturados')?.hasError('required') && formAlimento.get('ac_grasos_monoinsaturados')?.touched">
               Campo requerido
@@ -206,8 +199,8 @@
         </div>
         <div class="col-3">
           <div class="form-group">
-            <label class="is-required mb-1"><strong>Ácidos Grasos Poliinsaturados (g)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="ac_grasos_poliinsaturados" 
+            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Ácidos Grasos Poliinsaturados (g)</strong></label>
+            <input type="number" class="form-control rounded-1" formControlName="ac_grasos_poliinsaturados" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('ac_grasos_poliinsaturados')?.touched ? '' : formAlimento.get('ac_grasos_poliinsaturados')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('ac_grasos_poliinsaturados')?.hasError('required') && formAlimento.get('ac_grasos_poliinsaturados')?.touched">
               Campo requerido
@@ -216,8 +209,8 @@
         </div>
         <div class="col-3">
           <div class="form-group">
-            <label class="is-required mb-1"><strong>Ácidos Grasos Saturados (g)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="ac_grasos_saturados" 
+            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Ácidos Grasos Saturados (g)</strong></label>
+            <input type="number" class="form-control rounded-1" formControlName="ac_grasos_saturados" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('ac_grasos_saturados')?.touched ? '' : formAlimento.get('ac_grasos_saturados')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('ac_grasos_saturados')?.hasError('required') && formAlimento.get('ac_grasos_saturados')?.touched">
               Campo requerido
@@ -238,7 +231,7 @@
         <div class="col-3">
           <div class="form-group">
             <label class="mb-1"><strong>Agua (g)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="agua" 
+            <input type="number" class="form-control rounded-1" formControlName="agua" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('agua')?.touched ? '' : formAlimento.get('agua')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('agua')?.hasError('required') && formAlimento.get('agua')?.touched">
               Campo requerido
@@ -248,7 +241,7 @@
         <div class="col-3">
           <div class="form-group">
             <label class="mb-1"><strong>Calcio (mg)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="calcio" 
+            <input type="number" class="form-control rounded-1" formControlName="calcio" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('calcio')?.touched ? '' : formAlimento.get('calcio')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('calcio')?.hasError('required') && formAlimento.get('calcio')?.touched">
               Campo requerido
@@ -258,7 +251,7 @@
         <div class="col-3">
           <div class="form-group">
             <label class="mb-1"><strong>Cenizas (g)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="cenizas" 
+            <input type="number" class="form-control rounded-1" formControlName="cenizas" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('cenizas')?.touched ? '' : formAlimento.get('cenizas')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('cenizas')?.hasError('required') && formAlimento.get('cenizas')?.touched">
               Campo requerido
@@ -268,7 +261,7 @@
         <div class="col-3">
           <div class="form-group">
             <label class="mb-1"><strong>Colesterol (mg)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="colesterol" 
+            <input type="number" class="form-control rounded-1" formControlName="colesterol" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('colesterol')?.touched ? '' : formAlimento.get('colesterol')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('colesterol')?.hasError('required') && formAlimento.get('colesterol')?.touched">
               Campo requerido
@@ -281,7 +274,7 @@
         <div class="col-3">
           <div class="form-group">
             <label class="mb-1"><strong>Fibra Dietética (g)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="fibra_dietetica" 
+            <input type="number" class="form-control rounded-1" formControlName="fibra_dietetica" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('fibra_dietetica')?.touched ? '' : formAlimento.get('fibra_dietetica')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('fibra_dietetica')?.hasError('required') && formAlimento.get('fibra_dietetica')?.touched">
               Campo requerido
@@ -291,7 +284,7 @@
         <div class="col-3">
           <div class="form-group">
             <label class="mb-1"><strong>Fósforo (mg)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="fosforo" 
+            <input type="number" class="form-control rounded-1" formControlName="fosforo" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('fosforo')?.touched ? '' : formAlimento.get('fosforo')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('fosforo')?.hasError('required') && formAlimento.get('fosforo')?.touched">
               Campo requerido
@@ -301,7 +294,7 @@
         <div class="col-3">
           <div class="form-group">
             <label class="mb-1"><strong>Hierro (mg)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="hierro" 
+            <input type="number" class="form-control rounded-1" formControlName="hierro" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('hierro')?.touched ? '' : formAlimento.get('hierro')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('hierro')?.hasError('required') && formAlimento.get('hierro')?.touched">
               Campo requerido
@@ -311,7 +304,7 @@
         <div class="col-3">
           <div class="form-group">
             <label class="mb-1"><strong>Niacina (mg)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="niacina" 
+            <input type="number" class="form-control rounded-1" formControlName="niacina" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('niacina')?.touched ? '' : formAlimento.get('niacina')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('niacina')?.hasError('required') && formAlimento.get('niacina')?.touched">
               Campo requerido
@@ -324,7 +317,7 @@
         <div class="col-3">
           <div class="form-group">
             <label class="mb-1"><strong>Potasio (mg)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="potasio" 
+            <input type="number" class="form-control rounded-1" formControlName="potasio" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('potasio')?.touched ? '' : formAlimento.get('potasio')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('potasio')?.hasError('required') && formAlimento.get('potasio')?.touched">
               Campo requerido
@@ -334,7 +327,7 @@
         <div class="col-3">
           <div class="form-group">
             <label class="mb-1"><strong>Rivoflavina (mg)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="rivoflavina" 
+            <input type="number" class="form-control rounded-1" formControlName="rivoflavina" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('rivoflavina')?.touched ? '' : formAlimento.get('rivoflavina')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('rivoflavina')?.hasError('required') && formAlimento.get('rivoflavina')?.touched">
               Campo requerido
@@ -344,7 +337,7 @@
         <div class="col-3">
           <div class="form-group">
             <label class="mb-1"><strong>Sodio (mg)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="sodio" 
+            <input type="number" class="form-control rounded-1" formControlName="sodio" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('sodio')?.touched ? '' : formAlimento.get('sodio')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('sodio')?.hasError('required') && formAlimento.get('sodio')?.touched">
               Campo requerido
@@ -354,7 +347,7 @@
         <div class="col-3">
           <div class="form-group">
             <label class="mb-1"><strong>Tiamina (mg)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="tiamina" 
+            <input type="number" class="form-control rounded-1" formControlName="tiamina" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('tiamina')?.touched ? '' : formAlimento.get('tiamina')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('tiamina')?.hasError('required') && formAlimento.get('tiamina')?.touched">
               Campo requerido
@@ -367,7 +360,7 @@
         <div class="col-3">
           <div class="form-group">
             <label class="mb-1"><strong>Vitamina C (mg)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="vitamina_c" 
+            <input type="number" class="form-control rounded-1" formControlName="vitamina_c" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('vitamina_c')?.touched ? '' : formAlimento.get('vitamina_c')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('vitamina_c')?.hasError('required') && formAlimento.get('vitamina_c')?.touched">
               Campo requerido
@@ -377,7 +370,7 @@
         <div class="col-3">
           <div class="form-group">
             <label class="mb-1"><strong>Zinc (mg)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="zinc" 
+            <input type="number" class="form-control rounded-1" formControlName="zinc" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('zinc')?.touched ? '' : formAlimento.get('zinc')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('zinc')?.hasError('required') && formAlimento.get('zinc')?.touched">
               Campo requerido

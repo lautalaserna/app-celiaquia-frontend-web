@@ -5,7 +5,7 @@
   <div class="container-fluid">
     <form [formGroup]="formFiltros">
       <div class="row align-items-end">
-        <div class="col-5">
+        <div class="col-4">
           <label class="mb-1"><strong>Pregunta</strong></label>
           <input type="text" class="form-control" formControlName="pregunta">
         </div>
@@ -15,7 +15,7 @@
             <div *ngIf="loading" class="spinner-border spinner-border-sm text-white" role="status"></div>
           </button>
         </div>
-        <div class="col-4"></div>
+        <div class="col-5"></div>
         <div class="col-2 d-flex justify-content-end">
           <button class="btn btn-primary btn-shadow" [routerLink]="'/cuestionario-detalle'" (click)="nuevoCuestionario()">
             <i class="fas fa-plus me-2"></i> Agregar

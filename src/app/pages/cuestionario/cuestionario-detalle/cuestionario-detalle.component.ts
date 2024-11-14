@@ -44,7 +44,7 @@ export class CuestionarioDetalleComponent {
   crearForm() {
     this.formCuestionario = this.formBuilder.group({
       cuestionario_id: new FormControl({value: this.cuestionario?.cuestionario_id ? this.cuestionario.cuestionario_id : 0, disabled: true}),
-      pregunta: new FormControl({value: this.cuestionario?.pregunta ? this.cuestionario.pregunta : null, disabled: this.soloLectura}, [Validators.required, Validators.maxLength(200)]),
+      pregunta: new FormControl({value: this.cuestionario?.pregunta ? this.cuestionario.pregunta : null, disabled: false}, [Validators.required, Validators.maxLength(200)]),
       //isactive: new FormControl({value: this.cuestionario?.isactive ? this.cuestionario.isactive : true, disabled: true}),
       posicion: new FormControl({value: this.cuestionario?.posicion ? this.cuestionario.posicion : 0, disabled: true}),
       opciones: this.formBuilder.array(this.cuestionario?.opciones ? this.cuestionario.opciones.map(opcion => this.crearOpciones(opcion)) : [])
@@ -53,8 +53,8 @@ export class CuestionarioDetalleComponent {
   
   crearOpciones(opcion?: Opcion): FormGroup {
     return this.formBuilder.group({
-      opcion_id: new FormControl({value: opcion?.opcion_id ? opcion.opcion_id : 0, disabled: this.soloLectura}),
-      opcion: new FormControl({value: opcion?.opcion ? opcion.opcion : null, disabled: this.soloLectura}, Validators.required)
+      opcion_id: new FormControl({value: opcion?.opcion_id ? opcion.opcion_id : 0, disabled: false}),
+      opcion: new FormControl({value: opcion?.opcion ? opcion.opcion : null, disabled: false}, Validators.required)
     });
   }
   
@@ -93,8 +93,8 @@ export class CuestionarioDetalleComponent {
 
   toggleSoloLectura() {
     this.soloLectura = !this.soloLectura;
-    this.formCuestionario.get('pregunta')?.enable();
-    this.formCuestionario.get('opciones')?.enable();
+    /* this.formCuestionario.get('pregunta')?.enable();
+    this.formCuestionario.get('opciones')?.enable(); */
   }
 
 }

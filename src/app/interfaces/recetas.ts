@@ -2,17 +2,13 @@ export class Receta {
   receta_id!: number;
   titulo!: string;
   preparacion!: string;
-
   apto_vegetariano!: boolean;
   apto_vegano!: boolean;
-  
   energia_total_kcal!: number;
   energia_total_kj!: number;
-
   proteinas_totales!: number;
   carbohidratos_totales!: number;
   grasas_totales!: number;
-
   ingredientes!: Ingrediente[]; 
 }
 
@@ -25,7 +21,6 @@ export class Ingrediente {
 
 export class Alimento {
   alimento_id!: number;
-  
   numero!: number;
   nombre!: string;
   genero!: string;
@@ -33,12 +28,9 @@ export class Alimento {
   apto_celiaco!: boolean;
   apto_vegetariano!: boolean;
   apto_vegano!: boolean;
-
   porciones!: Porcion[];
-
   energia_kcal!: number;
   energia_kj!: number;
-
   proteinas!: number;
   carbohidratos_totales!: number;
   carbohidratos_disponibles!: number;
@@ -46,7 +38,6 @@ export class Alimento {
   ac_grasos_monoinsaturados!: number;
   ac_grasos_poliinsaturados!: number;
   ac_grasos_saturados!: number;
-  
   agua!: number;
   calcio!: number;
   cenizas!: number;

@@ -1,6 +1,6 @@
-<p-dialog header="Ingrediente" [(visible)]="showDialog" [modal]="true" [style]="{width: '800px'}" (onHide)="closeDialog()" class="custom-dialog">
+<p-dialog header="Agregar Ingrediente" [(visible)]="showDialog" [modal]="true" [style]="{width: '800px'}" (onHide)="closeDialog()" class="custom-dialog">
   <form [formGroup]="formFiltrosModal">
-    <div class="row align-items-end">
+    <div class="row mt-2 align-items-end">
       <div class="col-6">
         <label class="mb-1"><strong>Nombre</strong></label>
         <input type="text" class="form-control" formControlName="nombre">
@@ -32,7 +32,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let alimento of alimentoFiltrado" (click)="seleccionarAlimento(alimento)" [class.table-primary]="alimento === formIngrediente.get('alimento')?.value"
+          <tr *ngFor="let alimento of listAlimentos" (click)="seleccionarAlimento(alimento)" [class.table-primary]="alimento === formIngrediente.get('alimento')?.value"
               style="cursor: pointer;">
             <td  class="align-middle text-start">{{ alimento.nombre }}</td>
             <td  class="align-middle text-start">{{ alimento.tipo }}</td>
@@ -72,7 +72,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-3">
         <div class="form-group">
           <label class="mb-1"><strong>Cantidad</strong></label>
           <input type="number" class="form-control" formControlName="cantidad" min="1" />
@@ -84,7 +84,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4 d-flex flex-column justify-content-end align-items-end">
+      <div class="col-5 d-flex flex-column justify-content-end align-items-end">
         <button type="button" pButton class="btn btn-primary" label="Guardar" (click)="guardar()" icon="pi pi-check" [disabled]="formIngrediente.invalid">Guardar</button>
       </div>
     </div>

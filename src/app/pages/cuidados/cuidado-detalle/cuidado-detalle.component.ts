@@ -44,8 +44,8 @@ export class CuidadoDetalleComponent {
   crearForm() {
     this.formCuidados = this.formBuilder.group({
       cuidado_id: new FormControl({value: this.cuidadoHogar?.cuidado_id ? this.cuidadoHogar.cuidado_id : 0, disabled: true}),
-      titulo: new FormControl({value: this.cuidadoHogar?.titulo ? this.cuidadoHogar.titulo : null, disabled: this.soloLectura}, [Validators.required, Validators.maxLength(200)]),
-      descripcion: new FormControl({value: this.cuidadoHogar?.descripcion ? this.cuidadoHogar.descripcion : null, disabled: this.soloLectura}, [Validators.required, Validators.maxLength(2000)]),
+      titulo: new FormControl({value: this.cuidadoHogar?.titulo ? this.cuidadoHogar.titulo : null, disabled: false}, [Validators.required, Validators.maxLength(200)]),
+      descripcion: new FormControl({value: this.cuidadoHogar?.descripcion ? this.cuidadoHogar.descripcion : null, disabled: false}, [Validators.required, Validators.maxLength(2000)]),
       //isactive: new FormControl({value: this.cuidadoHogar?.isactive ? this.cuidadoHogar.isactive : true, disabled: true}),
       posicion: new FormControl({value: this.cuidadoHogar?.posicion ? this.cuidadoHogar.posicion : 0, disabled: true}),
     })
@@ -78,8 +78,8 @@ export class CuidadoDetalleComponent {
 
   toggleSoloLectura() {
     this.soloLectura = !this.soloLectura;
-    this.formCuidados.get('titulo')?.enable();
-    this.formCuidados.get('descripcion')?.enable();
+    /* this.formCuidados.get('titulo')?.enable();
+    this.formCuidados.get('descripcion')?.enable(); */
   }
 
 }

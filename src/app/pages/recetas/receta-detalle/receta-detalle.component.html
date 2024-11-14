@@ -11,26 +11,52 @@
       </div>
 
       <div class="row mt-3">
-        <div class="col-12">
-          <label><strong>Título</strong></label>
-          <input type="text" class="form-control" formControlName="titulo" placeholder="Título de la receta">
+        <div class="col-8">
+          <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Título</strong></label>
+          <input type="text" class="form-control" formControlName="titulo" [readOnly]="soloLectura">
         </div>
+        <div class="col-2 d-flex justify-content-center align-items-end">
+          <div class="form-check form-switch">
+            <label class="mb-1 me-2"><strong>Vegetariano</strong></label>
+            <input type="checkbox" formControlName="apto_vegetariano" class="form-check-input" />
+          </div>
+        </div>
+        <div class="col-2 d-flex justify-content-center align-items-end">
+          <div class="form-check form-switch">
+            <label class="mb-1 me-2"><strong>Vegano</strong></label>
+            <input type="checkbox" formControlName="apto_vegano" class="form-check-input" />
+          </div>
+        </div> 
       </div>
       <div class="row mt-3">
         <div class="col-12">
-          <label><strong>Preparación</strong></label>
-          <textarea class="form-control" formControlName="preparacion" placeholder="Descripción de la preparación"></textarea>
+          <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Preparación</strong></label>
+          <textarea class="form-control" formControlName="preparacion" maxlength="2000" rows="10" [readOnly]="soloLectura"></textarea>
         </div>
       </div>
 
       <div class="row mt-3">
-        <div class="col-4">
-          <label><strong>Apto vegetariano</strong></label>
-          <input type="checkbox" formControlName="apto_vegetariano">
+        <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Ingredientes</strong></label>
+        <div formArrayName="ingredientes">
+          <div *ngFor="let ingrediente of ingredientes.controls; let i = index" [formGroupName]="i">
+            <div class="row mt-2">
+              <div class="col-5">
+                <input type="text" class="form-control" [value]="ingrediente.get('alimento')?.value?.nombre" readonly>
+              </div>
+              <div class="col-3">
+                <input type="text" class="form-control" [value]="ingrediente.get('porcion')?.value?.nombre" readonly>
+              </div>
+              <div class="col-2">
+                <input type="number" class="form-control" formControlName="cantidad" readonly>
+              </div>
+              <div class="col-1 ps-0"><button type="button" class="btn btn-danger" (click)="eliminarIngrediente(i)" [hidden]="soloLectura"><i class="fas fa-trash"></i></button></div>
+            </div>
+          </div>
         </div>
-        <div class="col-4">
-          <label><strong>Apto vegano</strong></label>
-          <input type="checkbox" formControlName="apto_vegano">
+      </div>
+      <div class="row" [hidden]="soloLectura">
+        <div class="col-3">
+          <button type="button" class="btn btn-primary mt-3" (click)="abrirModalIngrediente()"><i class="fas fa-plus"></i> Agregar ingrediente</button>
         </div>
       </div>
 
@@ -38,18 +64,16 @@
 
       <div class="row">
         <div class="col-12">
-          <h5 class="mb-3">Valores Energéticos</h5>
+          <h5 class="mb-3">Valores Energéticos (Autocalculados)</h5>
         </div>
       </div>
 
       <div class="row">
-        <div class="col-3"><label><strong>Calorías (kcal)</strong></label><input type="number" class="form-control" formControlName="energia_total_kcal" readonly></div>
-        <div class="col-3"><label><strong>Energía (kJ)</strong></label><input type="number" class="form-control" formControlName="energia_total_kj" readonly></div>
+        <div class="col-3"><label><strong>Calorías (kcal)</strong></label><input type="number" class="form-control" formControlName="energia_total_kcal"></div>
+        <div class="col-3"><label><strong>Energía (kJ)</strong></label><input type="number" class="form-control" formControlName="energia_total_kj"></div>
       </div>
 
-      <hr class="my-5">
-
-      <div class="row">
+      <div class="row mt-4">
         <div class="col-12">
           <h5 class="mb-3">Macronutrientes</h5>
         </div>
@@ -59,30 +83,6 @@
         <div class="col-3"><label><strong>Proteínas</strong></label><input type="number" class="form-control" formControlName="proteinas_totales" readonly></div>
         <div class="col-3"><label><strong>Carbohidratos</strong></label><input type="number" class="form-control" formControlName="carbohidratos_totales" readonly></div>
         <div class="col-3"><label><strong>Grasas</strong></label><input type="number" class="form-control" formControlName="grasas_totales" readonly></div>
-      </div>
-
-      <hr class="my-5">
-
-      <div class="row">
-        <div class="col-12">
-          <h5 class="mb-0">Ingredientes</h5>
-        </div>
-      </div>
-
-      <div class="row mt-3">
-        <div class="col-12">
-          <div formArrayName="ingredientes">
-            <div *ngFor="let ingrediente of ingredientes.controls; let i = index" [formGroupName]="i">
-              <div class="row mt-2">
-                <div class="col-6"><input type="text" class="form-control" formControlName="alimento" placeholder="Alimento" readonly></div>
-                <div class="col-2"><input type="text" class="form-control" formControlName="porcion" placeholder="Porcion" readonly></div>
-                <div class="col-1"><input type="number" class="form-control" formControlName="cantidad" placeholder="Cantidad" readonly></div>
-                <div class="col-1 ps-0"><button type="button" class="btn btn-danger" (click)="eliminarIngrediente(i)" [hidden]="soloLectura"><i class="fas fa-trash"></i></button></div>
-              </div>
-            </div>
-          </div>
-          <button type="button" class="btn btn-primary mt-3" (click)="abrirModalIngrediente()" [hidden]="soloLectura"><i class="fas fa-plus"></i> Agregar ingrediente</button>
-        </div>
       </div>
 
       <div class="row mt-5">

@@ -8,7 +8,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
 .is-required:after {
   content: '*';
   margin-left: 3px;
-  color: rgb(28, 27, 27);
+  /* color: rgb(28, 27, 27); */
+  color: red;
   font-size: 20px;
   font-weight: bolder;
 }
@@ -18,14 +19,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
 }
 
 .btn-primary {
-  background: #1964d4 !important;
-  border-color: #1964d4 !important;
+  background: #103b73 !important;
+  border-color: #103b73 !important;
   color: white;
   transition: 300ms ease-in-out;
 }
 
 .btn-primary:hover {
-  background: #297bf7 !important;
-  border-color: #297bf7 !important;
+  background: #1d5296 !important;
+  border-color: #1d5296 !important;
   color: white;
 }

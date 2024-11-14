@@ -22,7 +22,7 @@ export class RecetasComponent {
   displayEliminarModal: boolean = false;
   recetaSeleccionadaId: number = 0;
   formFiltros!: FormGroup;
-  nombreFilter: string = '';
+  tituloFilter: string = '';
   size: number = 5;
   page: number = 0;
   total: number = 0;
@@ -43,7 +43,7 @@ export class RecetasComponent {
 
   crearFormFiltros() {
     this.formFiltros = this.formBuilder.group({
-      nombre: new FormControl({ value: this.nombreFilter, disabled: false },  Validators.required ),
+      titulo: new FormControl({ value: this.tituloFilter, disabled: false },  Validators.required ),
     });
   }
 
@@ -54,16 +54,16 @@ export class RecetasComponent {
   }
 
   listarRecetas() {
-   /*  this.loading = true;
-    this.nombreFilter = this.formFiltros.get('nombre')?.value 
-      ? this.formFiltros.get('nombre')?.value 
+   this.loading = true;
+    this.tituloFilter = this.formFiltros.get('titulo')?.value 
+      ? this.formFiltros.get('titulo')?.value 
       : '';
     
     this._recetasService
       .listRecetas(
         this.page, 
         this.size, 
-        this.nombreFilter
+        this.tituloFilter
       ).subscribe({
         next: (data: any) => {
           this.listRecetas = data.content;
@@ -76,7 +76,7 @@ export class RecetasComponent {
         complete: () => {
           this.loading = false;
         }
-      }); */
+      });
   } 
 
   toggleEliminarModal(id: number) {

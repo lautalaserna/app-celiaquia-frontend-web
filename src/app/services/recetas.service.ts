@@ -15,11 +15,11 @@ export class RecetasService {
   constructor(private http: HttpClient) { }
 
   getReceta(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}${this.apiRecetasUrl}/${id}`);
+    return this.http.get<any>(`${this.baseUrl}${this.apiRecetasUrl}/${id}/detail`);
   }
 
   listRecetas(page:number, size:number, titulo:string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}${this.apiRecetasUrl}?page=${page}&size=${size}&nombre=${titulo}`);
+    return this.http.get<any>(`${this.baseUrl}${this.apiRecetasUrl}?page=${page}&size=${size}&titulo=${titulo}`);
   }
 
   createReceta(receta: Receta): Observable<Receta> {
@@ -34,8 +34,8 @@ export class RecetasService {
     return this.http.get<any>(`${this.baseUrl}${this.apiAlimentosUrl}/${id}`);
   }
 
-  listAlimentos(page:number, size:number, titulo:string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}${this.apiAlimentosUrl}?page=${page}&size=${size}&nombre=${titulo}`);
+  listAlimentos(page:number, size:number, nombre:string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}${this.apiAlimentosUrl}?page=${page}&size=${size}&nombre=${nombre}`);
   }
 
   createAlimento(alimento: Alimento): Observable<Alimento> {
@@ -45,5 +45,4 @@ export class RecetasService {
   deleteAlimento(id: number): Observable<Alimento> {
     return this.http.delete<Alimento>(`${this.baseUrl}${this.apiAlimentosUrl}/${id}`);
   }
-
 }

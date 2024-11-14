@@ -6,8 +6,8 @@
     <form *ngIf="!loading" [formGroup]="formCuidados" class="mb-3">
       <div class="row">
         <div class="col-12">
-          <label class="is-required mb-1"><strong>Título</strong></label>
-          <input type="text" class="form-control" formControlName="titulo" maxlength="200"
+          <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Título</strong></label>
+          <input type="text" class="form-control" formControlName="titulo" maxlength="200" [readOnly]="soloLectura"
               [ngClass]="!formCuidados.get('titulo')?.touched ? '' :formCuidados.get('titulo')?.valid ? '': 'is-invalid' ">
           <div class="invalid-feedback" *ngIf="formCuidados.get('titulo')?.hasError('required') && formCuidados.get('titulo')?.touched">
             Campo requerido
@@ -18,8 +18,8 @@
       <div class="row mt-3">
         <div class="col-12">
           <div class="form-group">
-            <label class="is-required mb-1"><strong>Descripción</strong></label>      
-            <textarea class="form-control rounded-1" formControlName="descripcion" maxlength="2000" rows="12"
+            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Descripción</strong></label>      
+            <textarea class="form-control rounded-1" formControlName="descripcion" maxlength="2000" rows="12" [readOnly]="soloLectura"
               [ngClass]="!formCuidados.get('descripcion')?.touched ? '' : formCuidados.get('descripcion')?.valid ? '': 'is-invalid' "></textarea>
             <div class="invalid-feedback" *ngIf="formCuidados.get('descripcion')?.hasError('required') && formCuidados.get('descripcion')?.touched">
               Campo requerido

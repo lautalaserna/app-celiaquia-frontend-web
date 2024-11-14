@@ -16,7 +16,7 @@ export class RecetaResolverService {
     const id = Number(route.queryParamMap.get('id'));
 
     if (id) {
-      return this._recetasService.getAlimento(id).pipe(
+      return this._recetasService.getReceta(id).pipe(
         map(response => response.data)
       );
     }
