@@ -5,7 +5,6 @@ const spanishRangeLabel = (page: number, pageSize: number, length: number) => {
     return `0 de ${length}`;
   }
   const startIndex = page * pageSize;
-  // If the start index exceeds the list length, do not try and fix the end index to the end.
   const endIndex = startIndex < length ? 
     Math.min(startIndex + pageSize, length) : 
     startIndex + pageSize;
@@ -14,7 +13,6 @@ const spanishRangeLabel = (page: number, pageSize: number, length: number) => {
 
 export function getSpanishPaginatorIntl() {
   const paginatorIntl = new MatPaginatorIntl();
-  
   paginatorIntl.itemsPerPageLabel = 'Items por página:';
   paginatorIntl.nextPageLabel = 'Siguiente página';
   paginatorIntl.previousPageLabel = 'Página anterior';

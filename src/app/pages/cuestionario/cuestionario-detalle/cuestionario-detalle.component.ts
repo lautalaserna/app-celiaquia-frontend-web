@@ -9,7 +9,7 @@ import { Cuestionario, Opcion } from '../../../interfaces/cuestionario';
 @Component({
   selector: 'app-cuestionario-detalle',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './cuestionario-detalle.component.html',
   styleUrl: './cuestionario-detalle.component.css'
 })

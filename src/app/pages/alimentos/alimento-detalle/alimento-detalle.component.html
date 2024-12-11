@@ -11,58 +11,98 @@
       </div>
 
       <div class="row mt-1">
-        <div class="col-2">
-          <div class="form-group">
-            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Número</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="numero" [readOnly]="soloLectura"
-              [ngClass]="!formAlimento.get('numero')?.touched ? '' : formAlimento.get('numero')?.valid ? '' : 'is-invalid'" />
-            <div class="invalid-feedback" *ngIf="formAlimento.get('numero')?.hasError('required') && formAlimento.get('numero')?.touched">
-              Campo requerido
+        <div class="col-9">
+          <div class="row">
+            <div class="col-3">
+              <div class="form-group">
+                <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Número</strong></label>
+                <input type="number" class="form-control rounded-1" formControlName="numero" [readOnly]="soloLectura"
+                  [ngClass]="!formAlimento.get('numero')?.touched ? '' : formAlimento.get('numero')?.valid ? '' : 'is-invalid'" />
+                <div class="invalid-feedback" *ngIf="formAlimento.get('numero')?.hasError('required') && formAlimento.get('numero')?.touched">
+                  Campo requerido
+                </div>
+              </div>
+            </div>
+            <div class="col-9">
+              <div class="form-group">
+                <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Nombre</strong></label>
+                <input type="text" class="form-control rounded-1" formControlName="nombre" maxlength="200" [readOnly]="soloLectura"
+                  [ngClass]="!formAlimento.get('nombre')?.touched ? '' : formAlimento.get('nombre')?.valid ? '' : 'is-invalid'" />
+                <div class="invalid-feedback" *ngIf="formAlimento.get('nombre')?.hasError('required') && formAlimento.get('nombre')?.touched">
+                  Campo requerido
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-8">
-          <div class="form-group">
-            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Nombre</strong></label>
-            <input type="text" class="form-control rounded-1" formControlName="nombre" maxlength="200" [readOnly]="soloLectura"
-              [ngClass]="!formAlimento.get('nombre')?.touched ? '' : formAlimento.get('nombre')?.valid ? '' : 'is-invalid'" />
-            <div class="invalid-feedback" *ngIf="formAlimento.get('nombre')?.hasError('required') && formAlimento.get('nombre')?.touched">
-              Campo requerido
+          <div class="row mt-3">
+            <div class="col-6">
+              <div class="form-group">
+                <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Género</strong></label>
+                <input type="text" class="form-control rounded-1" formControlName="genero" [readOnly]="soloLectura"
+                  [ngClass]="!formAlimento.get('genero')?.touched ? '' : formAlimento.get('genero')?.valid ? '' : 'is-invalid'" />
+                <div class="invalid-feedback" *ngIf="formAlimento.get('genero')?.hasError('required') && formAlimento.get('genero')?.touched">
+                  Campo requerido
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label [ngClass]="!soloLectura ? 'is-required mb-1' : 'mb-1'"><strong>Tipo</strong></label>
+                <select class="form-select" formControlName="tipo" [ngClass]="!formAlimento.get('tipo')?.touched ? '' : formAlimento.get('tipo')?.valid ? '' : 'is-invalid'">
+                  <option *ngFor="let tipo of listTipoAlimento" [ngValue]="tipo"> {{ tipo }} </option>
+                </select>
+                <div  class="invalid-feedback"*ngIf="formAlimento.get('tipo')?.hasError('required') && formAlimento.get('tipo')?.touched">
+                  Campo requerido
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label [ngClass]="!soloLectura ? 'is-required mb-1' : 'mb-1'"><strong>Accesibilidad</strong></label>
+                <select class="form-select" formControlName="accesibilidad" [ngClass]="!formAlimento.get('accesibilidad')?.touched ? '' : formAlimento.get('accesibilidad')?.valid ? '' : 'is-invalid'">
+                  <option *ngFor="let accesibilidad of listAccesibilidad" [ngValue]="accesibilidad"> {{ accesibilidad }} </option>
+                </select>
+                <div  class="invalid-feedback"*ngIf="formAlimento.get('accesibilidad')?.hasError('required') && formAlimento.get('accesibilidad')?.touched">
+                  Campo requerido
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-4">
-          <div class="form-group">
-            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Género</strong></label>
-            <input type="text" class="form-control rounded-1" formControlName="genero" [readOnly]="soloLectura"
-              [ngClass]="!formAlimento.get('genero')?.touched ? '' : formAlimento.get('genero')?.valid ? '' : 'is-invalid'" />
-            <div class="invalid-feedback" *ngIf="formAlimento.get('genero')?.hasError('required') && formAlimento.get('genero')?.touched">
-              Campo requerido
+          <div class="row mt-5">
+            <div class="col-4">
+              <div class="form-check form-switch">
+                <label class="mb-1 me-2"><strong>Apto Celíaco</strong></label>
+                <input type="checkbox" formControlName="apto_celiaco" class="form-check-input" />
+              </div>
             </div>
+            <div class="col-4">
+              <div class="form-check form-switch">
+                <label class="mb-1 me-2"><strong>Apto Vegetariano</strong></label>
+                <input type="checkbox" formControlName="apto_vegetariano" class="form-check-input" />
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-check form-switch">
+                <label class="mb-1 me-2"><strong>Apto Vegano</strong></label>
+                <input type="checkbox" formControlName="apto_vegetariano" class="form-check-input" />
+              </div>
+            </div> 
           </div>
         </div>
-      </div>
-      <div class="row mt-5">
-        <div class="col-3">
-          <div class="form-check form-switch">
-            <label class="mb-1 me-2"><strong>Apto Celíaco</strong></label>
-            <input type="checkbox" formControlName="apto_celiaco" class="form-check-input" />
+        <div class="col-3 p-0 ps-4 pe-2 p d-flex flex-column align-items-center">
+          <div class="img-area" data-img="">
+            <div *ngIf="!imagenUrl" class="d-flex flex-column align-items-center">
+              <i class='fas fa-cloud' style="font-size: 50px; margin-bottom: 10px;"></i>
+              <h3>Subir Imagen</h3>
+              <p>La imagen debe ser menor a <span>1Mb</span></p>
+            </div>
+            <img *ngIf="imagenUrl" [src]="imagenUrl" alt="Imagen seleccionada"/>
           </div>
+          <label for="file-upload" class="btn btn-primary btn-shadow w-100" [hidden]="soloLectura">
+            Seleccionar Imagen
+          </label>
+          <input id="file-upload" type="file" accept="image/*" class="form-control" (change)="onFileChange($event)"/>
         </div>
-        <div class="col-3">
-          <div class="form-check form-switch">
-            <label class="mb-1 me-2"><strong>Apto Vegetariano</strong></label>
-            <input type="checkbox" formControlName="apto_vegetariano" class="form-check-input" />
-          </div>
-        </div>
-        <div class="col-3">
-          <div class="form-check form-switch">
-            <label class="mb-1 me-2"><strong>Apto Vegano</strong></label>
-            <input type="checkbox" formControlName="apto_vegetariano" class="form-check-input" />
-          </div>
-        </div> 
       </div>
 
       <hr class="my-5">

@@ -1,6 +1,7 @@
 export class Receta {
   receta_id!: number;
   titulo!: string;
+  imagen!: string | null;
   preparacion!: string;
   apto_vegetariano!: boolean;
   apto_vegano!: boolean;
@@ -25,6 +26,8 @@ export class Alimento {
   nombre!: string;
   genero!: string;
   tipo!: TipoAlimento;
+  accesibilidad!: Accesibilidad;
+  imagen!: any;
   apto_celiaco!: boolean;
   apto_vegetariano!: boolean;
   apto_vegano!: boolean;
@@ -61,8 +64,13 @@ export class Porcion {
 }
 
 export enum TipoAlimento {
-  VERDES = "Verdes",
-  PROTEINAS = "Proteinas",
-  HIDRATOS = "Hidratos",
-  COLASION = "Colasión"
+  VERDES = "VERDES",
+  PROTEINAS = "PROTEINAS",
+  HIDRATOS = "HIDRATOS",
+}
+
+export enum Accesibilidad {
+  ALTA = "ALTA",
+  MEDIA = "MEDIA",
+  BAJA = "BAJA",
 }

@@ -16,6 +16,9 @@ import { AlimentoResolverService } from '../services/alimento-resolver.service';
 import { RecetaResolverService } from '../services/receta-resolver.service';
 import { RecetaDetalleComponent } from './recetas/receta-detalle/receta-detalle.component';
 import { AdminGuard } from '../utils/guards/admin.guard';
+import { PuntoCompraDetalleComponent } from './puntos-compra/punto-compra-detalle/punto-compra-detalle.component';
+import { PuntosCompraComponent } from './puntos-compra/puntos-compra.component';
+import { PuntosCompraResolverService } from '../services/puntos-compra-resolver.service';
 
 export const pagesRoutes: Routes = [
   { 
@@ -64,6 +67,17 @@ export const pagesRoutes: Routes = [
     component: RecetaDetalleComponent,
     resolve: {
       receta: RecetaResolverService
+    }
+  },
+  { 
+    path: 'puntos-compra', 
+    component: PuntosCompraComponent 
+  },
+  {
+    path: 'punto-compra-detalle',
+    component: PuntoCompraDetalleComponent,
+    resolve: {
+      puntoCompra: PuntosCompraResolverService
     }
   },
   { 

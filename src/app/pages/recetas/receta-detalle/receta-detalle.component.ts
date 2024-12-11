@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Ingrediente, Receta, TipoAlimento } from '../../../interfaces/recetas';
+import { Ingrediente, Receta } from '../../../interfaces/recetas';
 import { RecetasService } from '../../../services/recetas.service';
 import { ModalIngredienteComponent } from './modal-ingrediente/modal-ingrediente.component';
 
@@ -21,6 +21,7 @@ export class RecetaDetalleComponent {
   soloLectura: boolean = false;
   loading: boolean = false;
   mostrarModal: boolean = false;
+  imagenUrl: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -56,6 +57,7 @@ export class RecetaDetalleComponent {
       proteinas_totales: new FormControl({ value: this.receta?.proteinas_totales || 0, disabled: true }, [Validators.required, Validators.min(0)]),
       carbohidratos_totales: new FormControl({ value: this.receta?.carbohidratos_totales || 0, disabled: true }, [Validators.required, Validators.min(0)]),
       grasas_totales: new FormControl({ value: this.receta?.grasas_totales || 0, disabled: true }, [Validators.required, Validators.min(0)]),
+      imagen: new FormControl({value: this.receta?.imagen ? this.receta.imagen : null, disabled: false}),
       ingredientes: this.formBuilder.array(this.receta?.ingredientes ? this.receta.ingredientes.map(i => this.crearIngrediente(i)) : [])
     });
   }
@@ -110,6 +112,24 @@ export class RecetaDetalleComponent {
     });
   }
 
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length) {
+        const file = input.files[0];
+        if (file.size > 1048576) {
+            this.toastr.error('La imagen es super el tamaño máximo de 1Mb', 'Error');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+            const base64String = reader.result as string;
+            this.imagenUrl = base64String; 
+            this.formReceta.patchValue({ imagen: base64String });
+        };
+        reader.readAsDataURL(file);
+    }
+  }
+
   recalcularDatos() {
     let energiaKcal: number = 0;
     let energiaKj: number = 0;
@@ -145,6 +165,7 @@ export class RecetaDetalleComponent {
     const receta: Receta = {
       receta_id: body.receta_id,
       titulo: body.titulo,
+      imagen: body.imagen,
       preparacion: body.preparacion,
       apto_vegetariano: body.apto_vegetariano,
       apto_vegano: body.apto_vegano,

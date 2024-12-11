@@ -1,24 +1,27 @@
 import { Component } from '@angular/core';
-import { Alimento, Porcion } from '../../../interfaces/recetas';
+import { Accesibilidad, Alimento, Porcion, TipoAlimento } from '../../../interfaces/recetas';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RecetasService } from '../../../services/recetas.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-alimento-detalle',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './alimento-detalle.component.html',
   styleUrl: './alimento-detalle.component.css'
 })
 export class AlimentoDetalleComponent {
   alimento!: Alimento;
   formAlimento!: FormGroup;
+  listTipoAlimento: string[] = Object.values(TipoAlimento);
+  listAccesibilidad: string[] = Object.values(Accesibilidad);
   esNuevo: boolean = false;
   soloLectura: boolean = false;
   loading: boolean = false;
+  imagenUrl: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,9 +49,12 @@ export class AlimentoDetalleComponent {
       alimento_id: new FormControl({ value: this.alimento?.alimento_id ? this.alimento.alimento_id : 0, disabled: true }),
       nombre: new FormControl({ value: this.alimento?.nombre ? this.alimento.nombre : null, disabled: false }, [Validators.required, Validators.maxLength(200)]),
       genero: new FormControl({ value: this.alimento?.genero ? this.alimento.genero : null, disabled: false }),
+      tipo: new FormControl({ value: this.alimento?.tipo ? this.alimento.tipo : null, disabled: this.soloLectura }, [Validators.required]),
+      accesibilidad: new FormControl({ value: this.alimento?.accesibilidad ? this.alimento.accesibilidad : null, disabled: this.soloLectura }, [Validators.required]),
       apto_celiaco: new FormControl({ value: this.alimento?.apto_celiaco ? this.alimento.apto_celiaco : false, disabled: this.soloLectura }),
       apto_vegetariano: new FormControl({ value: this.alimento?.apto_vegetariano ? this.alimento.apto_vegetariano : false, disabled: this.soloLectura }),
       apto_vegano: new FormControl({ value: this.alimento?.apto_vegano ? this.alimento.apto_vegano : false, disabled: this.soloLectura }),
+      imagen: new FormControl(this.alimento?.imagen || null),
       energia_kcal: new FormControl({ value: this.alimento?.energia_kcal ? this.alimento.energia_kcal : 0, disabled: false }, [Validators.required]),
       energia_kj: new FormControl({ value: this.alimento?.energia_kj ? this.alimento.energia_kj : 0, disabled: false }, [Validators.required]),
       proteinas: new FormControl({ value: this.alimento?.proteinas ? this.alimento.proteinas : 0, disabled: false }, [Validators.required]),
@@ -75,6 +81,10 @@ export class AlimentoDetalleComponent {
       fibra_dietetica: new FormControl({ value: this.alimento?.fibra_dietetica ? this.alimento.fibra_dietetica : null, disabled: false }),
       porciones: this.formBuilder.array(this.alimento?.porciones ? this.alimento.porciones.map(porcion => this.crearPorcion(porcion)) : [])
     });
+
+    if (this.formAlimento.get('imagen')?.value) {
+      this.imagenUrl = this.formAlimento.get('imagen')?.value;
+    }
 
     if (this.esNuevo) {
       this.agregarPorcion();
@@ -128,8 +138,28 @@ export class AlimentoDetalleComponent {
 
   toggleSoloLectura() {
     this.soloLectura = !this.soloLectura;
+    this.formAlimento.get('tipo')?.enable();
+    this.formAlimento.get('accesibilidad')?.enable();
     this.formAlimento.get('apto_celiaco')?.enable();
     this.formAlimento.get('apto_vegetariano')?.enable();
     this.formAlimento.get('apto_vegano')?.enable();
+  }
+
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length) {
+        const file = input.files[0];
+        if (file.size > 1048576) {
+            this.toastr.error('La imagen es super el tamaño máximo de 1Mb', 'Error');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+            const base64String = reader.result as string;
+            this.imagenUrl = base64String; 
+            this.formAlimento.patchValue({ imagen: base64String });
+        };
+        reader.readAsDataURL(file);
+    }
   }
 }

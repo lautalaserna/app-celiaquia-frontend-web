@@ -1,0 +1,79 @@
+<div class="title-bar">
+  <h2 class="page-title">Cuestionario de Ingreso</h2>
+</div>
+<div class="main-page container-fluid">
+  <div class="container-fluid">
+    <form [formGroup]="formFiltros">
+      <div class="row align-items-end">
+        <div class="col-4">
+          <label class="mb-1"><strong>Nombre</strong></label>
+          <input type="text" class="form-control" formControlName="nombre">
+        </div>
+        <div class="col-1 align-self-end p-0">
+          <button class="btn btn-search btn-primary btn-shadow" (click)="listarPuntosCompra()">
+            <i *ngIf="!loading" class="fas fa-sm fa-search text-white"></i>
+            <div *ngIf="loading" class="spinner-border spinner-border-sm text-white" role="status"></div>
+          </button>
+        </div>
+        <div class="col-5"></div>
+        <div class="col-2 d-flex justify-content-end">
+          <button class="btn btn-primary btn-shadow" [routerLink]="'/punto-compra-detalle'" (click)="nuevoPuntoCompra()">
+            <i class="fas fa-plus me-2"></i> Agregar
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="row mt-4">
+      <div class="table-responsive">
+        <table class="table table-striped border table-hover">
+          <thead class="table-header">
+            <tr>
+              <th scope="col" class="w-10 text-center" style="width: 100px;"></th>
+              <th scope="col" class="w-30">Pregunta</th>
+            </tr>
+          </thead>
+          
+          <tbody>
+            <tr *ngFor="let puntoCompra of this.listPuntoCompra, index as i">
+              <td class="align-middle text-center">
+                <div class="dropend">
+                  <button type="button" class="btn btn-primary btn-shadow" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-ellipsis-h text-white"></i>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-dark">
+                    <li>
+                      <button class="dropdown-item custom-dropdown-item" (click)="verPuntoCompraSeleccionado(puntoCompra.punto_de_compra_id)">
+                        <div class="d-flex align-items-center">
+                          <i class="fas fa-align-justify"></i>
+                          <span class="ms-2">Inspeccionar</span>
+                        </div>
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item custom-dropdown-item" (click)="toggleEliminarModal(puntoCompra.punto_de_compra_id)">
+                        <div class="d-flex align-items-center">
+                          <i class="fas fa-trash"></i>
+                          <span class="ms-2">Eliminar</span>
+                        </div>
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+              <td class="align-middle">{{puntoCompra.nombre}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <mat-paginator [pageSize]="this.size" [length]="this.total" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons="true" (page)="onPageChange($event)"></mat-paginator> 
+    </div>
+  </div>
+</div>
+
+<app-modal-confirmar
+  [title]="'Eliminar pregunta'"
+  [message]="'¿Está seguro que desea eliminar este pregunta?'"
+  [(showDialog)]="displayEliminarModal"
+  (confirm)="eliminarPuntoCompra()"
+  (cancel)="displayEliminarModal = false">
+</app-modal-confirmar>

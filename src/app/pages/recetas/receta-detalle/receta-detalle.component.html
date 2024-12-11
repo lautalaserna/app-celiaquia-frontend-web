@@ -11,30 +11,47 @@
       </div>
 
       <div class="row mt-3">
-        <div class="col-8">
-          <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Título</strong></label>
-          <input type="text" class="form-control" formControlName="titulo" [readOnly]="soloLectura">
-        </div>
-        <div class="col-2 d-flex justify-content-center align-items-end">
-          <div class="form-check form-switch">
-            <label class="mb-1 me-2"><strong>Vegetariano</strong></label>
-            <input type="checkbox" formControlName="apto_vegetariano" class="form-check-input" />
+        <div class="col-9">
+          <div class="row mt-3">
+            <div class="col-8">
+              <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Título</strong></label>
+              <input type="text" class="form-control" formControlName="titulo" [readOnly]="soloLectura">
+            </div>
+            <div class="col-2 d-flex justify-content-center align-items-end">
+              <div class="form-check form-switch">
+                <label class="mb-1 me-2"><strong>Vegetariano</strong></label>
+                <input type="checkbox" formControlName="apto_vegetariano" class="form-check-input" />
+              </div>
+            </div>
+            <div class="col-2 d-flex justify-content-center align-items-end">
+              <div class="form-check form-switch">
+                <label class="mb-1 me-2"><strong>Vegano</strong></label>
+                <input type="checkbox" formControlName="apto_vegano" class="form-check-input" />
+              </div>
+            </div> 
+          </div>
+          <div class="row mt-3">
+            <div class="col-12">
+              <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Preparación</strong></label>
+              <textarea class="form-control" formControlName="preparacion" maxlength="2000" rows="7" [readOnly]="soloLectura"></textarea>
+            </div>
           </div>
         </div>
-        <div class="col-2 d-flex justify-content-center align-items-end">
-          <div class="form-check form-switch">
-            <label class="mb-1 me-2"><strong>Vegano</strong></label>
-            <input type="checkbox" formControlName="apto_vegano" class="form-check-input" />
+        <div class="col-3 p-0 ps-4 pe-2 p d-flex flex-column align-items-center">
+          <div class="img-area" data-img="">
+            <div *ngIf="!imagenUrl" class="d-flex flex-column align-items-center">
+              <i class='fas fa-cloud' style="font-size: 50px; margin-bottom: 10px;"></i>
+              <h3>Subir Imagen</h3>
+              <p>La imagen debe ser menor a <span>1Mb</span></p>
+            </div>
+            <img *ngIf="imagenUrl" [src]="imagenUrl" alt="Imagen seleccionada"/>
           </div>
-        </div> 
-      </div>
-      <div class="row mt-3">
-        <div class="col-12">
-          <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Preparación</strong></label>
-          <textarea class="form-control" formControlName="preparacion" maxlength="2000" rows="10" [readOnly]="soloLectura"></textarea>
+          <label for="file-upload" class="btn btn-primary btn-shadow w-100" [hidden]="soloLectura">
+            Seleccionar Imagen
+          </label>
+          <input id="file-upload" type="file" accept="image/*" class="form-control" (change)="onFileChange($event)"/>
         </div>
       </div>
-
       <div class="row mt-3">
         <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Ingredientes</strong></label>
         <div formArrayName="ingredientes">
