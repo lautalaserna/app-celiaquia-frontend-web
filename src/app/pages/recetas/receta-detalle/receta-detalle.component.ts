@@ -140,7 +140,7 @@ export class RecetaDetalleComponent {
     this.ingredientes.controls.forEach(ingrediente => {
       const alimento = ingrediente.value.alimento;
       const cantidad = ingrediente.value.cantidad;
-      const porcionRate = ingrediente.value.peso ? ingrediente.value.peso / 100 : 1;
+      const porcionRate = ingrediente.value.porcion.peso ? ingrediente.value.porcion.peso / 100 : 1;
 
       energiaKcal += (alimento.energia_kcal ?? 0) * cantidad * porcionRate;
       energiaKj += (alimento.energia_kj ?? 0) * cantidad * porcionRate;
