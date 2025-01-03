@@ -37,6 +37,7 @@ export class RecetaDetalleComponent {
     if(id){
       this.soloLectura = true;
       this.receta = this.route.snapshot.data['receta'];
+      console.log(this.receta);
     } else {
       this.esNuevo = true;
     }
@@ -57,9 +58,13 @@ export class RecetaDetalleComponent {
       proteinas_totales: new FormControl({ value: this.receta?.proteinas_totales || 0, disabled: true }, [Validators.required, Validators.min(0)]),
       carbohidratos_totales: new FormControl({ value: this.receta?.carbohidratos_totales || 0, disabled: true }, [Validators.required, Validators.min(0)]),
       grasas_totales: new FormControl({ value: this.receta?.grasas_totales || 0, disabled: true }, [Validators.required, Validators.min(0)]),
-      imagen: new FormControl({value: this.receta?.imagen ? this.receta.imagen : null, disabled: false}),
+      imagen: new FormControl(this.receta?.imagen || null),
       ingredientes: this.formBuilder.array(this.receta?.ingredientes ? this.receta.ingredientes.map(i => this.crearIngrediente(i)) : [])
     });
+
+    if (this.formReceta.get('imagen')?.value) {
+      this.imagenUrl = this.formReceta.get('imagen')?.value;
+    }
   }
 
   crearIngrediente(ingrediente?: Ingrediente): FormGroup {
