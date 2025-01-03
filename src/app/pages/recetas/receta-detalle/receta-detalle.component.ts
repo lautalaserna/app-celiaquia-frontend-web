@@ -140,12 +140,13 @@ export class RecetaDetalleComponent {
     this.ingredientes.controls.forEach(ingrediente => {
       const alimento = ingrediente.value.alimento;
       const cantidad = ingrediente.value.cantidad;
+      const porcionRate = ingrediente.value.peso ? ingrediente.value.peso / 100 : 1;
 
-      energiaKcal += (alimento.energia_kcal ?? 0) * cantidad;
-      energiaKj += (alimento.energia_kj ?? 0) * cantidad;
-      proteinas_totales += (alimento.proteinas ?? 0) * cantidad;
-      grasas_totales += (alimento.grasa_total ?? 0) * cantidad;
-      carbohidratos_totales += (alimento.carbohidratos_totales ?? 0) * cantidad;
+      energiaKcal += (alimento.energia_kcal ?? 0) * cantidad * porcionRate;
+      energiaKj += (alimento.energia_kj ?? 0) * cantidad * porcionRate;
+      proteinas_totales += (alimento.proteinas ?? 0) * cantidad * porcionRate;
+      grasas_totales += (alimento.grasa_total ?? 0) * cantidad * porcionRate;
+      carbohidratos_totales += (alimento.carbohidratos_totales ?? 0) * cantidad * porcionRate;
     });
 
     this.formReceta.get('energia_total_kcal')?.setValue(energiaKcal.toFixed(2));
