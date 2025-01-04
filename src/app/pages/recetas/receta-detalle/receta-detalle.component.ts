@@ -37,7 +37,6 @@ export class RecetaDetalleComponent {
     if(id){
       this.soloLectura = true;
       this.receta = this.route.snapshot.data['receta'];
-      console.log(this.receta);
     } else {
       this.esNuevo = true;
     }
