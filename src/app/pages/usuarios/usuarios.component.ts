@@ -60,11 +60,10 @@ export class UsuariosComponent {
     this.loading = true;
     this.dniFilter = this.formFiltros.get('dni')?.value ? this.formFiltros.get('dni')?.value : '';
     this._adminService
-      //.listUsuarios(
-      .listAllUsuarios(
-        //this.page, 
-        //this.size, 
-        //this.dniFilter
+      .listUsuarios(
+        this.page, 
+        this.size, 
+        this.dniFilter
       ).subscribe({
         next: (data: any) => {
           this.listUsuarios = data.content;

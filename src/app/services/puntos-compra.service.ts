@@ -9,7 +9,7 @@ import { PuntoCompra } from '../interfaces/puntos-compra';
 })
 export class PuntosCompraService {
   baseUrl = env.endpoint;
-  apiUrl = '/api/puntos-compra';
+  apiUrl = '/api/puntos-de-compra';
 
   constructor(private http: HttpClient) { }
 
@@ -22,7 +22,7 @@ export class PuntosCompraService {
   }
 
   listPuntosCompra(page:number, size:number, nombre:string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}${this.apiUrl}?page=${page}&size=${size}&pregunta=${nombre}`);
+    return this.http.get<any>(`${this.baseUrl}${this.apiUrl}?page=${page}&size=${size}&nombre=${nombre}`);
   }
 
   createPuntoCompra(puntoCompra: PuntoCompra): Observable<PuntoCompra> {

@@ -57,6 +57,10 @@ export class PuntoCompraDetalleComponent {
       imagen: new FormControl({value: this.puntoCompra?.imagen ? this.puntoCompra.imagen : null, disabled: false}),
       tags: new FormControl({value: this.puntoCompra?.tags ? this.puntoCompra.tags : [], disabled: false}),
     });
+
+    if (this.formPuntoCompra.get('imagen')?.value) {
+      this.imagenUrl = this.formPuntoCompra.get('imagen')?.value;
+    }
   }
 
   limpiarPuntoCompra() {
@@ -69,7 +73,7 @@ export class PuntoCompraDetalleComponent {
     console.log(body);
     this.loading= true;
 
-   /* this._puntosCompraService.createPuntoCompra(body).subscribe({
+   this._puntosCompraService.createPuntoCompra(body).subscribe({
       next: (data) => {
         this.loading= false;
         this.router.navigate(['/puntos-compra'])
@@ -78,7 +82,7 @@ export class PuntoCompraDetalleComponent {
         this.loading= false;
         this.toastr.error('No se pudo guardar el punto de compra','Guardado');
       },
-    }); */
+    });
   }
 
   onFileChange(event: Event): void {

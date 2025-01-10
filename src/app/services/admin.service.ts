@@ -9,16 +9,12 @@ import { Usuario } from '../interfaces/user';
 })
 export class AdminService {
   baseUrl = env.endpoint;
-  apiUrl = '/api/users';
+  apiUrl = '/api/usuarios';
 
   constructor(private http: HttpClient) { }
 
   getUsuario(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}${this.apiUrl}/${id}`);
-  }
-
-  listAllUsuarios(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/api/usuarios`); // Eliminar este metodo cuando juli haga la correccion, pasamos a usar el de abajo
   }
 
   listUsuarios(page:number, size:number, dni:string): Observable<any> {
