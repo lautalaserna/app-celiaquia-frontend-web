@@ -3,6 +3,7 @@ export class Receta {
   titulo!: string;
   imagen!: string | null;
   preparacion!: string;
+  descripcion!: string;
   apto_vegetariano!: boolean;
   apto_vegano!: boolean;
   energia_total_kcal!: number;
@@ -31,6 +32,8 @@ export class Alimento {
   apto_celiaco!: boolean;
   apto_vegetariano!: boolean;
   apto_vegano!: boolean;
+  is_procesado!: boolean;
+  preparacion!: string;
   porciones!: Porcion[];
   energia_kcal!: number;
   energia_kj!: number;

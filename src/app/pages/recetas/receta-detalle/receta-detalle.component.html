@@ -1,5 +1,5 @@
 <div class="title-bar">
-  <h2 class="page-title">Detalle de Receta</h2>
+  <h2 class="page-title">Plato Balanceado</h2>
 </div>
 <div class="main-page container-fluid">
   <div class="container-fluid">
@@ -11,47 +11,63 @@
       </div>
 
       <div class="row mt-3">
-        <div class="col-9">
+        <!-- Columna de contenido -->
+        <div class="col-xl-8">
           <div class="row mt-3">
-            <div class="col-8">
+            <div class="col-12">
               <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Título</strong></label>
               <input type="text" class="form-control" formControlName="titulo" [readOnly]="soloLectura">
             </div>
-            <div class="col-2 d-flex justify-content-center align-items-end">
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-12">
+              <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Breve Descripción</strong></label>
+              <textarea class="form-control" formControlName="descripcion" maxlength="200" rows="3" [readOnly]="soloLectura"></textarea>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-md-6 d-flex justify-content-center">
               <div class="form-check form-switch">
-                <label class="mb-1 me-2"><strong>Vegetariano</strong></label>
+                <label class="mb-1"><strong>Vegetariano</strong></label>
                 <input type="checkbox" formControlName="apto_vegetariano" class="form-check-input" />
               </div>
             </div>
-            <div class="col-2 d-flex justify-content-center align-items-end">
+            <div class="col-md-6 d-flex justify-content-center mt-2 mt-md-0">
               <div class="form-check form-switch">
-                <label class="mb-1 me-2"><strong>Vegano</strong></label>
+                <label class="mb-1"><strong>Vegano</strong></label>
                 <input type="checkbox" formControlName="apto_vegano" class="form-check-input" />
               </div>
             </div> 
           </div>
-          <div class="row mt-3">
-            <div class="col-12">
-              <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Preparación</strong></label>
-              <textarea class="form-control" formControlName="preparacion" maxlength="2000" rows="7" [readOnly]="soloLectura"></textarea>
-            </div>
-          </div>
+
         </div>
-        <div class="col-3 p-0 ps-4 pe-2 p d-flex flex-column align-items-center">
+
+        <!-- Columna de imagen -->
+        <div class="col-xl-4 d-flex mt-4 mt-xl-0 flex-column align-items-center">
           <div class="img-area" data-img="">
             <div *ngIf="!imagenUrl" class="d-flex flex-column align-items-center">
               <i class='fas fa-cloud' style="font-size: 50px; margin-bottom: 10px;"></i>
               <h3>Subir Imagen</h3>
               <p>La imagen debe ser menor a <span>1Mb</span></p>
             </div>
-            <img *ngIf="imagenUrl" [src]="imagenUrl" alt="Imagen seleccionada"/>
+            <img *ngIf="imagenUrl" [src]="imagenUrl" alt="Imagen seleccionada" class="img-fluid" />
           </div>
-          <label for="file-upload" class="btn btn-primary btn-shadow w-100" [hidden]="soloLectura">
+          <label for="file-upload" class="btn btn-primary btn-shadow w-100 mt-3" [hidden]="soloLectura">
             Seleccionar Imagen
           </label>
-          <input id="file-upload" type="file" accept="image/*" class="form-control" (change)="onFileChange($event)"/>
+          <input id="file-upload" type="file" accept="image/*" class="form-control mt-2" (change)="onFileChange($event)" />
         </div>
       </div>
+
+      <div class="row mt-3">
+        <div class="col-12">
+          <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Preparación</strong></label>
+          <textarea class="form-control" formControlName="preparacion" maxlength="2000" rows="7" [readOnly]="soloLectura"></textarea>
+        </div>
+      </div>
+
       <div class="row mt-3">
         <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Ingredientes</strong></label>
         <div formArrayName="ingredientes">
@@ -71,8 +87,9 @@
           </div>
         </div>
       </div>
+
       <div class="row" [hidden]="soloLectura">
-        <div class="col-3">
+        <div class="col-12">
           <button type="button" class="btn btn-primary mt-3" (click)="abrirModalIngrediente()"><i class="fas fa-plus"></i> Agregar ingrediente</button>
         </div>
       </div>
@@ -81,13 +98,13 @@
 
       <div class="row">
         <div class="col-12">
-          <h5 class="mb-3">Valores Energéticos (Autocalculados)</h5>
+          <h5 class="mb-3">Valor Energético del Plato</h5>
         </div>
       </div>
 
       <div class="row">
-        <div class="col-3"><label class="mb-1"><strong>Calorías (kcal)</strong></label><input type="number" class="form-control" formControlName="energia_total_kcal"></div>
-        <div class="col-3"><label class="mb-1"><strong>Energía (kJ)</strong></label><input type="number" class="form-control" formControlName="energia_total_kj"></div>
+        <div class="col-12 col-xl-3"><label class="mb-1"><strong>Calorías (kcal)</strong></label><input type="number" class="form-control" formControlName="energia_total_kcal"></div>
+        <!-- <div class="col-6 col-xl-3"><label class="mb-1"><strong>Energía (kJ)</strong></label><input type="number" class="form-control" formControlName="energia_total_kj"></div> -->
       </div>
 
       <div class="row mt-4">
@@ -96,10 +113,10 @@
         </div>
       </div>
 
-      <div class="row"> 
-        <div class="col-3"><label class="mb-1"><strong>Proteínas (g)</strong></label><input type="number" class="form-control" formControlName="proteinas_totales" readonly></div>
-        <div class="col-3"><label class="mb-1"><strong>Carbohidratos (g)</strong></label><input type="number" class="form-control" formControlName="carbohidratos_totales" readonly></div>
-        <div class="col-3"><label class="mb-1"><strong>Grasas (g)</strong></label><input type="number" class="form-control" formControlName="grasas_totales" readonly></div>
+      <div class="row">
+        <div class="col-12 col-xl-3"><label class="mb-1"><strong>Proteínas (g)</strong></label><input type="number" class="form-control" formControlName="proteinas_totales" readonly></div>
+        <div class="col-12 col-xl-3 mt-2 mt-xl-0"><label class="mb-1"><strong>Carbohidratos (g)</strong></label><input type="number" class="form-control" formControlName="carbohidratos_totales" readonly></div>
+        <div class="col-12 col-xl-3 mt-2 mt-xl-0"><label class="mb-1"><strong>Grasas (g)</strong></label><input type="number" class="form-control" formControlName="grasas_totales" readonly></div>
       </div>
 
       <div class="row mt-5">

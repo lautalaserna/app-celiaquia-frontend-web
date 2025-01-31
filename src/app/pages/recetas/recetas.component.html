@@ -1,11 +1,11 @@
 <div class="title-bar">
-  <h2 class="page-title">Recetario</h2>
+  <h2 class="page-title">Menú Balanceado</h2>
 </div>
 <div class="main-page container-fluid">
   <div class="container-fluid">
     <form [formGroup]="formFiltros">
       <div class="row align-items-end">
-        <div class="col-3">
+        <div class="col-xl-5 col-lg-8 col-md-10 col-8">
           <label class="mb-1"><strong>Título</strong></label>
           <input type="text" class="form-control" formControlName="titulo">
         </div>
@@ -15,8 +15,7 @@
             <div *ngIf="loading" class="spinner-border spinner-border-sm text-white" role="status"></div>
           </button>
         </div>
-        <div class="col-6"></div>
-        <div class="col-2 d-flex justify-content-end">
+        <div class="order-first order-lg-last col-xl-6 col-lg-3 col-12 d-flex justify-content-end">
           <button class="btn btn-primary btn-shadow" [routerLink]="'/receta-detalle'" (click)="nuevaReceta()">
             <i class="fas fa-plus me-2"></i> Agregar
           </button>
@@ -29,7 +28,7 @@
           <thead class="table-header">
             <tr>
               <th scope="col" class="w-10 text-center" style="width: 100px;"></th>
-              <th scope="col" class="w-30">Título</th>
+              <th scope="col" class="w-60 text-start">Título del Plato</th>
             </tr>
           </thead>
           
@@ -60,7 +59,7 @@
                   </ul>
                 </div>
               </td>
-              <td class="align-middle">{{receta.titulo}}</td>
+              <td class="align-middle text-start">{{receta.titulo}}</td>
             </tr>
           </tbody>
         </table>

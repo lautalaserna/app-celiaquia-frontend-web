@@ -1,11 +1,11 @@
 <div class="title-bar">
-  <h2 class="page-title">Lista de Alimentos</h2>
+  <h2 class="page-title">Listado de Alimentos</h2>
 </div>
 <div class="main-page container-fluid">
   <div class="container-fluid">
     <form [formGroup]="formFiltros">
       <div class="row align-items-end">
-        <div class="col-3">
+        <div class="col-xl-5 col-lg-8 col-md-10 col-8">
           <label class="mb-1"><strong>Nombre</strong></label>
           <input type="text" class="form-control" formControlName="nombre">
         </div>
@@ -15,8 +15,7 @@
             <div *ngIf="loading" class="spinner-border spinner-border-sm text-white" role="status"></div>
           </button>
         </div>
-        <div class="col-6"></div>
-        <div class="col-2 d-flex justify-content-end">
+        <div class="order-first order-lg-last col-xl-6 col-lg-3 col-12 d-flex justify-content-end">
           <button class="btn btn-primary btn-shadow" [routerLink]="'/alimento-detalle'" (click)="nuevoAlimento()">
             <i class="fas fa-plus me-2"></i> Agregar
           </button>
@@ -29,11 +28,7 @@
           <thead class="table-header">
             <tr>
               <th scope="col" class="w-10 text-center" style="width: 100px;"></th>
-              <th scope="col" class="w-10 text-center">Numero</th>
-              <th scope="col" class="w-50">Nombre</th>
-              <th scope="col" class="w-10 text-center">Proteinas</th>
-              <th scope="col" class="w-10 text-center">Carbohidratos</th>
-              <th scope="col" class="w-10 text-center">Grasas</th>
+              <th scope="col" class="w-90">Nombre del Alimento</th>
             </tr>
           </thead>
           
@@ -64,11 +59,7 @@
                   </ul>
                 </div>
               </td>
-              <td class="align-middle text-center">{{alimento.numero}}</td>
               <td class="align-middle">{{alimento.nombre}}</td>
-              <td class="align-middle text-center">{{alimento.proteinas}}</td>
-              <td class="align-middle text-center">{{alimento.carbohidratos_totales}}</td>
-              <td class="align-middle text-center">{{alimento.grasa_total}}</td>
             </tr>
           </tbody>
         </table>

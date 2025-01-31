@@ -62,7 +62,9 @@ CREATE TABLE public.alimento (
     apto_vegano boolean,
     apto_vegetariano boolean,
     accesibilidad character varying(255),
-    imagen oid
+    imagen oid,
+    preparacion character varying(2048),
+    isprocesado boolean DEFAULT false NOT NULL
 );
 
 
@@ -366,7 +368,8 @@ CREATE TABLE public.receta (
     proteinas_totales numeric(10,3),
     sodio_total numeric(10,3),
     titulo character varying(255),
-    imagen oid
+    imagen oid,
+    descripcion character varying(255)
 );
 
 
@@ -531,7 +534,10 @@ CREATE TABLE public.usuario (
     updatedby bigint,
     isactive boolean DEFAULT true NOT NULL,
     isenabled boolean DEFAULT false,
-    cuestionario_completo boolean DEFAULT false NOT NULL
+    cuestionario_completo boolean DEFAULT false NOT NULL,
+    genero character(1) DEFAULT 'N'::bpchar NOT NULL,
+    isvegano boolean DEFAULT false NOT NULL,
+    isvegetariano boolean DEFAULT false NOT NULL
 );
 
 
@@ -853,33 +859,33 @@ ALTER LARGE OBJECT 25128 OWNER TO admin;
 -- Data for Name: alimento; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-COPY public.alimento (alimento_id, created, createdby, isactive, updated, updatedby, agua, calcio, carbohidratos_totales, cenizas, energia_kcal, energia_kj, fosforo, genero, grasa_total, hierro, niacina, nombre, numero, potasio, proteinas, rivoflavina, sodio, tiamina, vitamina_c, zinc, ac_grasos_monoinsaturados, ac_grasos_poliinsaturados, ac_grasos_saturados, carbohidratos_disponibles, colesterol, fibra_dietetica, tipo, apto_celiaco, apto_vegano, apto_vegetariano, accesibilidad, imagen) FROM stdin;
-480	\N	\N	t	2025-01-03 19:14:28.175582	1	74.600	12.000	0.000	1.200	107.000	450.000	200.000	Gallus gallus	1.500	0.900	6.000	Pechuga de Pollo	1	223.000	23.100	0.100	45.000	0.080	\N	1.200	0.700	0.500	0.300	0.000	58.000	\N	PROTEINAS	t	f	f	ALTA	25104
-481	\N	\N	t	2025-01-03 19:16:18.953313	1	70.000	15.000	0.000	1.800	124.000	520.000	210.000	Bos taurus	2.000	2.300	7.000	Carne de Res	2	315.000	26.200	0.150	50.000	0.090	\N	2.400	0.800	0.600	0.400	0.000	65.000	\N	PROTEINAS	t	f	f	MEDIA	25105
-482	\N	\N	t	2025-01-03 19:16:33.301977	1	76.000	50.000	0.000	1.000	138.000	580.000	210.000	Gallus gallus	9.500	1.800	0.500	Huevo	3	120.000	12.500	0.200	60.000	0.100	\N	1.100	1.400	1.800	3.200	0.000	372.000	\N	PROTEINAS	t	f	t	ALTA	25106
-483	\N	\N	t	2025-01-03 19:16:49.063165	1	78.000	30.000	0.000	1.500	83.000	350.000	220.000	Merluccius merluccius	0.900	0.800	2.000	Pescado Blanco	4	340.000	18.500	0.100	25.000	0.070	\N	0.700	0.200	0.300	0.100	0.000	45.000	\N	PROTEINAS	t	f	f	ALTA	25107
-484	\N	\N	t	2025-01-03 19:17:28.757965	1	70.000	100.000	2.000	1.200	124.000	520.000	130.000	Glycine max	7.800	2.200	4.500	Tofu	5	150.000	15.800	0.120	5.000	0.090	\N	1.500	2.300	3.000	1.200	2.000	\N	1.800	PROTEINAS	t	t	t	ALTA	25108
-485	\N	\N	t	2025-01-03 19:17:49.066653	1	11.000	35.000	60.000	1.500	340.000	1420.000	300.000	Lens culinaris	1.800	7.500	2.800	Lentejas	6	980.000	25.800	0.200	6.000	0.450	\N	4.400	1.000	1.200	0.300	45.000	\N	25.000	PROTEINAS	t	t	t	MEDIA	25109
-486	\N	\N	t	2025-01-03 19:18:11.535681	1	12.000	105.000	53.000	2.100	336.000	1390.000	370.000	Cicer arietinum	6.400	6.200	1.800	Garbanzos	7	850.000	19.300	0.180	24.000	0.450	\N	3.200	1.500	2.000	0.400	50.000	\N	18.000	PROTEINAS	t	t	t	MEDIA	25110
-487	\N	\N	t	2025-01-03 19:19:01.166858	1	13.000	50.000	64.000	2.400	370.000	1500.000	250.000	Chenopodium quinoa	6.500	5.000	1.200	Quinoa	8	740.000	14.100	0.190	5.000	0.250	\N	2.000	1.600	2.000	0.400	30.000	\N	12.000	PROTEINAS	t	t	t	ALTA	\N
-488	\N	\N	t	2025-01-03 19:19:21.234831	1	65.000	15.000	0.000	1.500	264.000	1100.000	200.000	Thunnus thynnus	6.000	0.900	6.000	Atún	9	280.000	29.000	0.100	38.000	0.080	\N	1.200	1.400	1.800	1.200	0.000	55.000	\N	PROTEINAS	t	f	f	ALTA	\N
-489	\N	\N	t	2025-01-03 19:19:50.010785	1	74.600	12.000	0.000	1.200	107.000	450.000	200.000	Meleagris gallopavo	1.500	0.900	6.000	Pavo	10	223.000	23.100	0.100	45.000	0.080	\N	1.200	0.700	0.500	0.300	0.000	58.000	\N	PROTEINAS	t	f	f	ALTA	\N
-490	\N	\N	t	2025-01-03 19:20:04.295954	1	12.000	28.000	79.000	0.300	360.000	1500.000	105.000	Oryza sativa	0.600	0.200	1.500	Arroz Blanco	1	115.000	7.500	0.050	1.000	0.120	\N	1.000	0.300	0.200	0.100	2.000	\N	0.400	HIDRATOS	t	t	t	ALTA	25111
-491	\N	\N	t	2025-01-03 19:20:15.000257	1	65.000	16.000	30.000	0.500	150.000	630.000	60.000	Triticum durum	0.900	0.700	1.200	Pasta Cocida	2	50.000	5.000	0.020	3.000	0.080	\N	0.800	0.300	0.400	0.200	1.500	\N	0.700	HIDRATOS	t	f	t	MEDIA	25112
-492	\N	\N	t	2025-01-03 19:20:33.805925	1	35.000	25.000	50.000	1.000	250.000	1050.000	110.000	Triticum aestivum	1.000	0.800	1.500	Pan Blanco	3	120.000	8.000	0.040	4.000	0.100	\N	0.900	0.500	0.400	0.300	3.000	\N	1.200	HIDRATOS	t	f	t	MEDIA	25113
-493	\N	\N	t	2025-01-03 19:20:46.822311	1	75.000	15.000	19.000	1.000	82.000	340.000	50.000	Solanum tuberosum	0.100	0.400	1.100	Papa	4	440.000	2.000	0.030	5.000	0.060	\N	0.500	0.150	0.200	0.050	2.200	\N	1.800	HIDRATOS	t	t	t	ALTA	25114
-494	\N	\N	t	2025-01-03 19:21:08.913071	1	70.000	20.000	22.000	1.100	95.000	400.000	55.000	Ipomoea batatas	0.200	0.300	1.000	Batata	5	330.000	1.600	0.020	6.000	0.050	25.000	0.400	0.200	0.300	0.100	2.500	\N	2.000	HIDRATOS	t	t	t	ALTA	25115
-495	\N	\N	t	2025-01-03 19:21:40.021849	1	12.000	55.000	66.000	1.500	390.000	1560.000	360.000	Avena sativa	6.900	4.200	2.500	Avena	6	350.000	14.000	0.150	5.000	0.200	\N	3.500	2.400	3.000	1.200	10.000	\N	8.000	HIDRATOS	t	t	t	MEDIA	\N
-496	\N	\N	t	2025-01-03 19:22:06.638605	1	12.000	20.000	70.000	1.100	340.000	1410.000	90.000	Zea mays	4.700	1.800	1.800	Maíz	7	270.000	9.500	0.100	6.000	0.150	\N	1.200	0.700	0.900	0.300	7.000	\N	3.500	HIDRATOS	t	t	t	MEDIA	\N
-497	\N	\N	t	2025-01-03 19:22:18.141054	1	12.000	30.000	72.000	0.800	360.000	1500.000	105.000	Triticum aestivum	1.200	0.900	1.800	Harina de Trigo	8	120.000	10.000	0.050	4.000	0.200	\N	1.100	0.500	0.600	0.300	3.500	\N	1.500	HIDRATOS	t	f	t	MEDIA	\N
-498	\N	\N	t	2025-01-03 19:22:29.067291	1	95.000	35.000	2.000	1.000	12.000	50.000	28.000	Lactuca sativa	0.200	0.400	0.400	Lechuga	1	240.000	1.000	0.040	8.000	0.050	12.000	0.200	0.200	0.300	0.100	1.200	\N	0.500	VERDES	t	t	t	ALTA	25116
-499	\N	\N	t	2025-01-03 19:22:39.306666	1	92.000	99.000	3.600	1.300	23.000	90.000	49.000	Spinacia oleracea	0.400	2.700	28.000	Espinaca	2	558.000	2.900	0.140	79.000	0.080	\N	0.530	0.030	0.040	0.010	2.200	\N	2.000	VERDES	t	t	t	ALTA	25117
-500	\N	\N	t	2025-01-03 19:22:51.825969	1	93.000	58.000	3.700	1.200	20.000	84.000	46.000	Beta vulgaris	0.300	2.200	19.000	Acelga	3	379.000	2.200	0.100	51.000	0.080	\N	0.400	0.040	0.050	0.020	2.400	\N	1.900	VERDES	t	t	t	ALTA	25119
-501	\N	\N	t	2025-01-03 19:23:10.18854	1	94.500	10.000	3.900	0.600	18.000	74.000	24.000	Solanum lycopersicum	0.200	0.300	0.590	Tomate	4	237.000	0.880	0.040	5.000	0.060	13.700	0.170	0.080	0.100	0.030	2.600	\N	1.200	VERDES	t	t	t	ALTA	25120
-502	\N	\N	t	2025-01-03 19:23:24.803493	1	88.000	33.000	7.200	0.800	31.000	130.000	35.000	Daucus carota	0.240	0.300	0.980	Zanahoria	5	320.000	0.930	0.050	69.000	0.070	5.900	0.240	0.110	0.150	0.040	4.800	\N	2.800	VERDES	t	t	t	ALTA	25121
-503	\N	\N	t	2025-01-03 19:23:38.664141	1	90.000	47.000	4.000	1.300	27.000	110.000	66.000	Brassica oleracea	0.300	0.700	0.700	Brócoli	6	316.000	3.000	0.110	33.000	0.080	89.200	0.400	0.150	0.200	0.070	2.900	\N	2.600	VERDES	t	t	t	ALTA	25122
-504	\N	\N	t	2025-01-03 19:23:48.716838	1	92.000	9.000	4.300	0.800	20.000	80.000	15.000	Solanum melongena	0.180	0.230	0.600	Berenjena	7	229.000	1.100	0.050	1.000	0.050	2.200	0.160	0.070	0.080	0.020	3.200	\N	2.500	VERDES	t	t	t	ALTA	25123
-505	\N	\N	t	2025-01-03 19:24:02.986506	1	91.000	40.000	4.200	0.900	25.000	105.000	30.000	Brassica oleracea	0.200	0.500	0.600	Repollo	8	247.000	1.300	0.060	18.000	0.080	36.600	0.270	0.080	0.100	0.020	3.500	\N	3.000	VERDES	t	t	t	ALTA	25124
+COPY public.alimento (alimento_id, created, createdby, isactive, updated, updatedby, agua, calcio, carbohidratos_totales, cenizas, energia_kcal, energia_kj, fosforo, genero, grasa_total, hierro, niacina, nombre, numero, potasio, proteinas, rivoflavina, sodio, tiamina, vitamina_c, zinc, ac_grasos_monoinsaturados, ac_grasos_poliinsaturados, ac_grasos_saturados, carbohidratos_disponibles, colesterol, fibra_dietetica, tipo, apto_celiaco, apto_vegano, apto_vegetariano, accesibilidad, imagen, preparacion, isprocesado) FROM stdin;
+480	\N	\N	t	2025-01-03 19:14:28.175582	1	74.600	12.000	0.000	1.200	107.000	450.000	200.000	Gallus gallus	1.500	0.900	6.000	Pechuga de Pollo	1	223.000	23.100	0.100	45.000	0.080	\N	1.200	0.700	0.500	0.300	0.000	58.000	\N	PROTEINAS	t	f	f	ALTA	25104	\N	f
+481	\N	\N	t	2025-01-03 19:16:18.953313	1	70.000	15.000	0.000	1.800	124.000	520.000	210.000	Bos taurus	2.000	2.300	7.000	Carne de Res	2	315.000	26.200	0.150	50.000	0.090	\N	2.400	0.800	0.600	0.400	0.000	65.000	\N	PROTEINAS	t	f	f	MEDIA	25105	\N	f
+482	\N	\N	t	2025-01-03 19:16:33.301977	1	76.000	50.000	0.000	1.000	138.000	580.000	210.000	Gallus gallus	9.500	1.800	0.500	Huevo	3	120.000	12.500	0.200	60.000	0.100	\N	1.100	1.400	1.800	3.200	0.000	372.000	\N	PROTEINAS	t	f	t	ALTA	25106	\N	f
+483	\N	\N	t	2025-01-03 19:16:49.063165	1	78.000	30.000	0.000	1.500	83.000	350.000	220.000	Merluccius merluccius	0.900	0.800	2.000	Pescado Blanco	4	340.000	18.500	0.100	25.000	0.070	\N	0.700	0.200	0.300	0.100	0.000	45.000	\N	PROTEINAS	t	f	f	ALTA	25107	\N	f
+484	\N	\N	t	2025-01-03 19:17:28.757965	1	70.000	100.000	2.000	1.200	124.000	520.000	130.000	Glycine max	7.800	2.200	4.500	Tofu	5	150.000	15.800	0.120	5.000	0.090	\N	1.500	2.300	3.000	1.200	2.000	\N	1.800	PROTEINAS	t	t	t	ALTA	25108	\N	f
+485	\N	\N	t	2025-01-03 19:17:49.066653	1	11.000	35.000	60.000	1.500	340.000	1420.000	300.000	Lens culinaris	1.800	7.500	2.800	Lentejas	6	980.000	25.800	0.200	6.000	0.450	\N	4.400	1.000	1.200	0.300	45.000	\N	25.000	PROTEINAS	t	t	t	MEDIA	25109	\N	f
+486	\N	\N	t	2025-01-03 19:18:11.535681	1	12.000	105.000	53.000	2.100	336.000	1390.000	370.000	Cicer arietinum	6.400	6.200	1.800	Garbanzos	7	850.000	19.300	0.180	24.000	0.450	\N	3.200	1.500	2.000	0.400	50.000	\N	18.000	PROTEINAS	t	t	t	MEDIA	25110	\N	f
+487	\N	\N	t	2025-01-03 19:19:01.166858	1	13.000	50.000	64.000	2.400	370.000	1500.000	250.000	Chenopodium quinoa	6.500	5.000	1.200	Quinoa	8	740.000	14.100	0.190	5.000	0.250	\N	2.000	1.600	2.000	0.400	30.000	\N	12.000	PROTEINAS	t	t	t	ALTA	\N	\N	f
+488	\N	\N	t	2025-01-03 19:19:21.234831	1	65.000	15.000	0.000	1.500	264.000	1100.000	200.000	Thunnus thynnus	6.000	0.900	6.000	Atún	9	280.000	29.000	0.100	38.000	0.080	\N	1.200	1.400	1.800	1.200	0.000	55.000	\N	PROTEINAS	t	f	f	ALTA	\N	\N	f
+489	\N	\N	t	2025-01-03 19:19:50.010785	1	74.600	12.000	0.000	1.200	107.000	450.000	200.000	Meleagris gallopavo	1.500	0.900	6.000	Pavo	10	223.000	23.100	0.100	45.000	0.080	\N	1.200	0.700	0.500	0.300	0.000	58.000	\N	PROTEINAS	t	f	f	ALTA	\N	\N	f
+490	\N	\N	t	2025-01-03 19:20:04.295954	1	12.000	28.000	79.000	0.300	360.000	1500.000	105.000	Oryza sativa	0.600	0.200	1.500	Arroz Blanco	1	115.000	7.500	0.050	1.000	0.120	\N	1.000	0.300	0.200	0.100	2.000	\N	0.400	HIDRATOS	t	t	t	ALTA	25111	\N	f
+491	\N	\N	t	2025-01-03 19:20:15.000257	1	65.000	16.000	30.000	0.500	150.000	630.000	60.000	Triticum durum	0.900	0.700	1.200	Pasta Cocida	2	50.000	5.000	0.020	3.000	0.080	\N	0.800	0.300	0.400	0.200	1.500	\N	0.700	HIDRATOS	t	f	t	MEDIA	25112	\N	f
+492	\N	\N	t	2025-01-03 19:20:33.805925	1	35.000	25.000	50.000	1.000	250.000	1050.000	110.000	Triticum aestivum	1.000	0.800	1.500	Pan Blanco	3	120.000	8.000	0.040	4.000	0.100	\N	0.900	0.500	0.400	0.300	3.000	\N	1.200	HIDRATOS	t	f	t	MEDIA	25113	\N	f
+493	\N	\N	t	2025-01-03 19:20:46.822311	1	75.000	15.000	19.000	1.000	82.000	340.000	50.000	Solanum tuberosum	0.100	0.400	1.100	Papa	4	440.000	2.000	0.030	5.000	0.060	\N	0.500	0.150	0.200	0.050	2.200	\N	1.800	HIDRATOS	t	t	t	ALTA	25114	\N	f
+494	\N	\N	t	2025-01-03 19:21:08.913071	1	70.000	20.000	22.000	1.100	95.000	400.000	55.000	Ipomoea batatas	0.200	0.300	1.000	Batata	5	330.000	1.600	0.020	6.000	0.050	25.000	0.400	0.200	0.300	0.100	2.500	\N	2.000	HIDRATOS	t	t	t	ALTA	25115	\N	f
+495	\N	\N	t	2025-01-03 19:21:40.021849	1	12.000	55.000	66.000	1.500	390.000	1560.000	360.000	Avena sativa	6.900	4.200	2.500	Avena	6	350.000	14.000	0.150	5.000	0.200	\N	3.500	2.400	3.000	1.200	10.000	\N	8.000	HIDRATOS	t	t	t	MEDIA	\N	\N	f
+496	\N	\N	t	2025-01-03 19:22:06.638605	1	12.000	20.000	70.000	1.100	340.000	1410.000	90.000	Zea mays	4.700	1.800	1.800	Maíz	7	270.000	9.500	0.100	6.000	0.150	\N	1.200	0.700	0.900	0.300	7.000	\N	3.500	HIDRATOS	t	t	t	MEDIA	\N	\N	f
+497	\N	\N	t	2025-01-03 19:22:18.141054	1	12.000	30.000	72.000	0.800	360.000	1500.000	105.000	Triticum aestivum	1.200	0.900	1.800	Harina de Trigo	8	120.000	10.000	0.050	4.000	0.200	\N	1.100	0.500	0.600	0.300	3.500	\N	1.500	HIDRATOS	t	f	t	MEDIA	\N	\N	f
+498	\N	\N	t	2025-01-03 19:22:29.067291	1	95.000	35.000	2.000	1.000	12.000	50.000	28.000	Lactuca sativa	0.200	0.400	0.400	Lechuga	1	240.000	1.000	0.040	8.000	0.050	12.000	0.200	0.200	0.300	0.100	1.200	\N	0.500	VERDES	t	t	t	ALTA	25116	\N	f
+499	\N	\N	t	2025-01-03 19:22:39.306666	1	92.000	99.000	3.600	1.300	23.000	90.000	49.000	Spinacia oleracea	0.400	2.700	28.000	Espinaca	2	558.000	2.900	0.140	79.000	0.080	\N	0.530	0.030	0.040	0.010	2.200	\N	2.000	VERDES	t	t	t	ALTA	25117	\N	f
+500	\N	\N	t	2025-01-03 19:22:51.825969	1	93.000	58.000	3.700	1.200	20.000	84.000	46.000	Beta vulgaris	0.300	2.200	19.000	Acelga	3	379.000	2.200	0.100	51.000	0.080	\N	0.400	0.040	0.050	0.020	2.400	\N	1.900	VERDES	t	t	t	ALTA	25119	\N	f
+501	\N	\N	t	2025-01-03 19:23:10.18854	1	94.500	10.000	3.900	0.600	18.000	74.000	24.000	Solanum lycopersicum	0.200	0.300	0.590	Tomate	4	237.000	0.880	0.040	5.000	0.060	13.700	0.170	0.080	0.100	0.030	2.600	\N	1.200	VERDES	t	t	t	ALTA	25120	\N	f
+502	\N	\N	t	2025-01-03 19:23:24.803493	1	88.000	33.000	7.200	0.800	31.000	130.000	35.000	Daucus carota	0.240	0.300	0.980	Zanahoria	5	320.000	0.930	0.050	69.000	0.070	5.900	0.240	0.110	0.150	0.040	4.800	\N	2.800	VERDES	t	t	t	ALTA	25121	\N	f
+503	\N	\N	t	2025-01-03 19:23:38.664141	1	90.000	47.000	4.000	1.300	27.000	110.000	66.000	Brassica oleracea	0.300	0.700	0.700	Brócoli	6	316.000	3.000	0.110	33.000	0.080	89.200	0.400	0.150	0.200	0.070	2.900	\N	2.600	VERDES	t	t	t	ALTA	25122	\N	f
+504	\N	\N	t	2025-01-03 19:23:48.716838	1	92.000	9.000	4.300	0.800	20.000	80.000	15.000	Solanum melongena	0.180	0.230	0.600	Berenjena	7	229.000	1.100	0.050	1.000	0.050	2.200	0.160	0.070	0.080	0.020	3.200	\N	2.500	VERDES	t	t	t	ALTA	25123	\N	f
+505	\N	\N	t	2025-01-03 19:24:02.986506	1	91.000	40.000	4.200	0.900	25.000	105.000	30.000	Brassica oleracea	0.200	0.500	0.600	Repollo	8	247.000	1.300	0.060	18.000	0.080	36.600	0.270	0.080	0.100	0.020	3.500	\N	3.000	VERDES	t	t	t	ALTA	25124	\N	f
 \.
 
 
@@ -1069,10 +1075,10 @@ COPY public.punto_de_compra (punto_de_compra_id, created, createdby, isactive, u
 -- Data for Name: receta; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-COPY public.receta (receta_id, created, createdby, isactive, updated, updatedby, calorias_totales, carbohidratos_totales, colesterol_total, fibra_total, grasas_totales, preparacion, proteinas_totales, sodio_total, titulo, imagen) FROM stdin;
-14	2025-01-03 20:05:30.10985	\N	t	2025-01-03 20:52:20.213436	1	\N	38.000	\N	\N	4.200	Precalienta el horno a 180°C.\n\nPreparar la carne: Sazona la carne con sal, pimienta, ajo en polvo, orégano y pimentón dulce. Unta con aceite de oliva para darle más sabor.\n\nPreparar las papas: Coloca las rodajas de papas en un recipiente grande y mezcla con aceite de oliva, sal, pimienta y, si lo deseas, romero fresco. Asegúrate de que todas las papas estén bien condimentadas.\n\nColocar en el horno: Coloca la carne en una bandeja para hornear, y alrededor distribuye las papas en una sola capa.\n\nCocinar: Hornea durante 40-50 minutos aproximadamente. La carne debe estar dorada por fuera y cocida a su punto deseado. A mitad del tiempo, voltea las papas para asegurar una cocción pareja.	56.400	\N	Carne al horno con papas	25127
-16	2025-01-03 20:13:21.216681	\N	t	2025-01-03 21:01:11.522533	1	\N	38.000	\N	\N	13.100	Cocinar las papas: Hervir o freír los cubos de papa en aceite hasta que estén dorados y crujientes. Retira el exceso de aceite y coloca las papas en un plato con papel absorbente.\n\nSofreír la cebolla: En una sartén con aceite de oliva, sofríe la cebolla picada hasta que esté transparente.\n\nAgregar el atún: Añade el atún escurrido a la sartén con la cebolla y mezcla todo bien.\n\nIncorporar los huevos: Bate los huevos y agrégalos a la sartén. Revuelve constantemente hasta que los huevos estén cocidos, pero aún jugosos.\n\nFinalizar: Agrega las papas doradas y mezcla suavemente. Sazona con sal, pimienta y agrega un toque de perejil fresco picado para darle un toque extra de sabor.\n\nServir: Sirve caliente, decorado con un poco de perejil fresco o un toque de mantequilla (opcional).	46.300	\N	Revuelto gramajo de atún	25128
-15	2025-01-03 20:08:12.152233	1	t	2025-01-03 20:08:12.184471	1	\N	113.200	\N	\N	12.990	Cocina la pechuga de pollo en una sartén con un poco de aceite hasta que esté dorada y completamente cocida. Sazona con sal y pimienta.\nColoca la quinoa cocida como base en un plato hondo.\nAñade la zanahoria rallada, el brócoli cocido y el pollo en tiras.\nAliña con el aceite de oliva y un poco de jugo de limón.\nSirve caliente o frío como un plato balanceado y lleno de nutrientes.	64.230	\N	Bowl de pollo, quinoa y verduras	\N
+COPY public.receta (receta_id, created, createdby, isactive, updated, updatedby, calorias_totales, carbohidratos_totales, colesterol_total, fibra_total, grasas_totales, preparacion, proteinas_totales, sodio_total, titulo, imagen, descripcion) FROM stdin;
+14	2025-01-03 20:05:30.10985	\N	t	2025-01-03 20:52:20.213436	1	\N	38.000	\N	\N	4.200	Precalienta el horno a 180°C.\n\nPreparar la carne: Sazona la carne con sal, pimienta, ajo en polvo, orégano y pimentón dulce. Unta con aceite de oliva para darle más sabor.\n\nPreparar las papas: Coloca las rodajas de papas en un recipiente grande y mezcla con aceite de oliva, sal, pimienta y, si lo deseas, romero fresco. Asegúrate de que todas las papas estén bien condimentadas.\n\nColocar en el horno: Coloca la carne en una bandeja para hornear, y alrededor distribuye las papas en una sola capa.\n\nCocinar: Hornea durante 40-50 minutos aproximadamente. La carne debe estar dorada por fuera y cocida a su punto deseado. A mitad del tiempo, voltea las papas para asegurar una cocción pareja.	56.400	\N	Carne al horno con papas	25127	Un clásico plato casero que combina carne tierna y jugosa asada al horno con papas doradas y crujientes. Perfecto para una comida familiar reconfortante y llena de sabor.
+16	2025-01-03 20:13:21.216681	\N	t	2025-01-03 21:01:11.522533	1	\N	38.000	\N	\N	13.100	Cocinar las papas: Hervir o freír los cubos de papa en aceite hasta que estén dorados y crujientes. Retira el exceso de aceite y coloca las papas en un plato con papel absorbente.\n\nSofreír la cebolla: En una sartén con aceite de oliva, sofríe la cebolla picada hasta que esté transparente.\n\nAgregar el atún: Añade el atún escurrido a la sartén con la cebolla y mezcla todo bien.\n\nIncorporar los huevos: Bate los huevos y agrégalos a la sartén. Revuelve constantemente hasta que los huevos estén cocidos, pero aún jugosos.\n\nFinalizar: Agrega las papas doradas y mezcla suavemente. Sazona con sal, pimienta y agrega un toque de perejil fresco picado para darle un toque extra de sabor.\n\nServir: Sirve caliente, decorado con un poco de perejil fresco o un toque de mantequilla (opcional).	46.300	\N	Revuelto gramajo de atún	25128	Una deliciosa mezcla de papas fritas, atún, huevos revueltos y vegetales, todo salteado en una sartén. Ideal como plato rápido, nutritivo y con un toque criollo.
+15	2025-01-03 20:08:12.152233	1	t	2025-01-03 20:08:12.184471	1	\N	113.200	\N	\N	12.990	Cocina la pechuga de pollo en una sartén con un poco de aceite hasta que esté dorada y completamente cocida. Sazona con sal y pimienta.\nColoca la quinoa cocida como base en un plato hondo.\nAñade la zanahoria rallada, el brócoli cocido y el pollo en tiras.\nAliña con el aceite de oliva y un poco de jugo de limón.\nSirve caliente o frío como un plato balanceado y lleno de nutrientes.	64.230	\N	Bowl de pollo, quinoa y verduras	\N	Una opción saludable y equilibrada que reúne pollo a la plancha, quinoa esponjosa y una colorida variedad de verduras frescas. Perfecto para disfrutar de una comida ligera y nutritiva.
 \.
 
 
@@ -1121,13 +1127,13 @@ COPY public.user_rol (usuario_id, rol_id) FROM stdin;
 -- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-COPY public.usuario (usuario_id, username, password, email, fnac, apellido, dni, nombre, created, createdby, updated, updatedby, isactive, isenabled, cuestionario_completo) FROM stdin;
-7	paciente2	$2a$10$HZeUo2TjNkEAQGCYmpYUwey7v45q0GEAjNWSHutT.C5LiK4dOD/FK	paciente2@gmail.com	1999-05-18	paciente2	1234	paciente2	\N	\N	\N	\N	t	t	f
-3	paciente	$2a$10$HZeUo2TjNkEAQGCYmpYUwey7v45q0GEAjNWSHutT.C5LiK4dOD/FK	paciente@gmail.com	1999-05-18	paciente	1234	paciente	\N	\N	\N	\N	t	t	t
-8	paciente3	$2a$10$HZeUo2TjNkEAQGCYmpYUwey7v45q0GEAjNWSHutT.C5LiK4dOD/FK	paciente3@gmail.com	1999-05-18	paciente3	1234	paciente3	\N	\N	\N	\N	t	f	f
-2	user	$2a$10$OGNFRLqpy1.bmPWQCSXtH.uTgniemXKxLvoTTI4PE3gg5Gn.gYpMS	user@gmail.com	1997-09-11	user	1234	user	\N	\N	\N	\N	t	t	f
-17	raulpoolk	$2a$10$v6J5bDhfz4numDGACzGRsew/poXljibeMoEWqxaEpDPpE3JepUH4a	raulpoolk99@gmail.com	2000-05-20	\N	\N	\N	2024-12-21 20:52:05.449019	0	2024-12-21 21:20:23.210804	0	t	f	f
-1	admin	$2a$10$L0rqEM2ATQL7gA2g175dSeHHO454iDncyqMhOy4h8u.x/vCAi7bsu	admin@gmail.com	1998-04-08	admin	1234	admin	\N	\N	\N	\N	t	t	f
+COPY public.usuario (usuario_id, username, password, email, fnac, apellido, dni, nombre, created, createdby, updated, updatedby, isactive, isenabled, cuestionario_completo, genero, isvegano, isvegetariano) FROM stdin;
+7	paciente2	$2a$10$HZeUo2TjNkEAQGCYmpYUwey7v45q0GEAjNWSHutT.C5LiK4dOD/FK	paciente2@gmail.com	1999-05-18	paciente2	1234	paciente2	\N	\N	\N	\N	t	t	f	N	f	f
+3	paciente	$2a$10$HZeUo2TjNkEAQGCYmpYUwey7v45q0GEAjNWSHutT.C5LiK4dOD/FK	paciente@gmail.com	1999-05-18	paciente	1234	paciente	\N	\N	\N	\N	t	t	t	N	f	f
+8	paciente3	$2a$10$HZeUo2TjNkEAQGCYmpYUwey7v45q0GEAjNWSHutT.C5LiK4dOD/FK	paciente3@gmail.com	1999-05-18	paciente3	1234	paciente3	\N	\N	\N	\N	t	f	f	N	f	f
+2	user	$2a$10$OGNFRLqpy1.bmPWQCSXtH.uTgniemXKxLvoTTI4PE3gg5Gn.gYpMS	user@gmail.com	1997-09-11	user	1234	user	\N	\N	\N	\N	t	t	f	N	f	f
+17	raulpoolk	$2a$10$v6J5bDhfz4numDGACzGRsew/poXljibeMoEWqxaEpDPpE3JepUH4a	raulpoolk99@gmail.com	2000-05-20	\N	\N	\N	2024-12-21 20:52:05.449019	0	2024-12-21 21:20:23.210804	0	t	f	f	N	f	f
+1	admin	$2a$10$L0rqEM2ATQL7gA2g175dSeHHO454iDncyqMhOy4h8u.x/vCAi7bsu	admin@gmail.com	1998-04-08	admin	1234	admin	\N	\N	\N	\N	t	t	f	N	f	f
 \.
 
 

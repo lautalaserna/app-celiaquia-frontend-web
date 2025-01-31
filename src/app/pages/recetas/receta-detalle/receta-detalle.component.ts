@@ -49,6 +49,7 @@ export class RecetaDetalleComponent {
     this.formReceta = this.formBuilder.group({
       receta_id: new FormControl({ value: this.receta?.receta_id || 0, disabled: true }),
       titulo: new FormControl({ value: this.receta?.titulo || null, disabled: false }, [Validators.required, Validators.maxLength(200)]),
+      descripcion: new FormControl({ value: this.receta?.descripcion || null, disabled: false }, [Validators.maxLength(200)]),
       preparacion: new FormControl({ value: this.receta?.preparacion || null, disabled: false }, [Validators.required, Validators.maxLength(1000)]),
       apto_vegetariano: new FormControl({ value: this.receta?.apto_vegetariano || false, disabled: this.soloLectura }),
       apto_vegano: new FormControl({ value: this.receta?.apto_vegano || false, disabled: this.soloLectura }),
@@ -171,6 +172,7 @@ export class RecetaDetalleComponent {
       receta_id: body.receta_id,
       titulo: body.titulo,
       imagen: body.imagen,
+      descripcion: body.descripcion,
       preparacion: body.preparacion,
       apto_vegetariano: body.apto_vegetariano,
       apto_vegano: body.apto_vegano,
