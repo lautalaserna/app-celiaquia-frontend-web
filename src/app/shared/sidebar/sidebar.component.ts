@@ -19,6 +19,8 @@ export class SidebarComponent {
   displayConfigModal: boolean = false;
   UserRoles = UserRoles
   userName: string = '';
+  isSidebarOpen = false;
+  isLoggedIn = false;
 
   constructor(
     private router: Router,
@@ -28,6 +30,7 @@ export class SidebarComponent {
   ngOnInit(): void {
     this.subscription = this._userService.user$.subscribe((user: Usuario | null) => {
       this.userName = user ? `${user.nombre} ${user.apellido}` : 'Usuario';
+      this.isLoggedIn = user !== null;
     });
   }
 
@@ -38,6 +41,10 @@ export class SidebarComponent {
 
   toggleConfigModal() {
     this.displayConfigModal = !this.displayConfigModal
+  }
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
   }
 
   ngOnDestroy(): void {

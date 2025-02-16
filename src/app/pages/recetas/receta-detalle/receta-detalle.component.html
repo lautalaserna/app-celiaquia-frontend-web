@@ -16,14 +16,14 @@
           <div class="row mt-3">
             <div class="col-12">
               <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Título</strong></label>
-              <input type="text" class="form-control" formControlName="titulo" [readOnly]="soloLectura">
+              <input type="text" class="form-control" formControlName="titulo" [readOnly]="soloLectura" maxlength="50">
             </div>
           </div>
 
           <div class="row mt-2">
             <div class="col-12">
               <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Breve Descripción</strong></label>
-              <textarea class="form-control" formControlName="descripcion" maxlength="200" rows="3" [readOnly]="soloLectura"></textarea>
+              <textarea class="form-control" formControlName="descripcion" maxlength="100" rows="1" [readOnly]="soloLectura"></textarea>
             </div>
           </div>
 
@@ -57,7 +57,29 @@
           <label for="file-upload" class="btn btn-primary btn-shadow w-100 mt-3" [hidden]="soloLectura">
             Seleccionar Imagen
           </label>
-          <input id="file-upload" type="file" accept="image/*" class="form-control mt-2" (change)="onFileChange($event)" />
+          <input id="file-upload" type="file" accept="image/*" class="form-control mt-1" (change)="onFileChange($event)" />
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12 col-xl-4">
+          <label [ngClass]="!soloLectura ? 'is-required mb-1' : 'mb-1'"><strong>Preparación (min)</strong></label>
+          <input type="number" class="form-control" formControlName="tiempo_preparacion" [readOnly]="soloLectura">
+        </div>
+        <div class="col-12 col-xl-4">
+          <label [ngClass]="!soloLectura ? 'is-required mb-1' : 'mb-1'"><strong>Cocción (min)</strong></label>
+          <input type="number" class="form-control" formControlName="tiempo_coccion" [readOnly]="soloLectura">
+        </div>
+        <div class="col-xl-4">
+          <div class="form-group">
+            <label [ngClass]="!soloLectura ? 'is-required mb-1' : 'mb-1'"><strong>Dificultad</strong></label>
+            <select class="form-select" formControlName="dificultad" [ngClass]="!formReceta.get('dificultad')?.touched ? '' : formReceta.get('dificultad')?.valid ? '' : 'is-invalid'">
+              <option *ngFor="let dificultad of listDificultad" [ngValue]="dificultad"> {{ dificultad }} </option>
+            </select>
+            <div  class="invalid-feedback"*ngIf="formReceta.get('dificultad')?.hasError('required') && formReceta.get('dificultad')?.touched">
+              Campo requerido
+            </div>
+          </div>
         </div>
       </div>
 
@@ -72,17 +94,17 @@
         <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Ingredientes</strong></label>
         <div formArrayName="ingredientes">
           <div *ngFor="let ingrediente of ingredientes.controls; let i = index" [formGroupName]="i">
-            <div class="row mt-2">
-              <div class="col-5">
+            <div class="row mt-2 mb-4 mb-lg-0">
+              <div [ngClass]="soloLectura? 'col-lg-6' : 'col-lg-5'">
                 <input type="text" class="form-control" [value]="ingrediente.get('alimento')?.value?.nombre" readonly>
               </div>
-              <div class="col-3">
+              <div class="mt-2 mt-lg-0" [ngClass]="soloLectura? 'col-lg-4 col-8 ' : 'col-lg-3 col-6'">
                 <input type="text" class="form-control" [value]="ingrediente.get('porcion')?.value?.nombre" readonly>
               </div>
-              <div class="col-2">
+              <div class="mt-2 mt-lg-0" [ngClass]="soloLectura? 'col-lg-2 col-4' : 'col-lg-3 col-4'">
                 <input type="number" class="form-control" formControlName="cantidad" readonly>
               </div>
-              <div class="col-1 ps-0"><button type="button" class="btn btn-danger" (click)="eliminarIngrediente(i)" [hidden]="soloLectura"><i class="fas fa-trash"></i></button></div>
+              <div class="col-lg-1 col-2 mt-2 mt-lg-0 p-0"><button type="button" class="btn btn-danger" (click)="eliminarIngrediente(i)" [hidden]="soloLectura"><i class="fas fa-trash"></i></button></div>
             </div>
           </div>
         </div>
@@ -103,8 +125,13 @@
       </div>
 
       <div class="row">
-        <div class="col-12 col-xl-3"><label class="mb-1"><strong>Calorías (kcal)</strong></label><input type="number" class="form-control" formControlName="energia_total_kcal"></div>
-        <!-- <div class="col-6 col-xl-3"><label class="mb-1"><strong>Energía (kJ)</strong></label><input type="number" class="form-control" formControlName="energia_total_kj"></div> -->
+        <div class="col-12 col-xl-3"><label class="mb-1"><strong>Calorías (kcal)</strong></label><input type="number" class="form-control" formControlName="calorias_totales" [readOnly]="soloLectura"></div>
+        <div class="col-xl-6 order-first order-xl-last mt-0 pt-0 pt-xl-3 mt-xl-3">
+          <div class="form-check form-switch">
+            <label class="mb-1"><strong>Autocalcular</strong></label>
+            <input type="checkbox" formControlName="autocalcular" class="form-check-input" (change)="toggleAutocalcular()" />
+          </div>
+        </div>
       </div>
 
       <div class="row mt-4">
@@ -114,9 +141,9 @@
       </div>
 
       <div class="row">
-        <div class="col-12 col-xl-3"><label class="mb-1"><strong>Proteínas (g)</strong></label><input type="number" class="form-control" formControlName="proteinas_totales" readonly></div>
-        <div class="col-12 col-xl-3 mt-2 mt-xl-0"><label class="mb-1"><strong>Carbohidratos (g)</strong></label><input type="number" class="form-control" formControlName="carbohidratos_totales" readonly></div>
-        <div class="col-12 col-xl-3 mt-2 mt-xl-0"><label class="mb-1"><strong>Grasas (g)</strong></label><input type="number" class="form-control" formControlName="grasas_totales" readonly></div>
+        <div class="col-12 col-xl-3"><label class="mb-1"><strong>Proteínas (g)</strong></label><input type="number" class="form-control" formControlName="proteinas_totales" [readOnly]="soloLectura"></div>
+        <div class="col-12 col-xl-3 mt-2 mt-xl-0"><label class="mb-1"><strong>Carbohidratos (g)</strong></label><input type="number" class="form-control" formControlName="carbohidratos_totales" [readOnly]="soloLectura"></div>
+        <div class="col-12 col-xl-3 mt-2 mt-xl-0"><label class="mb-1"><strong>Grasas (g)</strong></label><input type="number" class="form-control" formControlName="grasas_totales" [readOnly]="soloLectura"></div>
       </div>
 
       <div class="row mt-5">

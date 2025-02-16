@@ -2,12 +2,15 @@ export class Receta {
   receta_id!: number;
   titulo!: string;
   imagen!: string | null;
+  dificultad!: string;
+  tiempo_preparacion!: number;
+  tiempo_coccion!: number;
+  autocalcular!: boolean;
   preparacion!: string;
   descripcion!: string;
   apto_vegetariano!: boolean;
   apto_vegano!: boolean;
-  energia_total_kcal!: number;
-  energia_total_kj!: number;
+  calorias_totales!: number;
   proteinas_totales!: number;
   carbohidratos_totales!: number;
   grasas_totales!: number;
@@ -27,6 +30,7 @@ export class Alimento {
   nombre!: string;
   genero!: string;
   tipo!: TipoAlimento;
+  valoracion!: ValoracionAlimento;
   accesibilidad!: Accesibilidad;
   imagen!: any;
   apto_celiaco!: boolean;
@@ -72,8 +76,20 @@ export enum TipoAlimento {
   HIDRATOS = "HIDRATOS",
 }
 
+export enum ValoracionAlimento {
+  EXCELENTE = "EXCELENTE",
+  BUENO = "BUENO",
+  REGULAR = "REGULAR",
+}
+
 export enum Accesibilidad {
   ALTA = "ALTA",
   MEDIA = "MEDIA",
   BAJA = "BAJA",
+}
+
+export enum DificultadReceta {
+  FACIL = "FACIL",
+  MEDIA = "MEDIA",
+  DIFICIL = "DIFICIL",
 }

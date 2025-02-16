@@ -68,25 +68,18 @@
               </div>
             </div>
           </div>
-          <div class="row mt-5">
-            <div class="col-md-4 d-md-flex ms-4 ms-md-0 justify-content-center">
-              <div class="form-check form-switch">
-                <label class="mb-1 me-2"><strong>Celíaco</strong></label>
-                <input type="checkbox" formControlName="apto_celiaco" class="form-check-input" />
+          <div class="row mt-2 mt-xl-3">
+            <div class="col-xl-6">
+              <div class="form-group">
+                <label [ngClass]="!soloLectura ? 'is-required mb-1' : 'mb-1'"><strong>Valoración</strong></label>
+                <select class="form-select" formControlName="valoracion" [ngClass]="!formAlimento.get('valoracion')?.touched ? '' : formAlimento.get('valoracion')?.valid ? '' : 'is-invalid'">
+                  <option *ngFor="let valoracion of listValoracionAlimento" [ngValue]="valoracion"> {{ valoracion }} </option>
+                </select>
+                <div  class="invalid-feedback"*ngIf="formAlimento.get('valoracion')?.hasError('required') && formAlimento.get('valoracion')?.touched">
+                  Campo requerido
+                </div>
               </div>
             </div>
-            <div class="col-md-4 mt-3 mt-md-0 ms-4 ms-md-0 d-md-flex justify-content-center">
-              <div class="form-check form-switch">
-                <label class="mb-1 me-2"><strong>Vegetariano</strong></label>
-                <input type="checkbox" formControlName="apto_vegetariano" class="form-check-input" />
-              </div>
-            </div>
-            <div class="col-md-4 mt-3 mt-md-0 ms-4 ms-md-0 d-md-flex justify-content-center">
-              <div class="form-check form-switch">
-                <label class="mb-1 me-2"><strong>Vegano</strong></label>
-                <input type="checkbox" formControlName="apto_vegetariano" class="form-check-input" />
-              </div>
-            </div> 
           </div>
         </div>
         <div class="col-xl-4 p-0 ps-4 pe-2 p mt-5 mt-xl-0 d-flex flex-column align-items-center">
@@ -98,29 +91,34 @@
             </div>
             <img *ngIf="imagenUrl" [src]="imagenUrl" alt="Imagen seleccionada"/>
           </div>
-          <label for="file-upload" class="btn btn-primary btn-shadow w-100" [hidden]="soloLectura">
+          <label for="file-upload" class="btn btn-primary btn-shadow w-100 mt-3" [hidden]="soloLectura">
             Seleccionar Imagen
           </label>
           <input id="file-upload" type="file" accept="image/*" class="form-control" (change)="onFileChange($event)"/>
         </div>
       </div>
 
-      <div class="row mt-5">
-        <div class="col-12">
+      <div class="row mt-3">
+        <div class="col-md-4 d-md-flex ms-4 ms-md-0 justify-content-center">
           <div class="form-check form-switch">
-            <label class="mb-1 me-2"><strong>Es un alimento procesado</strong></label>
-            <input type="checkbox" formControlName="is_procesado" class="form-check-input" />
+            <label class="mb-1 me-2"><strong>Celíaco</strong></label>
+            <input type="checkbox" formControlName="apto_celiaco" class="form-check-input" />
           </div>
         </div>
-      </div>
-      <div class="row mt-3" *ngIf="formAlimento.get('is_procesado')?.value">
-        <div class="col-12">
-          <div class="form-group">
-            <label class="mb-1"><strong>Método de Preparación</strong></label>      
-            <textarea class="form-control rounded-1" formControlName="preparacion" maxlength="2000" rows="6" [readOnly]="soloLectura"></textarea>
+        <div class="col-md-4 mt-3 mt-md-0 ms-4 ms-md-0 d-md-flex justify-content-center">
+          <div class="form-check form-switch">
+            <label class="mb-1 me-2"><strong>Vegetariano</strong></label>
+            <input type="checkbox" formControlName="apto_vegetariano" class="form-check-input" />
           </div>
         </div>
+        <div class="col-md-4 mt-3 mt-md-0 ms-4 ms-md-0 d-md-flex justify-content-center">
+          <div class="form-check form-switch">
+            <label class="mb-1 me-2"><strong>Vegano</strong></label>
+            <input type="checkbox" formControlName="apto_vegetariano" class="form-check-input" />
+          </div>
+        </div> 
       </div>
+
       <hr class="my-5">
 
       <div class="row">
@@ -166,6 +164,31 @@
             <button class="btn btn-primary btn-shadow" type="button" (click)="agregarPorcion()">
               <i class="fas fa-plus"></i> Agregar porción
             </button>
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-5">
+
+      <div class="row">
+        <div class="col-12">
+          <h5 class="mb-3">Alimento Procesado</h5>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="form-check form-switch">
+            <label class="mb-1 me-2"><strong>Este alimento tiene un proceso de preparación</strong></label>
+            <input type="checkbox" formControlName="is_procesado" class="form-check-input" />
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3" *ngIf="formAlimento.get('is_procesado')?.value">
+        <div class="col-12">
+          <div class="form-group">
+            <label class="mb-1"><strong>Método de Preparación</strong></label>      
+            <textarea class="form-control rounded-1" formControlName="preparacion" maxlength="2000" rows="6" [readOnly]="soloLectura"></textarea>
           </div>
         </div>
       </div>
@@ -435,7 +458,7 @@
         </div>
       </div>
 
-      <div class="row mt-3 mt-2 mt-xl-0">
+      <div class="row mt-5">
         <div class="col-12 d-flex justify-content-between">
           <button class="btn btn-secondary btn-shadow" (click)="limpiarAlimento()">Volver</button>
           <button class="btn btn-primary btn-shadow" *ngIf="!this.esNuevo && this.soloLectura" (click)="toggleSoloLectura()">Editar</button>

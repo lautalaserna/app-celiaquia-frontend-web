@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Accesibilidad, Alimento, Porcion, TipoAlimento } from '../../../interfaces/recetas';
+import { Accesibilidad, Alimento, Porcion, TipoAlimento, ValoracionAlimento } from '../../../interfaces/recetas';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,6 +18,7 @@ export class AlimentoDetalleComponent {
   formAlimento!: FormGroup;
   listTipoAlimento: string[] = Object.values(TipoAlimento);
   listAccesibilidad: string[] = Object.values(Accesibilidad);
+  listValoracionAlimento: string[] = Object.values(ValoracionAlimento);
   esNuevo: boolean = false;
   soloLectura: boolean = false;
   loading: boolean = false;
@@ -50,6 +51,7 @@ export class AlimentoDetalleComponent {
       nombre: new FormControl({ value: this.alimento?.nombre ? this.alimento.nombre : null, disabled: false }, [Validators.required, Validators.maxLength(200)]),
       genero: new FormControl({ value: this.alimento?.genero ? this.alimento.genero : null, disabled: false }),
       tipo: new FormControl({ value: this.alimento?.tipo ? this.alimento.tipo : null, disabled: this.soloLectura }, [Validators.required]),
+      valoracion: new FormControl({ value: this.alimento?.valoracion ? this.alimento.valoracion : null, disabled: this.soloLectura }, [Validators.required]),
       accesibilidad: new FormControl({ value: this.alimento?.accesibilidad ? this.alimento.accesibilidad : null, disabled: this.soloLectura }, [Validators.required]),
       apto_celiaco: new FormControl({ value: this.alimento?.apto_celiaco ? this.alimento.apto_celiaco : false, disabled: this.soloLectura }),
       apto_vegetariano: new FormControl({ value: this.alimento?.apto_vegetariano ? this.alimento.apto_vegetariano : false, disabled: this.soloLectura }),
@@ -142,6 +144,7 @@ export class AlimentoDetalleComponent {
     this.soloLectura = !this.soloLectura;
     this.formAlimento.get('tipo')?.enable();
     this.formAlimento.get('accesibilidad')?.enable();
+    this.formAlimento.get('valoracion')?.enable();
     this.formAlimento.get('apto_celiaco')?.enable();
     this.formAlimento.get('apto_vegetariano')?.enable();
     this.formAlimento.get('apto_vegano')?.enable();

@@ -1,4 +1,4 @@
-<nav class="sidebar d-flex flex-column flex-shrink-0 p-3 pt-4 text-bg-dark">
+<nav class="sidebar d-flex flex-column flex-shrink-0 p-3 pt-4 text-bg-dark" [class.open]="isSidebarOpen">
   <ul class="nav nav-pills flex-column gap-1 mb-auto">
     <li>
       <a [routerLink]="'/home'" routerLinkActive="btn-primary" [routerLinkActiveOptions]="{ exact: true }" class="nav-link text-white">
@@ -74,6 +74,10 @@
     </div>
   </div>
 </nav>
+
+<button *ngIf="isLoggedIn" class="btn hamburger" (click)="toggleSidebar()">
+  <i class="fas fa-bars"></i>	
+</button>
 
 <app-configuraciones 
   [(showDialog)]="displayConfigModal">

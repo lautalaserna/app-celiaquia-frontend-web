@@ -15,7 +15,7 @@
             <div *ngIf="loading" class="spinner-border spinner-border-sm text-white" role="status"></div>
           </button>
         </div>
-        <div class="order-first order-lg-last col-xl-6 col-lg-3 col-12 d-flex justify-content-end">
+        <div class="order-first order-lg-last col-xl-6 col-lg-3 col-12 d-flex justify-content-end mt-3 mt-lg-0">
           <button class="btn btn-primary btn-shadow" [routerLink]="'/punto-compra-detalle'" (click)="nuevoPuntoCompra()">
             <i class="fas fa-plus me-2"></i> Agregar
           </button>
@@ -28,8 +28,7 @@
           <thead class="table-header">
             <tr>
               <th scope="col" class="w-10 text-center" style="width: 100px;"></th>
-              <th scope="col" class="w-60">Nombre del Local</th>
-              <th scope="col" class="w-30">Dirección</th>
+              <th scope="col" class="w-90">Nombre del Local</th>
             </tr>
           </thead>
           
@@ -61,7 +60,6 @@
                 </div>
               </td>
               <td class="align-middle">{{puntoCompra.nombre}}</td>
-              <td class="align-middle">{{puntoCompra.direccion}}</td>
             </tr>
           </tbody>
         </table>

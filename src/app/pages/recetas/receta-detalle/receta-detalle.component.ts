@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Ingrediente, Receta } from '../../../interfaces/recetas';
+import { DificultadReceta, Ingrediente, Receta } from '../../../interfaces/recetas';
 import { RecetasService } from '../../../services/recetas.service';
 import { ModalIngredienteComponent } from './modal-ingrediente/modal-ingrediente.component';
 
@@ -22,6 +22,7 @@ export class RecetaDetalleComponent {
   loading: boolean = false;
   mostrarModal: boolean = false;
   imagenUrl: string | null = null;
+  listDificultad: string[] = Object.values(DificultadReceta);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,19 +43,21 @@ export class RecetaDetalleComponent {
     }
 
     this.crearForm();
-    this.recalcularDatos();
   }
 
   crearForm() {
     this.formReceta = this.formBuilder.group({
       receta_id: new FormControl({ value: this.receta?.receta_id || 0, disabled: true }),
-      titulo: new FormControl({ value: this.receta?.titulo || null, disabled: false }, [Validators.required, Validators.maxLength(200)]),
-      descripcion: new FormControl({ value: this.receta?.descripcion || null, disabled: false }, [Validators.maxLength(200)]),
+      titulo: new FormControl({ value: this.receta?.titulo || null, disabled: false }, [Validators.required, Validators.maxLength(50)]),
+      descripcion: new FormControl({ value: this.receta?.descripcion || null, disabled: false }, [Validators.maxLength(100)]),
+      tiempo_preparacion: new FormControl({ value: this.receta?.tiempo_preparacion || null, disabled: false }, [Validators.required, Validators.min(0)]),
+      tiempo_coccion: new FormControl({ value: this.receta?.tiempo_coccion || null, disabled: false }, [Validators.required, Validators.min(0)]),
+      dificultad: new FormControl({ value: this.receta?.dificultad ? this.receta.dificultad : null, disabled: this.soloLectura }, [Validators.required]),
       preparacion: new FormControl({ value: this.receta?.preparacion || null, disabled: false }, [Validators.required, Validators.maxLength(1000)]),
+      autocalcular: new FormControl({ value: this.receta?.autocalcular, disabled: this.soloLectura }),
       apto_vegetariano: new FormControl({ value: this.receta?.apto_vegetariano || false, disabled: this.soloLectura }),
       apto_vegano: new FormControl({ value: this.receta?.apto_vegano || false, disabled: this.soloLectura }),
-      energia_total_kcal: new FormControl({ value: this.receta?.energia_total_kcal || 0, disabled: true }, [Validators.required, Validators.min(0)]),
-      energia_total_kj: new FormControl({ value: this.receta?.energia_total_kj || 0, disabled: true }, [Validators.required, Validators.min(0)]),
+      calorias_totales: new FormControl({ value: this.receta?.calorias_totales || 0, disabled: true }, [Validators.required, Validators.min(0)]),
       proteinas_totales: new FormControl({ value: this.receta?.proteinas_totales || 0, disabled: true }, [Validators.required, Validators.min(0)]),
       carbohidratos_totales: new FormControl({ value: this.receta?.carbohidratos_totales || 0, disabled: true }, [Validators.required, Validators.min(0)]),
       grasas_totales: new FormControl({ value: this.receta?.grasas_totales || 0, disabled: true }, [Validators.required, Validators.min(0)]),
@@ -64,6 +67,13 @@ export class RecetaDetalleComponent {
 
     if (this.formReceta.get('imagen')?.value) {
       this.imagenUrl = this.formReceta.get('imagen')?.value;
+    }
+
+    if(!this.formReceta.get('autocalcular')?.value) {
+      this.formReceta.get('calorias_totales')?.enable();
+      this.formReceta.get('proteinas_totales')?.enable();
+      this.formReceta.get('carbohidratos_totales')?.enable();
+      this.formReceta.get('grasas_totales')?.enable();
     }
   }
 
@@ -85,15 +95,15 @@ export class RecetaDetalleComponent {
   }
 
   agregarIngredienteSeleccionado(ingrediente: Ingrediente) {
-    console.log(ingrediente);
     this.ingredientes.push(this.crearIngrediente(ingrediente));
     this.mostrarModal = false;
-    this.recalcularDatos();
+    if(this.formReceta.get('autocalcular')?.value) this.recalcularDatos();
     this.toastr.success('Ingrediente agregado con éxito!');
   }
 
   eliminarIngrediente(index: number) {
     this.ingredientes.removeAt(index);
+    if(this.formReceta.get('autocalcular')?.value) this.recalcularDatos();
   }  
 
   limpiarReceta() {
@@ -137,7 +147,6 @@ export class RecetaDetalleComponent {
 
   recalcularDatos() {
     let energiaKcal: number = 0;
-    let energiaKj: number = 0;
     let proteinas_totales: number = 0;
     let carbohidratos_totales: number = 0;
     let grasas_totales: number = 0;
@@ -148,14 +157,12 @@ export class RecetaDetalleComponent {
       const porcionRate = ingrediente.value.porcion.peso ? ingrediente.value.porcion.peso / 100 : 1;
 
       energiaKcal += (alimento.energia_kcal ?? 0) * cantidad * porcionRate;
-      energiaKj += (alimento.energia_kj ?? 0) * cantidad * porcionRate;
       proteinas_totales += (alimento.proteinas ?? 0) * cantidad * porcionRate;
       grasas_totales += (alimento.grasa_total ?? 0) * cantidad * porcionRate;
       carbohidratos_totales += (alimento.carbohidratos_totales ?? 0) * cantidad * porcionRate;
     });
 
-    this.formReceta.get('energia_total_kcal')?.setValue(energiaKcal.toFixed(2));
-    this.formReceta.get('energia_total_kj')?.setValue(energiaKj.toFixed(2));
+    this.formReceta.get('calorias_totales')?.setValue(energiaKcal.toFixed(2));
     this.formReceta.get('proteinas_totales')?.setValue(proteinas_totales.toFixed(2));
     this.formReceta.get('carbohidratos_totales')?.setValue(carbohidratos_totales.toFixed(2));
     this.formReceta.get('grasas_totales')?.setValue(grasas_totales.toFixed(2));
@@ -173,11 +180,14 @@ export class RecetaDetalleComponent {
       titulo: body.titulo,
       imagen: body.imagen,
       descripcion: body.descripcion,
+      dificultad: body.dificultad,
+      tiempo_preparacion: body.tiempo_preparacion,
+      tiempo_coccion: body.tiempo_coccion,
       preparacion: body.preparacion,
+      autocalcular: body.autocalcular,
       apto_vegetariano: body.apto_vegetariano,
       apto_vegano: body.apto_vegano,
-      energia_total_kcal: body.energia_total_kcal,
-      energia_total_kj: body.energia_total_kj,
+      calorias_totales: body.calorias_totales,
       proteinas_totales: body.proteinas_totales,
       carbohidratos_totales: body.carbohidratos_totales,
       grasas_totales: body.grasas_totales,
@@ -187,9 +197,26 @@ export class RecetaDetalleComponent {
     return receta;
   }
 
+  toggleAutocalcular() {
+    if (this.formReceta.get('autocalcular')?.value) {
+      this.formReceta.get('calorias_totales')?.disable();
+      this.formReceta.get('proteinas_totales')?.disable();
+      this.formReceta.get('carbohidratos_totales')?.disable();
+      this.formReceta.get('grasas_totales')?.disable();
+      this.recalcularDatos();
+    } else {
+      this.formReceta.get('calorias_totales')?.enable();
+      this.formReceta.get('proteinas_totales')?.enable();
+      this.formReceta.get('carbohidratos_totales')?.enable();
+      this.formReceta.get('grasas_totales')?.enable();
+    }
+  }
+
   toggleSoloLectura() {
     this.soloLectura = !this.soloLectura;
     this.formReceta.get('apto_vegetariano')?.enable();
     this.formReceta.get('apto_vegano')?.enable();
+    this.formReceta.get('dificultad')?.enable();
+    this.formReceta.get('autocalcular')?.enable();
   }
 }

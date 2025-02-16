@@ -37,7 +37,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-12 d-flex justify-content-start mt-3 mb-4">
+              <div class="col-12 d-flex justify-content-start mt-3">
                 <button class="btn btn-primary btn-shadow" type="button" (click)="agregarOpcion()" [hidden]="this.soloLectura">
                   <i class="fas fa-plus"></i> Agregar opción
                 </button>
@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <div class="row mt-3">
+      <div class="row mt-5">
         <div class="col-12 d-flex justify-content-between">
           <button class="btn btn-secondary btn-shadow" (click)="limpiarCuestionario()">Volver</button>
           <button class="btn btn-primary btn-shadow" *ngIf="!this.esNuevo && this.soloLectura" (click)="toggleSoloLectura()">Editar</button>

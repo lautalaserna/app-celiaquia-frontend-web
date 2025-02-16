@@ -3,7 +3,7 @@
   width: 280px;
   position: fixed;
   box-shadow: 4px 0 6px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  z-index: 110;
 }
 
 .selected {
@@ -30,4 +30,36 @@
 
 .btn-nav:hover {
   background-color: #555;
+}
+
+.hamburger {
+  display: none;
+  width: 40px;
+  height: 40px;
+}
+
+@media (max-width: 800px) {
+  .sidebar {
+    position: fixed;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    background: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+  }
 }
