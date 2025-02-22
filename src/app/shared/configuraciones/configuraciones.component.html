@@ -1,4 +1,4 @@
-<p-dialog header="Configuraciones" [(visible)]="showDialog" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '40vw' }" [draggable]="true" [resizable]="true"  (onHide)="closeDialog()">
+<p-dialog class="modal-config" header="Configuraciones" [(visible)]="showDialog" [style]="{ width: '500px' }" [draggable]="true" [resizable]="false" (onHide)="closeDialog()">
   <div class="row">
     <div class="col-12">
       <h5>Cambio de Contraseña</h5>
@@ -6,17 +6,19 @@
   </div>
   <form [formGroup]="formContrasenia">
     <div class="row mt-2">
-      <div class="col-6">
+      <div class="col-12">
         <label class="mb-1"><strong>Contraseña Actual</strong></label>
         <input type="password" class="form-control" formControlName="oldPassword" maxlength="200">
       </div>
     </div>
     <div class="row mt-2">
-      <div class="col-6">
+      <div class="col-12">
         <label class="mb-1"><strong>Nueva Contraseña</strong></label>
         <input type="password" class="form-control" formControlName="newPassword" maxlength="200">
       </div>
-      <div class="col-6">
+    </div>
+    <div class="row mt-2">
+      <div class="col-12">
         <label class="mb-1"><strong>Repetir Contraseña</strong></label>
         <input type="password" class="form-control" formControlName="confirmPassword" maxlength="200">
       </div>
@@ -39,13 +41,9 @@
   </div>
   <form [formGroup]="formBaja">
     <div class="row mt-2 mb-3">
-      <div class="col-6">
-        <label class="mb-1"><strong>Contraseña</strong></label>
-        <input type="password" class="form-control" formControlName="password" maxlength="200">
-      </div>
-      <div class="col-6">
-        <label class="mb-1"><strong>Repetir Contraseña</strong></label>
-        <input type="password" class="form-control" formControlName="confirmPassword" maxlength="200">
+      <div class="col-12">
+        <label class="mb-1"><strong>Confirmar nombre de usuario</strong></label>
+        <input type="text" class="form-control" formControlName="username" maxlength="200">
       </div>
     </div>
     <div class="row mt-4">

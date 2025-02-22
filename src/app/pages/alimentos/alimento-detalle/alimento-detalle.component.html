@@ -13,9 +13,9 @@
       <div class="row mt-1">
         <div class="col-xl-8">
           <div class="row">
-            <div class="col-lg-2">
+            <div class="col-lg-12">
               <div class="form-group">
-                <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Número</strong></label>
+                <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Número del Alimento</strong></label>
                 <input type="number" class="form-control rounded-1" formControlName="numero" [readOnly]="soloLectura"
                   [ngClass]="!formAlimento.get('numero')?.touched ? '' : formAlimento.get('numero')?.valid ? '' : 'is-invalid'" />
                 <div class="invalid-feedback" *ngIf="formAlimento.get('numero')?.hasError('required') && formAlimento.get('numero')?.touched">
@@ -23,7 +23,9 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-10 mt-2 mt-lg-0">
+          </div>
+          <div class="row">
+            <div class="col-lg-12 mt-2">
               <div class="form-group">
                 <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Nombre</strong></label>
                 <input type="text" class="form-control rounded-1" formControlName="nombre" maxlength="200" [readOnly]="soloLectura"
@@ -34,52 +36,27 @@
               </div>
             </div>
           </div>
-          <div class="row mt-2 mt-xl-3">
-            <!-- <div class="col-6">
-              <div class="form-group">
-                <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Género</strong></label>
-                <input type="text" class="form-control rounded-1" formControlName="genero" [readOnly]="soloLectura"
-                  [ngClass]="!formAlimento.get('genero')?.touched ? '' : formAlimento.get('genero')?.valid ? '' : 'is-invalid'" />
-                <div class="invalid-feedback" *ngIf="formAlimento.get('genero')?.hasError('required') && formAlimento.get('genero')?.touched">
-                  Campo requerido
-                </div>
-              </div>
-            </div> -->
-            <div class="col-xl-6">
-              <div class="form-group">
-                <label [ngClass]="!soloLectura ? 'is-required mb-1' : 'mb-1'"><strong>Tipo</strong></label>
-                <select class="form-select" formControlName="tipo" [ngClass]="!formAlimento.get('tipo')?.touched ? '' : formAlimento.get('tipo')?.valid ? '' : 'is-invalid'">
-                  <option *ngFor="let tipo of listTipoAlimento" [ngValue]="tipo"> {{ tipo }} </option>
-                </select>
-                <div  class="invalid-feedback"*ngIf="formAlimento.get('tipo')?.hasError('required') && formAlimento.get('tipo')?.touched">
-                  Campo requerido
-                </div>
+          <div class="row mt-5">
+            <div class="col-md-4 d-md-flex ms-4 ms-md-0 justify-content-center">
+              <div class="form-check form-switch">
+                <label class="mb-1 me-2"><strong>Celíaco</strong></label>
+                <input type="checkbox" formControlName="apto_celiaco" class="form-check-input" />
               </div>
             </div>
-            <div class="col-xl-6 mt-2 mt-xl-0">
-              <div class="form-group">
-                <label [ngClass]="!soloLectura ? 'is-required mb-1' : 'mb-1'"><strong>Accesibilidad</strong></label>
-                <select class="form-select" formControlName="accesibilidad" [ngClass]="!formAlimento.get('accesibilidad')?.touched ? '' : formAlimento.get('accesibilidad')?.valid ? '' : 'is-invalid'">
-                  <option *ngFor="let accesibilidad of listAccesibilidad" [ngValue]="accesibilidad"> {{ accesibilidad }} </option>
-                </select>
-                <div  class="invalid-feedback"*ngIf="formAlimento.get('accesibilidad')?.hasError('required') && formAlimento.get('accesibilidad')?.touched">
-                  Campo requerido
-                </div>
+            <div class="col-md-4 mt-3 mt-md-0 ms-4 ms-md-0 d-md-flex justify-content-center">
+              <div class="form-check form-switch">
+                <label class="mb-1 me-2"><strong>Vegetariano</strong></label>
+                <input type="checkbox" formControlName="apto_vegetariano" class="form-check-input" />
               </div>
             </div>
+            <div class="col-md-4 mt-3 mt-md-0 ms-4 ms-md-0 d-md-flex justify-content-center">
+              <div class="form-check form-switch">
+                <label class="mb-1 me-2"><strong>Vegano</strong></label>
+                <input type="checkbox" formControlName="apto_vegetariano" class="form-check-input" />
+              </div>
+            </div> 
           </div>
           <div class="row mt-2 mt-xl-3">
-            <div class="col-xl-6">
-              <div class="form-group">
-                <label [ngClass]="!soloLectura ? 'is-required mb-1' : 'mb-1'"><strong>Valoración</strong></label>
-                <select class="form-select" formControlName="valoracion" [ngClass]="!formAlimento.get('valoracion')?.touched ? '' : formAlimento.get('valoracion')?.valid ? '' : 'is-invalid'">
-                  <option *ngFor="let valoracion of listValoracionAlimento" [ngValue]="valoracion"> {{ valoracion }} </option>
-                </select>
-                <div  class="invalid-feedback"*ngIf="formAlimento.get('valoracion')?.hasError('required') && formAlimento.get('valoracion')?.touched">
-                  Campo requerido
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <div class="col-xl-4 p-0 ps-4 pe-2 p mt-5 mt-xl-0 d-flex flex-column align-items-center">
@@ -98,25 +75,40 @@
         </div>
       </div>
 
-      <div class="row mt-3">
-        <div class="col-md-4 d-md-flex ms-4 ms-md-0 justify-content-center">
-          <div class="form-check form-switch">
-            <label class="mb-1 me-2"><strong>Celíaco</strong></label>
-            <input type="checkbox" formControlName="apto_celiaco" class="form-check-input" />
+      <div class="row mt-2 mt-xl-3">
+        <div class="col-xl-4">
+          <div class="form-group">
+            <label [ngClass]="!soloLectura ? 'is-required mb-1' : 'mb-1'"><strong>Tipo</strong></label>
+            <select class="form-select" formControlName="tipo" [ngClass]="!formAlimento.get('tipo')?.touched ? '' : formAlimento.get('tipo')?.valid ? '' : 'is-invalid'">
+              <option *ngFor="let tipo of listTipoAlimento" [ngValue]="tipo"> {{ tipo }} </option>
+            </select>
+            <div  class="invalid-feedback"*ngIf="formAlimento.get('tipo')?.hasError('required') && formAlimento.get('tipo')?.touched">
+              Campo requerido
+            </div>
           </div>
         </div>
-        <div class="col-md-4 mt-3 mt-md-0 ms-4 ms-md-0 d-md-flex justify-content-center">
-          <div class="form-check form-switch">
-            <label class="mb-1 me-2"><strong>Vegetariano</strong></label>
-            <input type="checkbox" formControlName="apto_vegetariano" class="form-check-input" />
+        <div class="col-xl-4 mt-2 mt-xl-0">
+          <div class="form-group">
+            <label [ngClass]="!soloLectura ? 'is-required mb-1' : 'mb-1'"><strong>Accesibilidad</strong></label>
+            <select class="form-select" formControlName="accesibilidad" [ngClass]="!formAlimento.get('accesibilidad')?.touched ? '' : formAlimento.get('accesibilidad')?.valid ? '' : 'is-invalid'">
+              <option *ngFor="let accesibilidad of listAccesibilidad" [ngValue]="accesibilidad"> {{ accesibilidad }} </option>
+            </select>
+            <div  class="invalid-feedback"*ngIf="formAlimento.get('accesibilidad')?.hasError('required') && formAlimento.get('accesibilidad')?.touched">
+              Campo requerido
+            </div>
           </div>
         </div>
-        <div class="col-md-4 mt-3 mt-md-0 ms-4 ms-md-0 d-md-flex justify-content-center">
-          <div class="form-check form-switch">
-            <label class="mb-1 me-2"><strong>Vegano</strong></label>
-            <input type="checkbox" formControlName="apto_vegetariano" class="form-check-input" />
+        <div class="col-xl-4 mt-2 mt-xl-0">
+          <div class="form-group">
+            <label [ngClass]="!soloLectura ? 'is-required mb-1' : 'mb-1'"><strong>Valoración</strong></label>
+            <select class="form-select" formControlName="valoracion" [ngClass]="!formAlimento.get('valoracion')?.touched ? '' : formAlimento.get('valoracion')?.valid ? '' : 'is-invalid'">
+              <option *ngFor="let valoracion of listValoracionAlimento" [ngValue]="valoracion"> {{ valoracion }} </option>
+            </select>
+            <div  class="invalid-feedback"*ngIf="formAlimento.get('valoracion')?.hasError('required') && formAlimento.get('valoracion')?.touched">
+              Campo requerido
+            </div>
           </div>
-        </div> 
+        </div>
       </div>
 
       <hr class="my-5">
@@ -130,29 +122,16 @@
       <div class="row mt-1">
         <div formArrayName="porciones">
           <div *ngFor="let porcion of porciones.controls; let i = index" [formGroupName]="i">
-            <div class="row">
-              <div style="max-width: 50px;" class="col-1 p-0 mb-1 pe-2 d-flex justify-content-end align-items-end">
-                <h6 style="font-size: 14px;"><strong>{{i + 1}}.</strong></h6>
-              </div>
-              <div class="col-6 mt-2 mb-1">
-                <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Nombre</strong></label>
+            <div class="row mt-4 mb-5 mb-xl-0">
+              <div class="col-xl-8">
+                <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Nombre de porción Nro. {{i + 1}}</strong></label>
                 <input type="text" class="form-control" formControlName="nombre" [readOnly]="soloLectura" [ngClass]="{'is-invalid': porcion.get('nombre')?.invalid && porcion.get('nombre')?.touched}">
-                <div class="invalid-feedback" *ngIf="porcion.get('nombre')?.hasError('required') && porcion.get('nombre')?.touched">
-                  Campo requerido
-                </div>
               </div>
-              <div class="col-3 mt-2 mb-1">
-                <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Peso (g)</strong></label>
+              <div class="mt-2 mt-xl-0" [ngClass]="soloLectura? 'col-xl-4' : 'col-xl-3 col-10'">
+                <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Peso equivalente (g)</strong></label>
                 <input type="number" class="form-control" formControlName="peso" [readOnly]="soloLectura" [ngClass]="{'is-invalid': porcion.get('peso')?.invalid && porcion.get('peso')?.touched}">
-                <div class="invalid-feedback" *ngIf="porcion.get('peso')?.hasError('required') && porcion.get('peso')?.touched">
-                  Campo requerido
-                </div>
               </div>
-              <div class="col-2 ps-0" style="margin-top: 41px;" [hidden]="soloLectura">
-                <button class="btn btn-delete btn-danger btn-shadow" type="button"  (click)="eliminarPorcion(i)">
-                  <i class="fas fa-trash"></i>
-                </button>
-              </div>
+              <div class="col-xl-1 col-2 mt-2 mt-xl-0 p-0" style="margin-bottom: 1px" [ngClass]="soloLectura? 'd-none' : 'd-flex justify-content-start align-items-end'"><button type="button" class="btn btn-danger" (click)="eliminarPorcion(i)" [hidden]="soloLectura"><i class="fas fa-trash"></i></button></div>
             </div>
           </div>
         </div>
@@ -264,11 +243,20 @@
           </div>
         </div>
       </div>
-      
-      <div class="row mt-2 mt-xl-3">
+      <div class="row mt-2 mt-xl-4">
+        <div class="col-xl-3 mt-2 mt-xl-0">
+          <div class="form-group">
+            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Saturadas (g)</strong></label>
+            <input type="number" class="form-control rounded-1" formControlName="ac_grasos_saturados" [readOnly]="soloLectura"
+              [ngClass]="!formAlimento.get('ac_grasos_saturados')?.touched ? '' : formAlimento.get('ac_grasos_saturados')?.valid ? '' : 'is-invalid'" />
+            <div class="invalid-feedback" *ngIf="formAlimento.get('ac_grasos_saturados')?.hasError('required') && formAlimento.get('ac_grasos_saturados')?.touched">
+              Campo requerido
+            </div>
+          </div>
+        </div>
         <div class="col-xl-3">
           <div class="form-group">
-            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Grasas <br class="d-none d-xl-block"/>Monoinsaturadas (g)</strong></label>
+            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Monoinsaturadas (g)</strong></label>
             <input type="number" class="form-control rounded-1" formControlName="ac_grasos_monoinsaturados" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('ac_grasos_monoinsaturados')?.touched ? '' : formAlimento.get('ac_grasos_monoinsaturados')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('ac_grasos_monoinsaturados')?.hasError('required') && formAlimento.get('ac_grasos_monoinsaturados')?.touched">
@@ -278,7 +266,7 @@
         </div>
         <div class="col-xl-3 mt-2 mt-xl-0">
           <div class="form-group">
-            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Grasas <br class="d-none d-xl-block"/>Poliinsaturadas (g)</strong></label>
+            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Poliinsaturadas (g)</strong></label>
             <input type="number" class="form-control rounded-1" formControlName="ac_grasos_poliinsaturados" [readOnly]="soloLectura"
               [ngClass]="!formAlimento.get('ac_grasos_poliinsaturados')?.touched ? '' : formAlimento.get('ac_grasos_poliinsaturados')?.valid ? '' : 'is-invalid'" />
             <div class="invalid-feedback" *ngIf="formAlimento.get('ac_grasos_poliinsaturados')?.hasError('required') && formAlimento.get('ac_grasos_poliinsaturados')?.touched">
@@ -288,10 +276,10 @@
         </div>
         <div class="col-xl-3 mt-2 mt-xl-0">
           <div class="form-group">
-            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Grasas <br class="d-none d-xl-block"/>Saturadas (g)</strong></label>
-            <input type="number" class="form-control rounded-1" formControlName="ac_grasos_saturados" [readOnly]="soloLectura"
-              [ngClass]="!formAlimento.get('ac_grasos_saturados')?.touched ? '' : formAlimento.get('ac_grasos_saturados')?.valid ? '' : 'is-invalid'" />
-            <div class="invalid-feedback" *ngIf="formAlimento.get('ac_grasos_saturados')?.hasError('required') && formAlimento.get('ac_grasos_saturados')?.touched">
+            <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Trans (g)</strong></label>
+            <input type="number" class="form-control rounded-1" formControlName="grasas_trans" [readOnly]="soloLectura"
+              [ngClass]="!formAlimento.get('grasas_trans')?.touched ? '' : formAlimento.get('grasas_trans')?.valid ? '' : 'is-invalid'" />
+            <div class="invalid-feedback" *ngIf="formAlimento.get('grasas_trans')?.hasError('required') && formAlimento.get('grasas_trans')?.touched">
               Campo requerido
             </div>
           </div>

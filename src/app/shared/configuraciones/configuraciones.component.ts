@@ -6,6 +6,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { UserService } from '../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { Rol } from '../../interfaces/user';
 
 @Component({
   selector: 'app-configuraciones',
@@ -36,14 +37,13 @@ export class ConfiguracionesComponent {
 
   crearForms() {
     this.formContrasenia = this.formBuilder.group({
-      oldPassword: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(200)]),
-      newPassword: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(200)]),
-      confirmPassword: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(200)]),
+      oldPassword: new FormControl(null, [Validators.required]),
+      newPassword: new FormControl(null, [Validators.required]),
+      confirmPassword: new FormControl(null, [Validators.required]),
     });
 
     this.formBaja = this.formBuilder.group({
-      password: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(200)]),
-      confirmPassword: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(200)]),
+      username: new FormControl(null, [Validators.required]),
     });
   }
 
@@ -86,9 +86,21 @@ export class ConfiguracionesComponent {
 
   darseDeBaja() {
     const body = this.formBaja.getRawValue() as any;
+    
+    const user = this._userService.getUserData();
+    if(user?.roles && user.roles.some(role => role.nombre === 'ROL_ADMIN')) {
+      this.toastr.error('No se puede dar de baja a un usuario administrador','Baja de Usuario');
+      return;
+    }
+
+    if(user?.username !== body.username) {
+      this.toastr.error('El nombre de usuario no coincide','Baja de Usuario');
+      return
+    }
+
     this.loading= true;
 
-    this._userService.deleteMyUser(body).subscribe({
+    this._userService.deleteMyUser().subscribe({
       next: (data) => {
         this.loading= false;
         this.closeDialog();

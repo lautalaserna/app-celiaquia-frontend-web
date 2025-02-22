@@ -43,12 +43,12 @@
           </div>
           <div class="row mt-2 mt-xl-3">
             <div class="col-12">
-              <div class="form-group">
+              <div class="form-group" [ngClass]="soloLectura ? 'disable-interactions' : ''">
                 <label class="mb-2"><strong>Tags</strong></label>
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Selecciona Tags</mat-label>
-                  <mat-select formControlName="tags" multiple>
-                    <mat-option *ngFor="let key of tagKeys" [value]="key">{{ tagsEnum[key] }}</mat-option>
+                <mat-form-field class="custom-font" appearance="outline" class="w-100">
+                  <mat-label class="custom-font">Selecciona Tags</mat-label>
+                  <mat-select class="custom-font" formControlName="tags" multiple>
+                    <mat-option class="custom-font" *ngFor="let key of tagKeys" [value]="key">{{ tagsEnum[key] }}</mat-option>
                   </mat-select>
                 </mat-form-field>
                 <div class="invalid-feedback" *ngIf="formPuntoCompra.get('tags')?.hasError('required') && formPuntoCompra.get('tags')?.touched">

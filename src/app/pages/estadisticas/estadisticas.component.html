@@ -1,0 +1,131 @@
+<div class="title-bar">
+  <h2 class="page-title">Estadisticas</h2>
+</div>
+
+<div *ngIf="loading" class="d-flex justify-content-center align-items-center" style="height: calc(100dvh - 100px);">
+  <div class="spinner spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div class="main-page" *ngIf="!loading && estadisticas?.usuarios">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <h4 class="mb-4">Usuarios</h4>
+      </div>
+      <div class="d-flex flex-row flex-wrap justify-content-center justify-content-sm-start align-items-center">
+        <div class="card user-card" *ngFor="let usuario of estadisticas.usuarios" [ngClass]="{
+          'totales': usuario.key === 'TOTALES',
+          'vegetarianos': usuario.key === 'VEGETARIANOS',
+          'veganos': usuario.key === 'VEGANOS',
+          'activos': usuario.key === 'ACTIVOS'
+        }">
+          <div class="d-flex flex-row justify-content-end align-items-center">
+            <i class="mb-2" [class]="getIcon(usuario.key)"></i>
+            <span class="card-number">{{ formatNumber(usuario.value) }}</span>
+          </div>
+          <div class="d-flex flex-column justify-content-end align-items-start">
+            <span class="user-label">Usuarios</span>
+            <span class="user-key">{{ capitalize(usuario.key) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main-page container-fluid" *ngIf="!loading && estadisticas?.cuestionarios">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <h4 class="mb-4">Cuestionario de Ingreso</h4>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid" *ngIf="estadisticas">
+    <div class="accordion" id="cuestionariosAccordion">
+      <div *ngFor="let cuestionario of estadisticas.cuestionarios; index as i" class="accordion-item">
+        <h2 class="accordion-header" id="heading{{i}}">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i">
+            {{ cuestionario.pregunta }}
+          </button>
+        </h2>
+        <div [id]="'collapse' + i" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + i">
+          <div class="accordion-body">
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let opcion of cuestionario.opciones">
+                <div class="d-flex justify-content-between align-items-center p-2">
+                  <span>{{ opcion.opcion }} ({{ opcion.valor }} veces)</span>
+                  <span>{{ (opcion.porcentaje * 100) | number:'1.0-2' }}%</span>
+                </div>
+                <div class="progress mt-2 mb-2">
+                  <div class="progress-bar custom-progress-bar" 
+                    role="progressbar" 
+                    [style.backgroundColor]="'#103b73'"
+                    [style.width.%]="opcion.porcentaje * 100" 
+                    [attr.aria-valuenow]="opcion.porcentaje * 100" 
+                    aria-valuemin="0" 
+                    aria-valuemax="100">
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main-page" *ngIf="!loading && (estadisticas?.alimentos || estadisticas?.recetas)">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <h4 class="mb-4">Alimentos y Platos</h4>
+      </div>
+      <div class="col-xl-6">
+        <div class="card mb-4">
+          <div class="card-header custom-card-header">
+            <span class="mb-0">Top 10 alimentos más buscados</span>
+          </div>
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" *ngFor="let alimento of estadisticas?.alimentos, index as i">
+                <div class="row">
+                  <div class="col-8">
+                    <span>{{i + 1}}. {{ alimento.nombre }}</span>
+                  </div>
+                  <div class="col-4 text-end p-0">
+                    <span>{{ alimento.stat_consultas }} veces</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6">
+        <div class="card mb-4">
+          <div class="card-header custom-card-header">
+            <span class="mb-0">Top 10 platos más buscados</span>
+          </div>
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" *ngFor="let receta of estadisticas?.recetas, index as i">
+                <div class="row">
+                  <div class="col-8">
+                    <span>{{i + 1}}. {{ receta.titulo }}</span>
+                  </div>
+                  <div class="col-4 text-end p-0">
+                    <span>{{ receta.stat_consultas }} veces</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

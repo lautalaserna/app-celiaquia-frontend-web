@@ -1,15 +1,9 @@
-<p-dialog header="Agregar Ingrediente" [(visible)]="showDialog" [modal]="true" [style]="{width: '800px'}" (onHide)="closeDialog()" class="custom-dialog">
+<p-dialog header="Agregar Ingrediente" [(visible)]="showDialog" [modal]="true" [style]="{width: '800px'}" (onHide)="closeDialog()" class="custom-dialog ms-1 me-2">
   <form [formGroup]="formFiltrosModal">
     <div class="row mt-2 align-items-end">
-      <div class="col-6">
+      <div class="col-8">
         <label class="mb-1"><strong>Nombre</strong></label>
         <input type="text" class="form-control" formControlName="nombre">
-      </div>
-      <div class="col-3">
-        <label class="mb-1"><strong>Tipo</strong></label>
-        <select class="form-select" formControlName="tipo">
-          <option *ngFor="let tipo of tipos" [ngValue]="tipo">{{tipo}}</option>
-        </select>
       </div>
       <div class="col-1 align-self-end p-0 ps-2">
         <button class="btn btn-search btn-primary btn-shadow" (click)="listarAlimentos()">
@@ -25,41 +19,21 @@
       <table class="table table-hover border">
         <thead class="table-header">
           <tr>
-            <th scope="col" class="w-50">Nombre</th>
-            <th scope="col" class="w-30">Tipo</th>
-            <th scope="col" class="w-10 text-center">Vegetariano</th>
-            <th scope="col" class="w-10 text-center">Vegano</th>
+            <th scope="col" class="w-50">Nombre del Alimento</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let alimento of listAlimentos" (click)="seleccionarAlimento(alimento)" [class.table-primary]="alimento === formIngrediente.get('alimento')?.value"
               style="cursor: pointer;">
             <td  class="align-middle text-start">{{ alimento.nombre }}</td>
-            <td  class="align-middle text-start">{{ alimento.tipo }}</td>
-            <td class="align-middle text-center">
-              <ng-container *ngIf="alimento.apto_vegetariano; else noVegetariano">
-                  <i class="fas fa-check" style="color: green;"></i>
-              </ng-container>
-              <ng-template #noVegetariano>
-                  <i class="fas fa-times" style="color: red;"></i>
-              </ng-template>
-            </td>
-            <td class="align-middle text-center">
-                <ng-container *ngIf="alimento.apto_vegano; else noVegano">
-                    <i class="fas fa-check" style="color: green;"></i>
-                </ng-container>
-                <ng-template #noVegano>
-                    <i class="fas fa-times" style="color: red;"></i>
-                </ng-template>
-            </td>
           </tr>
         </tbody>
       </table>
-      <mat-paginator [pageSize]="this.size" [length]="this.total" showFirstLastButtons="true" (page)="onPageChange($event)"></mat-paginator> 
+      <mat-paginator [pageSizeOptions]="[5]" [pageSize]="this.size" [length]="this.total" showFirstLastButtons="true" (page)="onPageChange($event)"></mat-paginator> 
     </div>
     
-    <div class="row mt-4">
-      <div class="col-4">
+    <div class="row mt-md-4 mt-2">
+      <div class="col-md-5">
         <div class="form-group">
           <label class="mb-1"><strong>Porción</strong></label>
           <select class="form-select" formControlName="porcion">
@@ -72,7 +46,7 @@
           </div>
         </div>
       </div>
-      <div class="col-3">
+      <div class="col-md-4 mt-2 mt-md-0">
         <div class="form-group">
           <label class="mb-1"><strong>Cantidad</strong></label>
           <input type="number" class="form-control" formControlName="cantidad" min="1" />
@@ -84,7 +58,7 @@
           </div>
         </div>
       </div>
-      <div class="col-5 d-flex flex-column justify-content-end align-items-end">
+      <div class="col-md-3 mt-4 mt-md-0 d-flex flex-column justify-content-end align-items-end">
         <button type="button" pButton class="btn btn-primary" label="Guardar" (click)="guardar()" icon="pi pi-check" [disabled]="formIngrediente.invalid">Guardar</button>
       </div>
     </div>

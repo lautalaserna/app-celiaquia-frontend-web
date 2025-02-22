@@ -68,6 +68,7 @@ export class AlimentoDetalleComponent {
       ac_grasos_monoinsaturados: new FormControl({ value: this.alimento?.ac_grasos_monoinsaturados ? this.alimento.ac_grasos_monoinsaturados : 0, disabled: false }, [Validators.required]),
       ac_grasos_poliinsaturados: new FormControl({ value: this.alimento?.ac_grasos_poliinsaturados ? this.alimento.ac_grasos_poliinsaturados : 0, disabled: false }, [Validators.required]),
       ac_grasos_saturados: new FormControl({ value: this.alimento?.ac_grasos_saturados ? this.alimento.ac_grasos_saturados : 0, disabled: false }, [Validators.required]),
+      grasas_trans: new FormControl({ value: this.alimento?.grasas_trans ? this.alimento.grasas_trans : 0, disabled: false }, [Validators.required]),
       agua: new FormControl({ value: this.alimento?.agua ? this.alimento.agua : null, disabled: false }),
       calcio: new FormControl({ value: this.alimento?.calcio ? this.alimento.calcio : null, disabled: false }),
       cenizas: new FormControl({ value: this.alimento?.cenizas ? this.alimento.cenizas : null, disabled: false }),
@@ -108,7 +109,11 @@ export class AlimentoDetalleComponent {
   }
   
   agregarPorcion() {
-    this.porciones.push(this.crearPorcion());
+    this.porciones.push(this.crearPorcion({
+      porcion_id: 0,
+      nombre: 'Gramo',
+      peso: 1,
+    }));
   }
   
   eliminarPorcion(index: number) {

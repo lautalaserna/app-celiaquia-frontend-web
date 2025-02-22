@@ -1,0 +1,11 @@
+::ng-deep .modal-eliminar .p-dialog-title {
+  font-family: 'Poppins', sans-serif;
+}
+
+p-dialog {
+  font-family: 'Poppins', sans-serif;
+}
+
+p, button {
+  font-family: 'Poppins', sans-serif;
+}

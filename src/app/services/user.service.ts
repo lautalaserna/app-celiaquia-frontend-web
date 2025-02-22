@@ -43,8 +43,8 @@ export class UserService {
     return this.http.post<any>(`${this.appUrl}${this.apiUrl}/change-password`, passwords);
   }
 
-  deleteMyUser(passwords: any) {
-    return this.http.post<any>(`${this.appUrl}${this.apiUrl}/delete-user`, passwords);
+  deleteMyUser() {
+    return this.http.delete<any>(`${this.appUrl}${this.apiUrl}`);
   }
 
   getUser(): Observable<any> {

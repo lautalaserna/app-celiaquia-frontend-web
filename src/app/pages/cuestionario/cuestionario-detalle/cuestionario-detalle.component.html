@@ -22,13 +22,13 @@
             <div formArrayName="opciones">
               <div *ngFor="let opcion of opciones.controls; let i = index" [formGroupName]="i">
                 <div class="row">
-                  <div class="col-10 mt-2 mb-1">
+                  <div class="mt-2 mb-1" [ngClass]="soloLectura? 'col-12' : 'col-11'">
                     <input type="text" class="form-control" [readOnly]="soloLectura" formControlName="opcion" [ngClass]="{'is-invalid': opcion.get('opcion')?.invalid && opcion.get('opcion')?.touched}">
                     <div class="invalid-feedback" *ngIf="opcion.get('opcion')?.hasError('required') && opcion.get('opcion')?.touched">
                       Campo requerido
                     </div>
                   </div>
-                  <div class="col-1 mt-2 mb-1 ps-0">
+                  <div class="mt-2 mb-1 ps-0" [ngClass]="soloLectura? 'd-none' : 'col-1'">
                     <button class="btn btn-delete btn-danger btn-shadow" type="button" [hidden]="this.soloLectura" (click)="eliminarOpcion(i)">
                       <i class="fas fa-trash"></i>
                     </button>

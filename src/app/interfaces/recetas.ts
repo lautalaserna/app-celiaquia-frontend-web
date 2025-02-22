@@ -48,6 +48,7 @@ export class Alimento {
   ac_grasos_monoinsaturados!: number;
   ac_grasos_poliinsaturados!: number;
   ac_grasos_saturados!: number;
+  grasas_trans!: number;
   agua!: number;
   calcio!: number;
   cenizas!: number;

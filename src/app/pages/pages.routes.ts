@@ -19,6 +19,7 @@ import { AdminGuard } from '../utils/guards/admin.guard';
 import { PuntoCompraDetalleComponent } from './puntos-compra/punto-compra-detalle/punto-compra-detalle.component';
 import { PuntosCompraComponent } from './puntos-compra/puntos-compra.component';
 import { PuntosCompraResolverService } from '../services/puntos-compra-resolver.service';
+import { EstadisticasComponent } from './estadisticas/estadisticas.component';
 
 export const pagesRoutes: Routes = [
   { 
@@ -92,5 +93,9 @@ export const pagesRoutes: Routes = [
     resolve: {
       usuario: UsuariosResolverService
     }
+  },
+  { 
+    path: 'estadisticas', 
+    component: EstadisticasComponent 
   },
 ];

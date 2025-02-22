@@ -45,14 +45,14 @@ export class UsuarioDetalleComponent {
   crearForm() {
     this.formUsuarios = this.formBuilder.group({
       usuario_id: new FormControl({value: this.usuario?.usuario_id ? this.usuario.usuario_id : 0, disabled: true}, [Validators.required, Validators.maxLength(200)]),
-      nombre: new FormControl({value: this.usuario?.nombre ? this.usuario.nombre : null, disabled: true}, [Validators.required, Validators.maxLength(200)]),
-      apellido: new FormControl({value: this.usuario?.apellido ? this.usuario.apellido : null, disabled: true}, [Validators.required, Validators.maxLength(200)]),
-      dni: new FormControl({value: this.usuario?.dni ? this.usuario.dni : null, disabled: true}, [Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern(/^\d{8}$/)]),
-      fnac: new FormControl({value: this.usuario?.fnac ? this.usuario.fnac : null, disabled: true}, [Validators.required]),
-      email: new FormControl({value: this.usuario?.email ? this.usuario.email : null, disabled: true}, [Validators.required, Validators.email, Validators.maxLength(200)]),
-      username: new FormControl({value: this.usuario?.username ? this.usuario.username : null, disabled: true}, [Validators.required, Validators.maxLength(200)]),
-      password: new FormControl({value: null, disabled: true}, [Validators.minLength(8), Validators.maxLength(200)]),
-      confirmPassword: new FormControl({value: null, disabled: true}, [Validators.minLength(8), Validators.maxLength(200)]),
+      nombre: new FormControl({value: this.usuario?.nombre ? this.usuario.nombre : null, disabled: false}, [Validators.required, Validators.maxLength(200)]),
+      apellido: new FormControl({value: this.usuario?.apellido ? this.usuario.apellido : null, disabled: false}, [Validators.required, Validators.maxLength(200)]),
+      dni: new FormControl({value: this.usuario?.dni ? this.usuario.dni : null, disabled: false}, [Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern(/^\d{8}$/)]),
+      fnac: new FormControl({value: this.usuario?.fnac ? this.usuario.fnac : null, disabled: false}, [Validators.required]),
+      email: new FormControl({value: this.usuario?.email ? this.usuario.email : null, disabled: false}, [Validators.required, Validators.email, Validators.maxLength(200)]),
+      username: new FormControl({value: this.usuario?.username ? this.usuario.username : null, disabled: !this.esNuevo}, [Validators.required, Validators.maxLength(200)]),
+      password: new FormControl({value: null, disabled: false}, [Validators.minLength(8), Validators.maxLength(200)]),
+      confirmPassword: new FormControl({value: null, disabled: false}, [Validators.minLength(8), Validators.maxLength(200)]),
     });
   }  
 
@@ -64,6 +64,12 @@ export class UsuarioDetalleComponent {
   guardarCuidado() {
     const body = this.formUsuarios.getRawValue() as Usuario;
     this.loading= true;
+
+    if(this.formUsuarios.get('password')?.value !== this.formUsuarios.get('confirmPassword')?.value){
+      this.toastr.error('Las contraseñas no coinciden','Error');
+      this.loading= false;
+      return;
+    }
 
     this._adminService.createUsuario(body).subscribe({
       next: (data) => {
@@ -79,14 +85,6 @@ export class UsuarioDetalleComponent {
 
   toggleSoloLectura() {
     this.soloLectura = !this.soloLectura;
-    this.formUsuarios.get('nombre')?.enable();
-    this.formUsuarios.get('apellido')?.enable();
-    this.formUsuarios.get('dni')?.enable();
-    this.formUsuarios.get('fnac')?.enable();
-    this.formUsuarios.get('email')?.enable();
-    this.formUsuarios.get('username')?.enable();
-    this.formUsuarios.get('password')?.enable();
-    this.formUsuarios.get('confirmPassword')?.enable();
   }
 
 }

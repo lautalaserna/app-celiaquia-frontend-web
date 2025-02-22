@@ -1,24 +1,24 @@
 <main class="container-fluid h-100">
     <div class="row">
-        <div class="col-md-4 bg-white shadow-effect left-container">
+        <div class="col-xl-4 bg-white shadow-effect left-container">
             <div class="wrapper p-2">
                 <form *ngIf="!loading" [formGroup]="formLogin"  class="body" autocomplete="off" (submit)="login()">
+                    <div>
+                        <div style="margin-bottom: 60px;" class="col-12 d-xl-none d-flex gap-2 justify-content-center align-items-center">
+                            <img width="45px" height="45px" src="/logo-dark.svg">
+                            <h1 class="mb-0" style="font-size: 50px;">Senda®</h1>
+                        </div>
+                    </div>
                     <img class="logo" src="/assets/images/doctor.png">
                     <div class="form-floating mb-3 mt-3">
                         <input #usernameInput type="text" class="form-control" formControlName="username" placeholder="Usuario" autocomplete="true"
                         [ngClass]="!(username.hasError('required') && username.touched) ? '': 'is-invalid'" (keydown.enter)="passwordInput.focus()">
                         <label>Usuario</label>
-                        <div class="invalid-feedback text-start" *ngIf="username?.hasError('required') && username?.touched">
-                            Campo requerido
-                        </div>
                     </div>
                     <div class="form-floating mb-3">
                         <input #passwordInput type="password" class="form-control" formControlName="password" placeholder="Contraseña" autocomplete="true"
                         [ngClass]="!(password.hasError('required') && password.touched) ? '': 'is-invalid' ">
                         <label>Contraseña</label>
-                        <div class="invalid-feedback text-start" *ngIf="password?.hasError('required') && password?.touched">
-                            Campo requerido
-                        </div>
                     </div>
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-primary btn-lg" [disabled]="formLogin.invalid">Ingresar</button>
@@ -27,8 +27,12 @@
                 <div *ngIf="loading" class="spinner-border text-primary" style="width: 5rem; height: 5rem;" role="status"></div>
             </div>
         </div>
-        <div class="col-md-8 bg-image d-none d-md-flex flex-column align-items-left justify-content-center">
-            <h1 class="title text-white">Sistema de gestión <br>profesional</h1>
+        <div class="col-xl-8 bg-image d-none d-xl-flex flex-column align-items-left justify-content-center">
+            <div class="col-12 d-flex gap-2 align-items-center">
+                <img width="100px" height="100px" src="/logo-light.svg">
+                <h1 class="text-white mb-0" style="font-size: 140px;">Senda®</h1>
+            </div>
+            <h1 class="title">Sistema de gestión profesional.</h1>
         </div>
     </div>
 </main>

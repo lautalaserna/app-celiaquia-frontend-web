@@ -25,25 +25,19 @@
   background-image: url('../../../public/assets/images/mardel.jpg');
   background-size: cover;
   background-position: center;
-  filter: opacity(90%);
-  padding-bottom: 10%;
-  padding-left: 5%;
+  filter: opacity(92%);
+  padding-left: 5dvw;
+  padding-bottom: 20px;
 }
 
 .title {
-  color: #fdfbff;
-  font-weight: 300;
-  font-size: 4.5vw;
+  color: #ffffff;
+  font-weight: 100;
+  font-size: 42px;
   margin: 0;
+  margin-top: -20px;
   user-select: none;
-}
-
-.app-title {
-  color: #fdfbff;
-  font-weight: 600;
-  font-size: 6.5vw;
-  margin: 0;
-  user-select: none;
+  max-width: 600px;
 }
 
 .text-center {
@@ -52,14 +46,5 @@
 
 .shadow-effect {
   border: none;
-  box-shadow: 0 10px 12px rgba(0, 0, 0, 0.5), 0 10px 12px rgba(0, 0, 0, 0.1);
   z-index: 2000;
-}
-
-.title-logo {
-  height: 5.5vw;
-  margin-bottom: 28px;
-  margin-right: 5px;
-  filter: grayscale(1) brightness(1000%) contrast(1000%);
-  user-select: none;
 }

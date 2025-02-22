@@ -17,5 +17,6 @@ export enum Tag {
   SUPERMERCADO = 'Supermercado',
   ALMACEN = 'Almacén',
   RESTAURANT = 'Restaurant',
+  TAKE_AWAY = 'Take Away',
   BAR = 'Bar',
 }

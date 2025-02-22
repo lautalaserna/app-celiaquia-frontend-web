@@ -1,0 +1,142 @@
+.main-page {
+  box-sizing: border-box;
+  padding: 22px;
+  width: calc(100% - 40px);
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2), 0 0 6px rgba(0, 0, 0, 0.05);
+  background-color: #fdfbff;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.title-bar {
+  background-color: #103b73;
+  height: 100px;
+  color: #fdfbff;
+  display: flex;
+  align-items: center;
+  padding-left: 2rem;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+.page-title {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.table-header th {
+  padding: 15px;
+  padding-left: 10px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fdfbff;
+  border: solid 1px #343a40;
+  background-color: #343a40;
+}
+
+.btn-search {
+  width: 44px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+}
+
+.custom-dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-size: 15px;
+}
+
+.custom-dropdown-item i {
+  width: 20px;
+  text-align: center;
+}
+
+.custom-dropdown-item span {
+  flex-grow: 1;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.dropdown-item {
+  height: 38px;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #103b73;
+  color: white;
+}
+
+.accordion-button:not(.collapsed)::after {
+  filter: brightness(0) invert(1);
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.custom-card-header {
+  background-color: #103b73;
+  color: white;
+  padding: 20px;
+  font-size: 18px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.user-card {
+  padding: 10px;
+  padding-top: 20px;
+  border-radius: 15px;
+  color: white;
+  margin: 10px;
+  border: none;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.user-card.totales {
+  background-color: #103b73;
+  color: white;
+}
+
+.user-card.vegetarianos {
+  background-color: #6c757d;
+  color: white;
+}
+
+.user-card.veganos {
+  background-color: #adb5bd;
+  color: white;
+}
+
+.user-card.activos {
+  background-color: #103b73;
+  color: white;
+}
+
+.user-card .card-number {
+  font-size: 50px;
+  font-weight: 600;
+  margin: 0 20px 0 0;
+}
+
+.user-card .user-label {
+  margin: 0;
+  font-size: 16px;
+  transform: translateY(6px);
+}
+
+.user-card .user-key {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
