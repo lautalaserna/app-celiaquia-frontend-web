@@ -8,11 +8,12 @@ import { PuntoCompra, Tag } from '../../../interfaces/puntos-compra';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { FooterComponent } from '../../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-punto-compra-detalle',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatOptionModule,],
+  imports: [CommonModule, ReactiveFormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatOptionModule, FooterComponent],
   templateUrl: './punto-compra-detalle.component.html',
   styleUrl: './punto-compra-detalle.component.css'
 })

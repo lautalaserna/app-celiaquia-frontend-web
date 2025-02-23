@@ -1,0 +1,19 @@
+.wrapper {
+  height: 100px;
+}
+
+.footer {
+  box-sizing: border-box;
+  padding: 22px;
+  width: calc(100% - 40px);
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2), 0 0 6px rgba(0, 0, 0, 0.05);
+  background-color: #fdfbff;
+}
+
+.footer-text {
+  margin:0;
+  font-size: 14px;
+  color: #606060;
+}

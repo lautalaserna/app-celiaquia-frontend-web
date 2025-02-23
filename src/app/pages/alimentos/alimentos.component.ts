@@ -9,11 +9,12 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Alimento } from '../../interfaces/recetas';
 import { RecetasService } from '../../services/recetas.service';
 import { ModalConfirmarComponent } from "../../shared/modal-confirmar/modal-confirmar.component";
+import { FooterComponent } from '../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-alimentos',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule, ModalConfirmarComponent],
+  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule, ModalConfirmarComponent, FooterComponent],
   templateUrl: './alimentos.component.html',
   styleUrl: './alimentos.component.css'
 })

@@ -9,11 +9,12 @@ import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { PaginatorModule } from 'primeng/paginator';
 import { ModalConfirmarComponent } from '../../shared/modal-confirmar/modal-confirmar.component';
+import { FooterComponent } from '../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-puntos-compra',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule, ModalConfirmarComponent],
+  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule, ModalConfirmarComponent, FooterComponent],
   templateUrl: './puntos-compra.component.html',
   styleUrl: './puntos-compra.component.css'
 })

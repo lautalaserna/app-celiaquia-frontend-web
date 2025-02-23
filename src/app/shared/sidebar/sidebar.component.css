@@ -16,6 +16,14 @@
   align-items: center;
 }
 
+.nav-item-wrapper {
+  border-radius: 0.5rem;
+}
+
+.nav-item-wrapper:hover {
+  background-color: #444;
+}
+
 .nav-item {
   display: flex;
   align-items: center;
@@ -23,13 +31,19 @@
 }
 
 .btn-nav {
-  height: 38px;
+  height: 40px;
+  width: 100%;
+  font-size: 15px;
   background-color: #333;
   color: white;
 }
 
 .btn-nav:hover {
   background-color: #555;
+}
+
+.btn-logout:hover {
+  background-color: #d9534f;
 }
 
 .hamburger {

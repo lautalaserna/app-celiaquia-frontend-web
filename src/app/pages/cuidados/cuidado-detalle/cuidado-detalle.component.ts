@@ -5,11 +5,12 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { CommonModule } from '@angular/common';
 import { CuidadosService } from '../../../services/cuidados.service';
 import { ToastrService } from 'ngx-toastr';
+import { FooterComponent } from '../../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-cuidado-detalle',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, FooterComponent],
   templateUrl: './cuidado-detalle.component.html',
   styleUrl: './cuidado-detalle.component.css'
 })

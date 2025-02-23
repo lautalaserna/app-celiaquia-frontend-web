@@ -9,11 +9,12 @@ import { ModalConfirmarComponent } from '../../shared/modal-confirmar/modal-conf
 import { Receta } from '../../interfaces/recetas';
 import { RecetasService } from '../../services/recetas.service';
 import { ToastrService } from 'ngx-toastr';
+import { FooterComponent } from '../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-recetas',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule, ModalConfirmarComponent],
+  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule, ModalConfirmarComponent, FooterComponent],
   templateUrl: './recetas.component.html',
   styleUrl: './recetas.component.css'
 })

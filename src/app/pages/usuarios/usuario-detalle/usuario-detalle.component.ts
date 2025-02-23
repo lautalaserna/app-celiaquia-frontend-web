@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { Usuario } from '../../../interfaces/user';
 import { AdminService } from '../../../services/admin.service';
+import { FooterComponent } from '../../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-usuario-detalle',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, FooterComponent],
   templateUrl: './usuario-detalle.component.html',
   styleUrl: './usuario-detalle.component.css'
 })

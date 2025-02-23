@@ -10,11 +10,12 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { AdminService } from '../../services/admin.service';
 import { Usuario } from '../../interfaces/user';
 import { ModalConfirmarComponent } from "../../shared/modal-confirmar/modal-confirmar.component";
+import { FooterComponent } from '../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule, ModalConfirmarComponent],
+  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule, ModalConfirmarComponent, FooterComponent],
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.css'
 })

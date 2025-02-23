@@ -9,11 +9,12 @@ import { ActionCuidadoHogar, CuidadosService } from '../../services/cuidados.ser
 import { ToastrService } from 'ngx-toastr';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ModalConfirmarComponent } from "../../shared/modal-confirmar/modal-confirmar.component";
+import { FooterComponent } from '../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-cuidados',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule, ModalConfirmarComponent],
+  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule, ModalConfirmarComponent, FooterComponent],
   templateUrl: './cuidados.component.html',
   styleUrl: './cuidados.component.css'
 })

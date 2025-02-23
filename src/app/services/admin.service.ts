@@ -18,7 +18,7 @@ export class AdminService {
   }
 
   listUsuarios(page:number, size:number, dni:string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}${this.apiUrl}?page=${page}&size=${size}&dni=${dni}`);
+    return this.http.get<any>(`${this.baseUrl}${this.apiUrl}?page=${page}&size=${size}&dni=${dni}&sort=dni`);
   }
 
   createUsuario(usuario: Usuario): Observable<Usuario> {

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EstadisticasService } from '../../services/estadisticas.service';
 import { Estadisticas } from '../../interfaces/estadisticas';
+import { FooterComponent } from '../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-estadisticas',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FooterComponent],
   templateUrl: './estadisticas.component.html',
   styleUrls: ['./estadisticas.component.css']
 })

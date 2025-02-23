@@ -9,11 +9,12 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Cuestionario } from '../../interfaces/cuestionario';
 import { ActionCuestionario, CuestionarioService } from '../../services/cuestionario.service';
 import { ModalConfirmarComponent } from "../../shared/modal-confirmar/modal-confirmar.component";
+import { FooterComponent } from '../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-cuestionario',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule, ModalConfirmarComponent],
+  imports: [CommonModule, ReactiveFormsModule, DialogModule, FormsModule, PaginatorModule, RouterLink, MatPaginatorModule, ModalConfirmarComponent, FooterComponent],
   templateUrl: './cuestionario.component.html',
   styleUrl: './cuestionario.component.css'
 })

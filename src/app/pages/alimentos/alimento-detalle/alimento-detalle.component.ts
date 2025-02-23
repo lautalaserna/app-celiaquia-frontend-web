@@ -5,11 +5,12 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecetasService } from '../../../services/recetas.service';
 import { CommonModule } from '@angular/common';
+import { FooterComponent } from '../../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-alimento-detalle',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FooterComponent],
   templateUrl: './alimento-detalle.component.html',
   styleUrl: './alimento-detalle.component.css'
 })

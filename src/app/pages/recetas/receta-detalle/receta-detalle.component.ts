@@ -6,11 +6,12 @@ import { ToastrService } from 'ngx-toastr';
 import { DificultadReceta, Ingrediente, Receta } from '../../../interfaces/recetas';
 import { RecetasService } from '../../../services/recetas.service';
 import { ModalIngredienteComponent } from './modal-ingrediente/modal-ingrediente.component';
+import { FooterComponent } from '../../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-receta-detalle',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ModalIngredienteComponent],
+  imports: [CommonModule, ReactiveFormsModule, ModalIngredienteComponent, FooterComponent],
   templateUrl: './receta-detalle.component.html',
   styleUrl: './receta-detalle.component.css'
 })

@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { CuestionarioService } from '../../../services/cuestionario.service';
 import { Cuestionario, Opcion } from '../../../interfaces/cuestionario';
+import { FooterComponent } from '../../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-cuestionario-detalle',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FooterComponent],
   templateUrl: './cuestionario-detalle.component.html',
   styleUrl: './cuestionario-detalle.component.css'
 })
