@@ -15,15 +15,27 @@
         <div class="col-xl-8">
           <div class="row mt-3">
             <div class="col-12">
-              <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Título</strong></label>
-              <input type="text" class="form-control" formControlName="titulo" [readOnly]="soloLectura" maxlength="50">
+              <div class="form-group">
+                <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Título</strong></label>
+                <input type="text" class="form-control" formControlName="titulo" [readOnly]="soloLectura" maxlength="50"
+                  [ngClass]="!formReceta.get('titulo')?.touched ? '' : formReceta.get('titulo')?.valid ? '' : 'is-invalid'" >
+                <div class="invalid-feedback" *ngIf="formReceta.get('titulo')?.hasError('required') && formReceta.get('titulo')?.touched">
+                  Campo requerido
+                </div>
+              </div>
             </div>
           </div>
 
           <div class="row mt-2">
             <div class="col-12">
-              <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Breve Descripción</strong></label>
-              <textarea class="form-control" formControlName="descripcion" maxlength="100" rows="1" [readOnly]="soloLectura"></textarea>
+              <div class="form-group">
+                <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Breve Descripción</strong></label>
+                <textarea class="form-control" formControlName="descripcion" maxlength="100" rows="1" [readOnly]="soloLectura"
+                  [ngClass]="!formReceta.get('descripcion')?.touched ? '' : formReceta.get('descripcion')?.valid ? '' : 'is-invalid'"></textarea>
+                <div class="invalid-feedback" *ngIf="formReceta.get('descripcion')?.hasError('required') && formReceta.get('descripcion')?.touched">
+                  Campo requerido
+                </div>
+              </div>
             </div>
           </div>
 
@@ -64,13 +76,21 @@
       <div class="row mt-3">
         <div class="col-12 col-xl-4">
           <label [ngClass]="!soloLectura ? 'is-required mb-1' : 'mb-1'"><strong>Preparación (min)</strong></label>
-          <input type="number" class="form-control" formControlName="tiempo_preparacion" [readOnly]="soloLectura">
+          <input type="number" class="form-control" formControlName="tiempo_preparacion" [readOnly]="soloLectura"
+            [ngClass]="!formReceta.get('tiempo_preparacion')?.touched ? '' : formReceta.get('tiempo_preparacion')?.valid ? '' : 'is-invalid'">
+          <div class="invalid-feedback" *ngIf="formReceta.get('tiempo_preparacion')?.hasError('required') && formReceta.get('tiempo_preparacion')?.touched">
+            Campo requerido
+          </div>
         </div>
-        <div class="col-12 col-xl-4">
+        <div class="col-12 col-xl-4 mt-2 mt-xl-0">
           <label [ngClass]="!soloLectura ? 'is-required mb-1' : 'mb-1'"><strong>Cocción (min)</strong></label>
-          <input type="number" class="form-control" formControlName="tiempo_coccion" [readOnly]="soloLectura">
+          <input type="number" class="form-control" formControlName="tiempo_coccion" [readOnly]="soloLectura"
+            [ngClass]="!formReceta.get('tiempo_coccion')?.touched ? '' : formReceta.get('tiempo_coccion')?.valid ? '' : 'is-invalid'">
+          <div class="invalid-feedback" *ngIf="formReceta.get('tiempo_coccion')?.hasError('required') && formReceta.get('tiempo_coccion')?.touched">
+            Campo requerido
+          </div>
         </div>
-        <div class="col-xl-4">
+        <div class="col-xl-4 mt-2 mt-xl-0">
           <div class="form-group">
             <label [ngClass]="!soloLectura ? 'is-required mb-1' : 'mb-1'"><strong>Dificultad</strong></label>
             <select class="form-select" formControlName="dificultad" [ngClass]="!formReceta.get('dificultad')?.touched ? '' : formReceta.get('dificultad')?.valid ? '' : 'is-invalid'">
@@ -83,10 +103,51 @@
         </div>
       </div>
 
+      <hr class="my-5">
+
+      <div class="row">
+        <div class="col-12">
+          <h5 class="mb-3">Receta Balanceada</h5>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="form-check form-switch">
+            <label class="mb-1 me-2"><strong>Esta receta está balanceada nutricionalmente</strong></label>
+            <input type="checkbox" formControlName="isbalanceado" class="form-check-input" />
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-xl-4">
+          <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Raciones que rinde</strong></label>
+          <input type="text" class="form-control" formControlName="cant_raciones" [readOnly]="soloLectura" maxlength="50" (change)="recalcularDatos()"
+            [ngClass]="!formReceta.get('cant_raciones')?.touched ? '' : formReceta.get('cant_raciones')?.valid ? '' : 'is-invalid'">
+          <div class="invalid-feedback" *ngIf="formReceta.get('cant_raciones')?.hasError('required') && formReceta.get('cant_raciones')?.touched">
+            Campo requerido
+          </div>
+        </div>
+        <div class="col-xl-6 mt-2 mt-xl-0">
+          <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Nombre de la ración (ej. Plato / Rebanada)</strong></label>
+          <input type="text" class="form-control" formControlName="nombre_racion" [readOnly]="soloLectura" maxlength="50"
+            [ngClass]="!formReceta.get('nombre_racion')?.touched ? '' : formReceta.get('nombre_racion')?.valid ? '' : 'is-invalid'">
+          <div class="invalid-feedback" *ngIf="formReceta.get('nombre_racion')?.hasError('required') && formReceta.get('nombre_racion')?.touched">
+            Campo requerido
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-5">
+
       <div class="row mt-3">
         <div class="col-12">
           <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Preparación</strong></label>
-          <textarea class="form-control" formControlName="preparacion" maxlength="2000" rows="7" [readOnly]="soloLectura"></textarea>
+          <textarea class="form-control" formControlName="preparacion" maxlength="2000" rows="7" [readOnly]="soloLectura"
+            [ngClass]="!formReceta.get('preparacion')?.touched ? '' : formReceta.get('preparacion')?.valid ? '' : 'is-invalid'"></textarea>
+          <div class="invalid-feedback" *ngIf="formReceta.get('preparacion')?.hasError('required') && formReceta.get('preparacion')?.touched">
+            Campo requerido
+          </div>
         </div>
       </div>
 
@@ -120,12 +181,19 @@
 
       <div class="row">
         <div class="col-12">
-          <h5 class="mb-3">Valor Energético del Plato</h5>
+          <h5 class="mb-3">Valores Energéticos por Ración</h5>
         </div>
       </div>
 
       <div class="row">
-        <div class="col-12 col-xl-3"><label class="mb-1"><strong>Calorías (kcal)</strong></label><input type="number" class="form-control" formControlName="calorias_totales" [readOnly]="soloLectura"></div>
+        <div class="col-12 col-xl-3">
+          <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Calorías (kcal)</strong></label>
+          <input type="number" class="form-control" formControlName="calorias_totales" [readOnly]="soloLectura"
+            [ngClass]="!formReceta.get('calorias_totales')?.touched ? '' : formReceta.get('calorias_totales')?.valid ? '' : 'is-invalid'">
+          <div class="invalid-feedback" *ngIf="formReceta.get('calorias_totales')?.hasError('required') && formReceta.get('calorias_totales')?.touched">
+            Campo requerido
+          </div>
+        </div>
         <div class="col-xl-6 order-first order-xl-last mt-0 pt-0 pt-xl-3 mt-xl-3">
           <div class="form-check form-switch">
             <label class="mb-1"><strong>Autocalcular</strong></label>
@@ -141,9 +209,30 @@
       </div>
 
       <div class="row">
-        <div class="col-12 col-xl-3"><label class="mb-1"><strong>Proteínas (g)</strong></label><input type="number" class="form-control" formControlName="proteinas_totales" [readOnly]="soloLectura"></div>
-        <div class="col-12 col-xl-3 mt-2 mt-xl-0"><label class="mb-1"><strong>Carbohidratos (g)</strong></label><input type="number" class="form-control" formControlName="carbohidratos_totales" [readOnly]="soloLectura"></div>
-        <div class="col-12 col-xl-3 mt-2 mt-xl-0"><label class="mb-1"><strong>Grasas (g)</strong></label><input type="number" class="form-control" formControlName="grasas_totales" [readOnly]="soloLectura"></div>
+        <div class="col-12 col-xl-3">
+          <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Proteínas (g)</strong></label>
+          <input type="number" class="form-control" formControlName="proteinas_totales"
+            [ngClass]="!formReceta.get('proteinas_totales')?.touched ? '' : formReceta.get('proteinas_totales')?.valid ? '' : 'is-invalid'">
+          <div class="invalid-feedback" *ngIf="formReceta.get('proteinas_totales')?.hasError('required') && formReceta.get('proteinas_totales')?.touched">
+            Campo requerido
+          </div>
+        </div>
+        <div class="col-12 col-xl-3 mt-2 mt-xl-0">
+          <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Carbohidratos (g)</strong></label>
+          <input type="number" class="form-control" formControlName="carbohidratos_totales"
+            [ngClass]="!formReceta.get('carbohidratos_totales')?.touched ? '' : formReceta.get('carbohidratos_totales')?.valid ? '' : 'is-invalid'">
+          <div class="invalid-feedback" *ngIf="formReceta.get('carbohidratos_totales')?.hasError('required') && formReceta.get('carbohidratos_totales')?.touched">
+            Campo requerido
+          </div>
+        </div>
+        <div class="col-12 col-xl-3 mt-2 mt-xl-0">
+          <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Grasas (g)</strong></label>
+          <input type="number" class="form-control" formControlName="grasas_totales"
+            [ngClass]="!formReceta.get('grasas_totales')?.touched ? '' : formReceta.get('grasas_totales')?.valid ? '' : 'is-invalid'">
+          <div class="invalid-feedback" *ngIf="formReceta.get('grasas_totales')?.hasError('required') && formReceta.get('grasas_totales')?.touched">
+            Campo requerido
+          </div>
+        </div>
       </div>
 
       <div class="row mt-5">

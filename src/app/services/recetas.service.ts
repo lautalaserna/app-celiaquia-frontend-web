@@ -35,7 +35,7 @@ export class RecetasService {
   }
 
   listAlimentos(page:number, size:number, nombre:string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}${this.apiAlimentosUrl}?page=${page}&size=${size}&nombre=${nombre}`);
+    return this.http.get<any>(`${this.baseUrl}${this.apiAlimentosUrl}?page=${page}&size=${size}&nombre=${nombre}&sort=nombre`);
   }
 
   createAlimento(alimento: Alimento): Observable<Alimento> {

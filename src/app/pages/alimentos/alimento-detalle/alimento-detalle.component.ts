@@ -56,7 +56,7 @@ export class AlimentoDetalleComponent {
       accesibilidad: new FormControl({ value: this.alimento?.accesibilidad ? this.alimento.accesibilidad : null, disabled: this.soloLectura }, [Validators.required]),
       apto_celiaco: new FormControl({ value: this.alimento?.apto_celiaco ? this.alimento.apto_celiaco : false, disabled: this.soloLectura }),
       apto_vegetariano: new FormControl({ value: this.alimento?.apto_vegetariano ? this.alimento.apto_vegetariano : false, disabled: this.soloLectura }),
-      is_procesado: new FormControl({ value: this.alimento?.is_procesado ? this.alimento.is_procesado : false, disabled: this.soloLectura }),
+      isprocesado: new FormControl({ value: this.alimento?.isprocesado ? this.alimento.isprocesado : false, disabled: this.soloLectura }),
       preparacion: new FormControl({value: this.alimento?.preparacion ? this.alimento.preparacion : null, disabled: false}, [Validators.maxLength(2000)]),
       apto_vegano: new FormControl({ value: this.alimento?.apto_vegano ? this.alimento.apto_vegano : false, disabled: this.soloLectura }),
       imagen: new FormControl(this.alimento?.imagen || null),
@@ -154,7 +154,7 @@ export class AlimentoDetalleComponent {
     this.formAlimento.get('apto_celiaco')?.enable();
     this.formAlimento.get('apto_vegetariano')?.enable();
     this.formAlimento.get('apto_vegano')?.enable();
-    this.formAlimento.get('is_procesado')?.enable();
+    this.formAlimento.get('isprocesado')?.enable();
   }
 
   onFileChange(event: Event): void {

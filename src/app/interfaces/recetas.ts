@@ -3,6 +3,9 @@ export class Receta {
   titulo!: string;
   imagen!: string | null;
   dificultad!: string;
+  isbalanceado!: boolean;
+  cant_raciones!: number;
+  nombre_racion!: string;
   tiempo_preparacion!: number;
   tiempo_coccion!: number;
   autocalcular!: boolean;
@@ -36,7 +39,7 @@ export class Alimento {
   apto_celiaco!: boolean;
   apto_vegetariano!: boolean;
   apto_vegano!: boolean;
-  is_procesado!: boolean;
+  isprocesado!: boolean;
   preparacion!: string;
   porciones!: Porcion[];
   energia_kcal!: number;

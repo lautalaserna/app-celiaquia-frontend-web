@@ -71,8 +71,13 @@ export class PuntoCompraDetalleComponent {
   
   guardarPuntoCompra() {
     const body = this.formPuntoCompra.getRawValue() as PuntoCompra;
-    console.log(body);
     this.loading= true;
+
+    if(body.tags.length > 3) {
+      this.toastr.error('No se puede seleccionar más de 3 tags','Error');
+      this.loading= false;
+      return;
+    }
 
    this._puntosCompraService.createPuntoCompra(body).subscribe({
       next: (data) => {

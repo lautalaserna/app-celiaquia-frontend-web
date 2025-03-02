@@ -159,11 +159,11 @@
         <div class="col-12">
           <div class="form-check form-switch">
             <label class="mb-1 me-2"><strong>Este alimento tiene un proceso de preparación</strong></label>
-            <input type="checkbox" formControlName="is_procesado" class="form-check-input" />
+            <input type="checkbox" formControlName="isprocesado" class="form-check-input" />
           </div>
         </div>
       </div>
-      <div class="row mt-3" *ngIf="formAlimento.get('is_procesado')?.value">
+      <div class="row mt-3" *ngIf="formAlimento.get('isprocesado')?.value">
         <div class="col-12">
           <div class="form-group">
             <label class="mb-1"><strong>Método de Preparación</strong></label>      

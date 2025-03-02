@@ -50,10 +50,13 @@ export class RecetaDetalleComponent {
     this.formReceta = this.formBuilder.group({
       receta_id: new FormControl({ value: this.receta?.receta_id || 0, disabled: true }),
       titulo: new FormControl({ value: this.receta?.titulo || null, disabled: false }, [Validators.required, Validators.maxLength(50)]),
-      descripcion: new FormControl({ value: this.receta?.descripcion || null, disabled: false }, [Validators.maxLength(100)]),
+      descripcion: new FormControl({ value: this.receta?.descripcion || null, disabled: false }, [Validators.required, Validators.maxLength(100)]),
       tiempo_preparacion: new FormControl({ value: this.receta?.tiempo_preparacion || null, disabled: false }, [Validators.required, Validators.min(0)]),
       tiempo_coccion: new FormControl({ value: this.receta?.tiempo_coccion || null, disabled: false }, [Validators.required, Validators.min(0)]),
       dificultad: new FormControl({ value: this.receta?.dificultad ? this.receta.dificultad : null, disabled: this.soloLectura }, [Validators.required]),
+      isbalanceado: new FormControl({ value: this.receta?.isbalanceado || false, disabled: this.soloLectura }),
+      cant_raciones: new FormControl({ value: this.receta?.cant_raciones || 1, disabled: false }, [Validators.required, Validators.min(1)]),
+      nombre_racion: new FormControl({ value: this.receta?.nombre_racion || 'Plato', disabled: false }, [Validators.required, Validators.maxLength(30)]),
       preparacion: new FormControl({ value: this.receta?.preparacion || null, disabled: false }, [Validators.required, Validators.maxLength(1000)]),
       autocalcular: new FormControl({ value: this.receta?.autocalcular, disabled: this.soloLectura }),
       apto_vegetariano: new FormControl({ value: this.receta?.apto_vegetariano || false, disabled: this.soloLectura }),
@@ -147,26 +150,36 @@ export class RecetaDetalleComponent {
   }
 
   recalcularDatos() {
+    if(!this.formReceta.get('autocalcular')?.value) return;
+    
     let energiaKcal: number = 0;
     let proteinas_totales: number = 0;
     let carbohidratos_totales: number = 0;
     let grasas_totales: number = 0;
-
+  
     this.ingredientes.controls.forEach(ingrediente => {
       const alimento = ingrediente.value.alimento;
       const cantidad = ingrediente.value.cantidad;
       const porcionRate = ingrediente.value.porcion.peso ? ingrediente.value.porcion.peso / 100 : 1;
-
+  
       energiaKcal += (alimento.energia_kcal ?? 0) * cantidad * porcionRate;
       proteinas_totales += (alimento.proteinas ?? 0) * cantidad * porcionRate;
       grasas_totales += (alimento.grasa_total ?? 0) * cantidad * porcionRate;
       carbohidratos_totales += (alimento.carbohidratos_totales ?? 0) * cantidad * porcionRate;
     });
+  
+    const cantRaciones = this.formReceta.get('cant_raciones')?.value || 1;
+    const divisor = cantRaciones > 0 ? cantRaciones : 1;
+  
+    const caloriasPorRacion = energiaKcal / divisor;
+    const proteinasPorRacion = proteinas_totales / divisor;
+    const carbohidratosPorRacion = carbohidratos_totales / divisor;
+    const grasasPorRacion = grasas_totales / divisor;
 
-    this.formReceta.get('calorias_totales')?.setValue(energiaKcal.toFixed(2));
-    this.formReceta.get('proteinas_totales')?.setValue(proteinas_totales.toFixed(2));
-    this.formReceta.get('carbohidratos_totales')?.setValue(carbohidratos_totales.toFixed(2));
-    this.formReceta.get('grasas_totales')?.setValue(grasas_totales.toFixed(2));
+    this.formReceta.get('calorias_totales')?.setValue(caloriasPorRacion.toFixed(2));
+    this.formReceta.get('proteinas_totales')?.setValue(proteinasPorRacion.toFixed(2));
+    this.formReceta.get('carbohidratos_totales')?.setValue(carbohidratosPorRacion.toFixed(2));
+    this.formReceta.get('grasas_totales')?.setValue(grasasPorRacion.toFixed(2));
   }
 
   crearReceta(body: any): Receta {
@@ -184,6 +197,9 @@ export class RecetaDetalleComponent {
       dificultad: body.dificultad,
       tiempo_preparacion: body.tiempo_preparacion,
       tiempo_coccion: body.tiempo_coccion,
+      isbalanceado: body.isbalanceado,
+      cant_raciones: body.cant_raciones,
+      nombre_racion: body.nombre_racion,
       preparacion: body.preparacion,
       autocalcular: body.autocalcular,
       apto_vegetariano: body.apto_vegetariano,
