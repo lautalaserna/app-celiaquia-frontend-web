@@ -54,7 +54,7 @@ export class AlimentoDetalleComponent {
       tipo: new FormControl({ value: this.alimento?.tipo ? this.alimento.tipo : null, disabled: this.soloLectura }, [Validators.required]),
       valoracion: new FormControl({ value: this.alimento?.valoracion ? this.alimento.valoracion : null, disabled: this.soloLectura }, [Validators.required]),
       accesibilidad: new FormControl({ value: this.alimento?.accesibilidad ? this.alimento.accesibilidad : null, disabled: this.soloLectura }, [Validators.required]),
-      apto_celiaco: new FormControl({ value: this.alimento?.apto_celiaco ? this.alimento.apto_celiaco : false, disabled: this.soloLectura }),
+      apto_celiaco: new FormControl({ value: !this.alimento.apto_celiaco, disabled: this.soloLectura }),
       apto_vegetariano: new FormControl({ value: this.alimento?.apto_vegetariano ? this.alimento.apto_vegetariano : false, disabled: this.soloLectura }),
       isprocesado: new FormControl({ value: this.alimento?.isprocesado ? this.alimento.isprocesado : false, disabled: this.soloLectura }),
       preparacion: new FormControl({value: this.alimento?.preparacion ? this.alimento.preparacion : null, disabled: false}, [Validators.maxLength(2000)]),
@@ -128,6 +128,7 @@ export class AlimentoDetalleComponent {
   
   guardarAlimento() {
     const body = this.formAlimento.getRawValue() as Alimento;
+    body.apto_celiaco = !body.apto_celiaco;
     this.loading= true;
 
     this._recetasService.createAlimento(body).subscribe({

@@ -83,7 +83,9 @@ export enum TipoAlimento {
 export enum ValoracionAlimento {
   EXCELENTE = "EXCELENTE",
   BUENO = "BUENO",
-  REGULAR = "REGULAR",
+  ACEPTABLE = "ACEPTABLE",
+  DEFICIENTE = "DEFICIENTE",
+  EVITABLE = "EVITABLE"
 }
 
 export enum Accesibilidad {
