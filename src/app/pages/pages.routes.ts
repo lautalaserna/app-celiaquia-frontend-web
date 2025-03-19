@@ -23,6 +23,11 @@ import { EstadisticasComponent } from './estadisticas/estadisticas.component';
 
 export const pagesRoutes: Routes = [
   { 
+    path: '', 
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  { 
     path: 'home', 
     component: HomeComponent 
   },
