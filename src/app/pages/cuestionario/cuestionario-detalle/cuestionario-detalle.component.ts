@@ -77,18 +77,23 @@ export class CuestionarioDetalleComponent {
   }
   
   guardarCuestionario() {
-    const body = this.formCuestionario.getRawValue() as Cuestionario;
-    this.loading= true;
+    if (this.opciones.length === 0) {
+        this.toastr.error('Debe agregar al menos una opción', 'Error');
+        return;
+    }
 
-   this._cuestionarioService.createCuestionario(body).subscribe({
-      next: (data) => {
-        this.loading= false;
-        this.router.navigate(['/cuestionario'])
-      },
-      error: (err:any) => {
-        this.loading= false;
-        this.toastr.error('No se pudo guardar la pregunta','Guardado');
-      },
+    const body = this.formCuestionario.getRawValue() as Cuestionario;
+    this.loading = true;
+
+    this._cuestionarioService.createCuestionario(body).subscribe({
+        next: (data) => {
+            this.loading = false;
+            this.router.navigate(['/cuestionario']);
+        },
+        error: (err: any) => {
+            this.loading = false;
+            this.toastr.error('No se pudo guardar la pregunta', 'Guardado');
+        },
     });
   }
 

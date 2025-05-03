@@ -1,5 +1,5 @@
 <div class="title-bar">
-  <h2 class="page-title">Plato Balanceado</h2>
+  <h2 class="page-title">Receta</h2>
 </div>
 <div class="main-page container-fluid">
   <div class="container-fluid">
@@ -17,7 +17,7 @@
             <div class="col-12">
               <div class="form-group">
                 <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Título</strong></label>
-                <input type="text" class="form-control" formControlName="titulo" [readOnly]="soloLectura" maxlength="50"
+                <input type="text" class="form-control" formControlName="titulo" [readOnly]="soloLectura" maxlength="35"
                   [ngClass]="!formReceta.get('titulo')?.touched ? '' : formReceta.get('titulo')?.valid ? '' : 'is-invalid'" >
                 <div class="invalid-feedback" *ngIf="formReceta.get('titulo')?.hasError('required') && formReceta.get('titulo')?.touched">
                   Campo requerido

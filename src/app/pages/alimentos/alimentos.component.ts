@@ -92,7 +92,11 @@ export class AlimentosComponent {
         this.toastr.success('Alimento eliminado con éxito','Eliminación');
       },
       error: (err) => {
-        this.toastr.error('No se pudo eliminar el alimento','Eliminación');
+        if(err && err.error && err.error.message) {
+          this.toastr.error(err.error.message,'Eliminación');
+        } else {
+          this.toastr.error('No se pudo eliminar el alimento','Eliminación');
+        }
       },
       complete: () => {
         this.alimentoSeleccionadoId = 0;

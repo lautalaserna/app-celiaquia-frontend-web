@@ -28,7 +28,7 @@
             <div class="col-lg-12 mt-2">
               <div class="form-group">
                 <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Nombre</strong></label>
-                <input type="text" class="form-control rounded-1" formControlName="nombre" maxlength="200" [readOnly]="soloLectura"
+                <input type="text" class="form-control rounded-1" formControlName="nombre" maxlength="25" [readOnly]="soloLectura"
                   [ngClass]="!formAlimento.get('nombre')?.touched ? '' : formAlimento.get('nombre')?.valid ? '' : 'is-invalid'" />
                 <div class="invalid-feedback" *ngIf="formAlimento.get('nombre')?.hasError('required') && formAlimento.get('nombre')?.touched">
                   Campo requerido
@@ -125,7 +125,7 @@
             <div class="row mt-4 mb-5 mb-xl-0">
               <div class="col-xl-8">
                 <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Nombre de porción Nro. {{i + 1}}</strong></label>
-                <input type="text" class="form-control" formControlName="nombre" [readOnly]="soloLectura" [ngClass]="{'is-invalid': porcion.get('nombre')?.invalid && porcion.get('nombre')?.touched}">
+                <input type="text" class="form-control" formControlName="nombre" maxlength="16" [readOnly]="soloLectura" [ngClass]="{'is-invalid': porcion.get('nombre')?.invalid && porcion.get('nombre')?.touched}">
               </div>
               <div class="mt-2 mt-xl-0" [ngClass]="soloLectura? 'col-xl-4' : 'col-xl-3 col-10'">
                 <label [ngClass]="!soloLectura? 'is-required mb-1' : 'mb-1'"><strong>Peso equivalente (g)</strong></label>

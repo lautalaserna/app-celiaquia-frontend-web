@@ -93,7 +93,7 @@ export class AlimentoDetalleComponent {
     }
 
     if (this.esNuevo) {
-      this.agregarPorcion();
+      this.agregarPorcion("Gramo", 1);
     }
   }
   
@@ -109,11 +109,11 @@ export class AlimentoDetalleComponent {
     return this.formAlimento.get('porciones') as FormArray;
   }
   
-  agregarPorcion() {
+  agregarPorcion(nombre?: string, peso?: number) {
     this.porciones.push(this.crearPorcion({
       porcion_id: 0,
-      nombre: 'Gramo',
-      peso: 1,
+      nombre: nombre || "",
+      peso: peso || 0,
     }));
   }
   

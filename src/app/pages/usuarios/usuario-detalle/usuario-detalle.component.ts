@@ -79,7 +79,11 @@ export class UsuarioDetalleComponent {
       },
       error: (err:any) => {
         this.loading= false;
-        this.toastr.error('No se pudo guardar el usuario','Guardado');
+        if(err && err.error && err.error.message) {
+          this.toastr.error(err.error.message,'Guardado');
+        } else {
+          this.toastr.error('No se pudo guardar el usuario','Guardado');
+        }
       },
     });
   }

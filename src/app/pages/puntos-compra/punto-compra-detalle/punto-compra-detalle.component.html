@@ -11,7 +11,7 @@
             <div class="col-12 col-xl-6"> 
               <div class="form-group">
                 <label [ngClass]="!soloLectura ? 'is-required mb-1' : 'mb-1'"><strong>Nombre</strong></label>
-                <input type="text" class="form-control rounded-1" formControlName="nombre" maxlength="50" [readOnly]="soloLectura"
+                <input type="text" class="form-control rounded-1" formControlName="nombre" maxlength="24" [readOnly]="soloLectura"
                        [ngClass]="!formPuntoCompra.get('nombre')?.touched ? '' : formPuntoCompra.get('nombre')?.valid ? '' : 'is-invalid'" />
                 <div class="invalid-feedback" *ngIf="formPuntoCompra.get('nombre')?.hasError('required') && formPuntoCompra.get('nombre')?.touched">
                   Campo requerido
@@ -21,7 +21,7 @@
             <div class="col-12 col-xl-6 mt-2 mt-xl-0">
               <div class="form-group">
                 <label [ngClass]="!soloLectura ? 'is-required mb-1' : 'mb-1'"><strong>Dirección</strong></label>
-                <input type="text" class="form-control rounded-1" formControlName="direccion" maxlength="50" [readOnly]="soloLectura"
+                <input type="text" class="form-control rounded-1" formControlName="direccion" maxlength="32" [readOnly]="soloLectura"
                        [ngClass]="!formPuntoCompra.get('direccion')?.touched ? '' : formPuntoCompra.get('direccion')?.valid ? '' : 'is-invalid'" />
                 <div class="invalid-feedback" *ngIf="formPuntoCompra.get('direccion')?.hasError('required') && formPuntoCompra.get('direccion')?.touched">
                   Campo requerido

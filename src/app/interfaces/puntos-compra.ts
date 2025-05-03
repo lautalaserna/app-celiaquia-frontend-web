@@ -10,13 +10,13 @@ export class PuntoCompra {
 export enum Tag {
   CAFETERIA = 'Cafetería',
   DIETETICA = 'Dietética',
-  COMIDA_RAPIDA = 'Comida Rápida',
+  FASTFOOD = 'Fastfood',
   PASTELERIA = 'Pastelería',
   ROTISERIA = 'Rotisería',
   HELADERIA = 'Heladería',
   SUPERMERCADO = 'Supermercado',
   ALMACEN = 'Almacén',
   RESTAURANT = 'Restaurant',
-  TAKE_AWAY = 'Take Away',
+  TAKEAWAY = 'Takeaway',
   BAR = 'Bar',
 }

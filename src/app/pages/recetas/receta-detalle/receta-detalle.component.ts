@@ -116,6 +116,11 @@ export class RecetaDetalleComponent {
   }
 
   guardarReceta() {
+    if (this.ingredientes.length === 0) {
+      this.toastr.error('La receta debe tener al menos un ingrediente', 'Error');
+      return;
+    }
+
     const body = this.formReceta.getRawValue() as Receta;
     const receta = this.crearReceta(body);
 
@@ -235,5 +240,6 @@ export class RecetaDetalleComponent {
     this.formReceta.get('apto_vegano')?.enable();
     this.formReceta.get('dificultad')?.enable();
     this.formReceta.get('autocalcular')?.enable();
+    this.formReceta.get('isbalanceado')?.enable();
   }
 }

@@ -74,8 +74,8 @@ export class ConfiguracionesComponent {
       },
       error: (err:any) => {
         this.loading= false;
-        if(err && err.message) {
-          this.toastr.error(err.message,'Cambio de Contraseña');
+        if(err && err.error && err.error.message) {
+          this.toastr.error(err.error.message,'Cambio de Contraseña');
         } else {
           this.toastr.error('No se pudo cambiar la contraseña','Cambio de Contraseña');
         }
@@ -109,8 +109,8 @@ export class ConfiguracionesComponent {
       },
       error: (err:any) => {
         this.loading= false;
-        if(err && err.message) {
-          this.toastr.error(err.message,'Baja de Usuario');
+        if(err && err.error && err.error.message) {
+          this.toastr.error(err.error.message,'Baja de Usuario');
         } else {
           this.toastr.error('No se pudo dar de baja el usuario','Baja de Usuario');
         }
